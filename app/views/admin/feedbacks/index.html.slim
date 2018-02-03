@@ -1,0 +1,13 @@
+- title 'Feedback'
+
+- breadcrumbs ['Events', admin_events_path], [@event.conference.name, admin_conference_path(@event.conference)], [@event.name, admin_event_path(@event)]
+
+- if @event.feedbacks.empty?
+  p No feedback has been given yet
+- else
+  - @event.feedbacks.each do |feedback|
+      article
+      h5 = l feedback.created_at, format: :short
+      p = new_line_to_break feedback.comment
+      p = link_to 'Delete', admin_feedback_path(feedback.id), class: 'btn', method: :delete, confirm: 'Are you sure?'
+      hr

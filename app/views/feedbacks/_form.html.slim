@@ -1,0 +1,10 @@
+article#feedback
+  h1 Идеи и препоръки
+
+  - feedback = @feedback || Feedback.new(event: @event)
+
+  = simple_form_for feedback do |form|
+    = form.hidden_field :event_id
+    = form.input :comment, label: false, input_html: {rows: 5}
+    = form.button :submit, 'Изпрати'
+

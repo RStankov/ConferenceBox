@@ -1,0 +1,325 @@
+@import "font-awesome/variables";
+@import "font-awesome/path";
+@import "application/variables";
+@import "application/mixins";
+@import "application/lightbox";
+@import "application/reset";
+
+body {
+  font-family: "Roboto Condensed", tahoma, verdana, arial, sans-serif;;
+  font-size: 14px;
+  color: $text;
+  background: $background;
+
+  @media all and (max-width: 700px) {
+    font-size: 12px;
+  }
+}
+
+a {
+  transition: all 0.3s;
+
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted $line;
+  white-space: nowrap;
+
+  &:focus,
+  &:hover { border-style: solid; }
+  &:active { color: $dark; border-color: $dark }
+}
+
+nav {
+  border-top: 10px solid #488695;
+  font-size: 24px;
+  text-align: center;
+  overflow: hidden;
+
+  a { @include no-link-underline; display: inline-block; transition: all 0.3s; padding: 22px 15px; text-decoration: none; color: $text; }
+  a.active { background-color: $line-light; }
+  a.focus,
+  a:hover { color: $dark; }
+
+  div { background: asset-url('nav_background.png') repeat; z-index: 2; min-width: 680px; }
+  &.sticky div { position: fixed; top: 0px; left: 0px; right: 0px;}
+
+  @media all and (max-width: 740px) {
+    &.sticky div { position: relative; }
+    div { display: none; }
+  }
+
+  @media all and (min-width: 1000px) {
+    div span { position: relative; }
+    div span:before { content: ""; position: absolute; top: 50%; width: 83px; height: 4px; left: -83 - 55px; background-color: #626262; }
+    div span:after { content: ""; position: absolute; top: 50%; width: 83px; height: 4px; right: - 83 - 55px; background-color: #626262; }
+  }
+}
+
+header {
+  height: 300px;
+  position: relative;
+  min-width: 300px;
+
+  div {
+    background-size: cover;
+    background-position: top center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    filter: blur(2px);
+    filter: asset-url("blur.svg#blur");
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='2');
+  }
+
+  img { position: absolute; top: 50%; left: 50%; margin-top: -127px; margin-left: -127px; }
+}
+
+footer {
+  @include centered-content;
+  @include heading4;
+
+  padding: 40px 0;
+  border-top: 1px solid $line-light;
+  text-align: center;
+
+  .copyright { margin: 14px 0 10px; font-size: 0.8em; line-height: 22px; }
+  .copyright a { @include no-link-underline; }
+
+  a.top { @include icon($fa-var-arrow-circle-o-up); color: $text-light; }
+  a.top:hover,
+  a.top:focus { color: $text; }
+}
+
+article {
+  padding: 90px 0 40px;
+  position: relative;
+
+  margin: 0 auto;
+
+  h1 { @include centered-content; @include heading1; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid $line; position: relative; }
+  h1:after { content: ""; display: block; border-bottom: 1px solid $line; position: absolute; height: 1px; bottom: -3px; left: 0px; right: 0px;  }
+  h2 { @include centered-content; @include heading1; margin-bottom: 28px; }
+  section { @include centered-content; }
+
+  p {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media all and (max-width: 700px) {
+    padding-top: 20px;
+    h1 { @include heading2; padding-bottom: 15px; margin-bottom: 15px; }
+    h2 { @include centered-content; @include heading2; margin-bottom: 15px !important; }
+  }
+
+  @media all and (min-width: 700px) {
+    + article { border-top: 2px solid $line-light; }
+    + article:before { content: "●"; position: absolute; top: -9px; left: 50%; color: $line; z-index: 1; background: $background; padding: 0 6px; margin-left: -7px; font-size: 14px; }
+  }
+}
+
+form {
+  @include centered-content;
+
+  textarea,
+  input[type="email"] { border: 1px solid $text; padding: 11px; width: 90%; }
+  textarea { resize: none; }
+  .field_with_errors textarea,
+  .field_with_errors input[type="email"] { border-color: $error; }
+  .error { color: $error; }
+  .input { margin-bottom: 20px; }
+  label { display: block; padding: 15px 0; }
+  input[type="submit"] { transition: all 0.2s; border: 1px solid $text; background: asset-url('button.png') center; height: 46px; color: $text; font-size: 14px; padding: 0 30px; cursor: pointer; }
+  input[type="submit"]:hover,
+  input[type="submit"]:focus { color: $dark; border-color: $dark; }
+  input[type="submit"]:active { transform: translateY(2px); }
+}
+
+#when {
+  @include heading3;
+
+  text-align: center;
+
+  h2 { @include heading2; }
+
+  .about { margin-bottom: 40px; }
+
+  .is-countdown {
+    margin: 40px auto 0;
+
+    .countdown-section { display: inline-block; position: relative; }
+    .countdown-section + .countdown-section { margin-left: 40px; }
+    .countdown-section + .countdown-section .countdown-amount:before { position: absolute; left: -30px; color: $text-light; }
+    .countdown-section:nth-last-of-type(-n+2) .countdown-amount:before { content: ':'; }
+    .countdown-amount { font-size: 120px; }
+    .countdown-period { display: block; }
+
+    @media all and (max-width: 700px) {
+      .countdown-amount { font-size: 30px; }
+      .countdown-section + .countdown-section { margin-left: 10px; }
+      .countdown-section:nth-last-of-type(-n+2) .countdown-amount:before { margin-left: 25px; }
+    }
+  }
+
+  section + section { margin-top: 33px; padding: 33px 0 10px; border-top: 1px solid $line; }
+
+  .entrance { @include icon($fa-var-smile-o); }
+  .facebook { @include icon($fa-var-facebook-square); margin-left: 18px; }
+  .facebook:hover,
+  .facebook:focus { color: $dark; }
+  .facebook:active { color: $text-light; }
+}
+
+#venue, #after-party {
+  h2 { margin-bottom: 50px; }
+  section { @include heading3; text-align: center; margin-top: 30px; }
+  section p + p { margin-top: 20px; }
+
+  @media all and (max-width: 700px) {
+    iframe { @include centered-content; }
+  }
+
+  .map { position: relative; }
+  .map .overlay { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; border: none; }
+}
+
+#call-for-papers {
+  .link {
+    @include heading3;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+#schedule {
+  h3 { @include heading2; padding: 22px 0 22px 10px; }
+
+  ol li { position: relative; padding: 10px 0 10px 80px; }
+  ol li time { @include heading3; font-weight: bold; position: absolute; left: 10px; top: 10px }
+  ol li strong { @include heading3; font-weight: bold; display: block; }
+  ol li .speaker { @include heading4; @include no-link-underline;  font-weight: lighter; }
+  ol li .speaker:hover { border-bottom: 1px solid $text; }
+  ol li .speaker + .links:before { content: " / "; }
+  ol li .links { @include heading4; margin-top: 4px; font-weight: lighter; }
+  ol li .links a span { margin: 0 10px 0 5px; border-bottom: 1px dotted $line; }
+  ol li .links a:focus span,
+  ol li .links a:hover span { border-style: solid; }
+  ol li .links a:active span { color: $dark; border-color: $dark }
+  ol li .links .video { @include icon($fa-var-youtube-play); }
+  ol li .links .slides { @include icon($fa-var-file); }
+  ol li:nth-child(even) { background: #e0e0e0; }
+}
+
+#speakers {
+  .avatar { @include image-link; float: left; margin-right: 25px; }
+  .avatar img { border-radius: 100%; }
+
+  h3 { @include heading2; float: left; padding: 22px 0; }
+  h3 a { @include no-link-underline; }
+  h3 a:hover { border-bottom: 1px solid $text; }
+
+  .content {
+    clear: both;
+    padding: 24px 0;
+    @include heading3;
+
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+  }
+
+  section { padding-top: 20px; }
+
+  @media all and (max-width: 700px) {
+    h3 { @include heading3; display: block; text-align: center; width: 100%; }
+    .content { padding: 0px; }
+    .avatar { display: block; float: none; text-align: center; }
+    .avatar img { width: 60px; }
+  }
+}
+
+#speaker {
+  @include centered-content;
+  @include heading3;
+
+  text-align: center;
+
+  .avatar { display: inline-block; @include image-link; margin-bottom: 60px; }
+  .avatar img { border-radius: 100%; }
+
+  .description { padding: 60px 0; margin: 60px auto; border-top: 1px solid $line; border-bottom: 1px solid $line; text-align: left; }
+
+  .sessions { padding-bottom: 60px; margin-bottom: 60px; border-bottom: 1px solid $line; }
+  .sessions li { margin: 5px 0; }
+  .sessions a { margin-left: 10px; }
+  .sessions a.video { @include icon($fa-var-youtube-play); }
+  .sessions a.slides { @include icon($fa-var-file); }
+
+  .links { margin-bottom: 60px; }
+  .links li { margin-bottom: 10px; }
+  .links a + a { margin-left: 10px; }
+  .links a.twitter { @include icon($fa-var-twitter-square); }
+  .links a.company { @include icon($fa-var-external-link-square); }
+  .links a.facebook { @include icon($fa-var-facebook-square); }
+  .links a.github { @include icon($fa-var-github-square); }
+  .links a.dribbble { @include icon($fa-var-dribbble); }
+}
+
+#more {
+  @include heading3;
+
+  padding: 22px 0 28px;
+
+  &:before { top: -17px !important; }
+
+  .contact { display: inline-block; width: 50%; margin-right: 40px; }
+  .contact strong { display: block; margin-bottom: 5px; }
+
+  .conferences { display: inline-block; width: 300px; }
+
+  @media all and (max-width: 700px) {
+    text-align: center;
+    .contact { margin-right: 0px; }
+    .conferences { display: none; }
+  }
+
+  .social { margin-top: 8px; }
+  .social a { transition: color 0.5s; }
+  .social a:hover,
+  .social a:active { color: $dark; }
+
+  .facebook { @include icon($fa-var-facebook-square); }
+  .youtube { @include icon($fa-var-youtube-square); }
+  .twitter { @include icon($fa-var-twitter-square); }
+}
+
+#archive {
+  &:before { top: -9px !important; }
+
+  ul { @include centered-content; @include heading3; }
+  ul li { @include clearfix; }
+  ul li .logo { @include image-link; float: left; margin-right: 20px; }
+  ul li + li { margin-top: 40px; }
+
+  @media all and (max-width: 700px) {
+    ul { text-align: center; }
+    ul li .logo { display: block; width: 100%; float: none; }
+  }
+}
+
+#conferences {
+  ul { @include centered-content; @include heading3; }
+  ul li h3 { @include heading2; }
+  ul li + li { margin-top: 40px; }
+  ul li .arrow { @include icon($fa-var-arrow-circle-o-right); margin-right: 5px; }
+}
+
+#photos {
+  div { @include clearfix; margin-left: -1.6%; margin-right: -1.6%; }
+  div img { float: left; width: 30%; margin: 1.6%; cursor: pointer; }
+  .more { float: right; }
+}

@@ -1,0 +1,114 @@
+
+- if @event.show_streaming?
+  article#streaming
+    h2 Live Streaming
+
+    = raw @event.streaming_code
+
+- if @event.dates_announced?
+  article#when
+    - if @event.about?
+      .about = markdown @event.about
+
+    h2 = @event.formatted_date
+
+    section
+      - if @event.finished?
+        .state Събитието завърши
+      - elsif @event.ongoing?
+        .state Събитието тече в момента
+      - else
+        .timer data-countdown="#{@event.start_time_for_javascript}"
+
+    section
+      span.entrance  вход свободен
+
+      - if @event.event_url?
+        = link_to ' cъбитието във facebook', @event.event_url, class: 'facebook', target: '_blank'
+
+- if @event.venue_announced?
+  article#venue
+    h2 Къде?
+
+    .map
+      iframe width="100%" height="500" scrolling="no" src="#{@event.venue_map_embedded_url}"
+      = link_to '', @event.venue_map_url, target: :blank, class: 'overlay'
+
+    section
+      = link_to @event.venue_name, @event.venue_site_url, target: '_blank'
+      address = @event.venue_address
+      address = markdown @event.venue_notes
+
+- if @event.show_call_to_papers?
+  article#call-for-papers
+    h1 Програма
+    section
+      p Ако искате да сте лектор на събитието, изпратете ни предложението си за презентация и ще се свържем с вас.
+      .link = link_to 'Предложи лекция', @event.call_to_papers_url
+
+- if @event.sessions_announced?
+  article#schedule
+    h1 Програма
+
+    - @event.sessions_by_track.each do |track, sessions|
+      section
+        - if @event.multi_track?
+          h3 Track #{track}
+
+        ol
+          - sessions.each do |session|
+            li
+              time = session.start_at
+              strong = session.title
+              = session.speakers.map { |s| link_to s.name, "#speaker-#{s.id}", class: 'speaker' }.join(', ').html_safe
+              - if session.video_url? || session.slides_url?
+                span.links
+                  - if session.video_url?
+                    = link_to session.video_url, class: 'video', target: '_blank' do
+                      span видео
+                  - if session.slides_url?
+                    = link_to session.slides_url, class: 'slides', target: '_blank' do
+                      span презентация
+
+- if @event.speakers_announced?
+  article#speakers
+    h1 Лектори
+    - @event.speakers.each do |speaker|
+      section id="speaker-#{speaker.id}"
+        - if speaker.photo?
+          = link_to image_tag(speaker.photo.url(:thumb)), speaker_path(speaker), target: '_blank', class: 'avatar'
+
+        h3 = link_to speaker.name, speaker_path(speaker)
+
+        .content = markdown speaker.description
+
+- if @event.show_photo_gallery?
+  article#photos
+    h1 Снимки
+
+    section
+      div
+        - @event.photos.ordered.limit(9).each do |photo|
+          = image_tag photo.asset_url(:thumb), 'data-src' => "#{photo.asset_url(:original)}"
+
+      - if @event.photos.count > 9
+        = link_to 'Виж всички снимки', photos_path(@event.name), class: 'more'
+
+- if @event.after_party_announced?
+  article#after-party
+    h2 After Party
+
+    - if @event.after_party_venue_map?
+      .map
+        iframe width="100%" height="500" scrolling="no" src="#{@event.after_party_venue_map_embedded_url}"
+        = link_to '', @event.after_party_venue_map_url, target: :blank, class: 'overlay'
+
+    section
+      = link_to @event.after_party_venue_name, @event.after_party_venue_site_url, target: '_blank'
+      address = @event.after_party_venue_address
+      address = @event.after_party_venue_notes
+
+
+= render 'subscribers/form'
+= render 'feedbacks/form' if @event.show_feedback_form?
+= render 'shared/archive', events: @event.other_conference_events

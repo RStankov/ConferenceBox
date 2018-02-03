@@ -1,0 +1,28 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: conference_box_development
+  host: 127.0.0.1
+  port: 5432
+  username: postgres
+  password: postgres
+  min_messages: WARNING
+  template: template0
+
+test:
+  <<: *default
+  database: conference_box_test
+  host: 127.0.0.1
+  port: 5432
+  username: postgres
+  password: postgres
+  min_messages: WARNING
+  template: template0
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>

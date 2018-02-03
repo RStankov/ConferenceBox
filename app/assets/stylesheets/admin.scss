@@ -1,0 +1,91 @@
+@import "bootstrap";
+
+@mixin clearfix {
+  overflow: hidden;
+}
+
+.container-fluid { min-width: 700px; padding-top: 20px; }
+
+.simple_form {
+  .boolean { @include clearfix; }
+  .boolean label { display: inline-block; }
+  .boolean .controls { display: inline-block; float: left; }
+
+  .boolean .error { position: relative; top: -1px; }
+  .boolean .error:before { content: " - " }
+
+  textarea { resize: vertical; }
+
+  h1 + & { border-top: 1px solid #e5e5e5; margin-top: 20px; padding-top: 20px; }
+
+  .error { color: #b94a48; }
+
+  .field_with_errors { color: #b94a48 }
+  .field_with_errors input { border-color: #b94a48 }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="password"] { width: 97%; min-width: 600px; }
+  textarea { resize: vertical; width: 97%; min-width: 600px; }
+
+  &.form-inline {
+    padding: 20px;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+
+    .input { display: inline-block; }
+    .input + .input { margin-left: 20px; }
+    label { margin-right: 10px; }
+    .btn { margin-left: 20px; }
+  }
+}
+
+#new_subscriber {
+  select,
+  input[type="email"] { width: 150px; min-width: 150px; }
+}
+
+.table {
+  $width: 90%;
+
+  select,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] { width: $width; margin: 0px; }
+
+  input[type="checkbox"] { margin-bottom: 10px; }
+
+  tr:hover { background-color: #f5f5f5; }
+
+  th.number,
+  td.number,
+  td.actions { text-align: right; }
+
+  a { white-space: nowrap;}
+}
+
+.table a + a,
+.btn + .btn { margin-left: 20px; }
+
+.actions {
+  float: right;
+}
+
+a + span.label.label-info { margin-left: 10px; }
+
+#event-show {
+  article { border-radius: 5px; padding: 0 10px 10px; margin: 20px 0 40px; border: 1px solid #e5e5e5; }
+  article .actions { margin: -5px -5px 0 0; }
+  article h4 { border-radius: 5px 5px 0 0; padding: 10px; background: #e5e5e5; margin: -11px -11px 11px -11px }
+  article h4 .label { position: relative; top: -2px; }
+  article h4 .label + .label { margin-left: 10px; }
+}
+
+#photos-list {
+  @include clearfix;
+
+  div { border-radius: 5px; position: relative; float: left; width: 250px; height: 285px; padding: 5px; margin: 10px; text-align: center; background: #f5f5f5; border: 1px solid #e5e5e5; }
+  div img { margin-bottom: 5px; }
+  div mark { position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background: image-url('admin/loading.gif') center no-repeat; }
+}

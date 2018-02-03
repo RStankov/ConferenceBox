@@ -1,0 +1,77 @@
+doctype html
+
+html
+  head
+    meta charset="utf-8"
+    title = current_conference.name
+
+    = stylesheet_link_tag '//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,300,400italic,400,700italic,700&subset=latin,cyrillic'
+    = stylesheet_link_tag 'application'
+
+    meta content="index,follow,noydir,noodp" name="robots"
+
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+
+    meta content="#{copyright}" name="copyright"
+    meta content="#{current_conference.name}" property="og:site_name"
+    meta content="#{current_conference.name}" property="og:title"
+    meta content="website" property="og:type"
+    meta content="#{root_url}" property="og:url"
+
+    - if current_conference.slogan?
+      meta content="#{current_conference.slogan}" property="og:description"
+      meta content="#{current_conference.slogan}" name="description"
+
+    - if current_conference.regular? && current_event.logo?
+      link href="#{current_event.favicon}" rel="shortcut icon" type="image/vnd.microsoft.icon"
+      meta content="#{current_event.logo}" property="og:image"
+
+    = yield :meta_data
+
+    - if Rails.env.production?
+      javascript:
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-33727462-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+  body#top
+    - if current_conference.main?
+      nav style="border-top-color: #488695"
+        div
+          span
+            = link_to 'За турнето', root_url(anchor: 'about') if current_conference.about?
+            = link_to 'Градове', root_url(anchor: 'conferences')
+            = link_to 'Контакти', root_url(anchor: 'subscribe')
+            = link_to 'Архив', root_path(anchor: 'archive')
+    - else
+      - if current_event.show_coverart? && current_event.coverart?
+        header
+          div style="background-image: url(#{current_event.coverart.url(:default)})"
+          = link_to current_event_path do
+            = image_tag current_event.logo.url(:main), alt: current_conference.name if current_event.logo?
+
+      nav style="border-top-color: #{current_event.color}"
+        div
+          span
+            = link_to 'Кога', current_event_path(anchor: 'when') if current_event.dates_announced?
+            = link_to 'Къде', current_event_path(anchor: 'venue') if current_event.venue_announced?
+            = link_to 'Програма', current_event_path(anchor: 'schedule') if current_event.sessions_announced?
+            = link_to 'Програма', current_event_path(anchor: 'call-for-papers') if current_event.show_call_to_papers?
+            = link_to 'Лектори', current_event_path(anchor: 'speakers') if current_event.speakers_announced?
+            = link_to 'Снимки', current_event_path(anchor: 'photos') if current_event.show_photo_gallery?
+            = link_to 'After party', current_event_path(anchor: 'after-party') if current_event.after_party_announced?
+            = link_to 'Контакти', current_event_path(anchor: 'feedback') if current_event.show_feedback_form?
+            = link_to 'Архив', current_event_path(anchor: 'archive') if current_event.other_conference_events.count > 1
+
+    = content_for?(:content) ? yield(:content) : yield
+
+    footer
+      = link_to '', '#top', class: 'top', title: 'Scroll to top'
+
+    = javascript_include_tag 'application'

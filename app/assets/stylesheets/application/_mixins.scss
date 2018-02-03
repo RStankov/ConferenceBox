@@ -1,0 +1,45 @@
+@mixin heading1 { font-size: 3.5em; line-height: 1em; }
+@mixin heading2 { font-size: 1.5em; line-height: 1em; font-weight: bold; }
+@mixin heading3 { font-size: 1.4em; line-height: 1.5em; }
+@mixin heading4 { font-size: 1.3em; line-height: 1em; }
+
+@mixin no-link-underline {
+  &,
+  &:hover,
+  &:active,
+  &:focus { border-bottom: none; }
+}
+
+@mixin image-link {
+  @include no-link-underline;
+
+  &:hover,
+  &:focus { opacity: 0.8; }
+  &:active { transform: scale3d(0.9, 0.9, 0); }
+}
+
+@mixin centered-content {
+  margin: 0 auto;
+  width: 85%;
+  max-width: 700px;
+  display: block;
+}
+
+@mixin icon($text) {
+  @include no-link-underline;
+
+  &:before {
+    display: inline-block;
+    content: $text;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@mixin clearfix {
+  overflow: hidden;
+}

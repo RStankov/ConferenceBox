@@ -1,0 +1,66 @@
+= simple_form_for [:admin, @event] do |form|
+  = form.error_notification
+
+  - if @event.new_record?
+    = form.association :conference, collection: Conference.regular, prompt: '- Select -', selected: params[:conference_id]
+
+  = form.input :name
+  = form.input :date
+  = form.input :publicly_announced
+  = form.input :current
+  = form.input :town
+  = form.input :event_url
+  = form.input :call_to_papers_url
+
+  = field_set_tag 'Logo' do
+    - if @event.logo?
+      p = image_tag @event.logo.url, width: 100
+    = form.input :logo, as: :file, label: false
+
+  = field_set_tag 'Coverart' do
+    - if @event.coverart?
+      p = image_tag @event.coverart.url(:default), width: 200
+    = form.input :coverart, as: :file, label: false
+
+  = field_set_tag 'Venue' do
+    = form.input :venue_name
+    = form.input :venue_site_url
+    = form.input :venue_address
+    = form.input :venue_notes, as: :text
+    = form.input :venue_map_url
+    = form.input :venue_map_embedded_url
+
+  = field_set_tag 'After party' do
+    = form.input :after_party_venue_name
+    = form.input :after_party_venue_site_url
+    = form.input :after_party_venue_address
+    = form.input :after_party_venue_notes, as: :text
+    = form.input :after_party_venue_map_url
+    = form.input :after_party_venue_map_embedded_url
+
+  = field_set_tag 'Streaming html code' do
+    = form.input :streaming_code
+
+  = field_set_tag 'Announcements & Layout'
+    = form.input :dates_announced
+    = form.input :venue_announced
+    = form.input :after_party_announced
+    = form.input :sessions_announced
+    = form.input :speakers_announced
+    = form.input :show_feedback_form
+    = form.input :show_photo_gallery
+    = form.input :show_streaming
+    = form.input :show_coverart
+
+  = field_set_tag 'Settings' do
+    = form.input :color
+
+  .form-actions
+    = form.button :submit, class: 'btn-primary'
+    - if @event.new_record?
+      = link_to 'Cancel', admin_events_path, class: 'btn btn-danger'
+    - else
+      = link_to 'Cancel', admin_event_path(@event), class: 'btn btn-danger'
+
+
+
