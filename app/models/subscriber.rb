@@ -1,5 +1,17 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: subscribers
+#
+#  id            :integer          not null, primary key
+#  conference_id :integer
+#  email         :string(255)      not null
+#  active        :boolean          default(TRUE), not null
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class Subscriber < ActiveRecord::Base
   belongs_to :conference
 
