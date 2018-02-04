@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAfterPartyVenueToEvents < ActiveRecord::Migration[4.2]
   def change
     add_column :events, :after_party_venue_name, :string

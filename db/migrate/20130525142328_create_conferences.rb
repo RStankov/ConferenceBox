@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateConferences < ActiveRecord::Migration[4.2]
   def change
     create_table :conferences do |t|

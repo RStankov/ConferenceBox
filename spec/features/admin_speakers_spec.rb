@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper_features.rb'
 
-feature "Admin - Managing speakers" do
+feature 'Admin - Managing speakers' do
   sign_in
 
-  scenario "creating speaker" do
+  it 'creating speaker' do
     visit admin_speakers_path
 
     click_on 'New speaker'
@@ -22,7 +24,7 @@ feature "Admin - Managing speakers" do
     expect(speaker.tshirt_size).to eq 'XXXL'
   end
 
-  scenario "creating speaker(validation error)" do
+  it 'creating speaker(validation error)' do
     visit admin_speakers_path
 
     click_on 'New speaker'
@@ -34,7 +36,7 @@ feature "Admin - Managing speakers" do
     expect(Speaker.count).to eq 0
   end
 
-  scenario "updating speaker" do
+  it 'updating speaker' do
     speaker = create :speaker, name: 'Test name'
 
     visit admin_speakers_path
@@ -51,7 +53,7 @@ feature "Admin - Managing speakers" do
     expect { speaker.reload }.to change(speaker, :name).from('Test name').to('Updated name')
   end
 
-  scenario "updating speaker(validation error)" do
+  it 'updating speaker(validation error)' do
     speaker = create :speaker, name: 'Test name'
 
     visit admin_speakers_path
@@ -67,7 +69,7 @@ feature "Admin - Managing speakers" do
     expect { speaker.reload }.not_to change(speaker, :name).from('Test name')
   end
 
-  scenario "deleting speaker" do
+  it 'deleting speaker' do
     speaker = create :speaker
 
     visit admin_speakers_path

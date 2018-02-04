@@ -1,4 +1,4 @@
-require "application_responder"
+# frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
   include CurrentConferenceMethods

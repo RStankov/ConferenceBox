@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventLogoUploader < CarrierWave::Uploader::Base
   include ImageUploader
 
@@ -13,4 +15,3 @@ class EventLogoUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [250, 250]
   end
 end
-

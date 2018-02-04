@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
-  sequence(:session_start_at) { |n| "#{'%02d' % (23 - n/60).abs}:#{'%02d' % (n%60)}"  }
+  sequence(:session_start_at) { |n| "#{format('%02d', (23 - n / 60).abs)}:#{format('%02d', (n % 60))}" }
   sequence(:email) { |n| "user-#{n}@example.org" }
   sequence(:domain) { |n| "example-#{n}.org" }
 
@@ -13,7 +15,7 @@ FactoryBot.define do
   factory :event do
     conference
     name 'year name'
-    date Date.new(2013, 6, 20)
+    date { Date.new(2013, 6, 20) }
     publicly_announced true
     current false
 
@@ -55,7 +57,7 @@ FactoryBot.define do
 
   factory :feedback do
     event
-    comment "I liked the event"
+    comment 'I liked the event'
   end
 
   factory :photo do

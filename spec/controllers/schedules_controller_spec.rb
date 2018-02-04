@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe SchedulesController do
   stub_current_conference
 
-  let(:event) { double name: '2015' }
+  let(:event) { instance_double Event, name: '2015' }
 
-  describe "GET 'index'" do
+  describe 'GET index' do
     it 'redirects to current event schedule' do
       allow(current_conference).to receive(:current_event).and_return event
 
@@ -15,7 +17,7 @@ describe SchedulesController do
     end
   end
 
-  describe "GET 'show'" do
+  describe 'GET show' do
     before do
       allow(current_conference).to receive(:announced_event_named).with(event.name).and_return event
     end

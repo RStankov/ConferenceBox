@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpecSupport
   module Controllers
     module RespondWith
@@ -18,7 +20,7 @@ module SpecSupport
 
       def render(*args)
         if args.any?
-          have_received(:render).with *args
+          have_received(:render).with(*args)
         else
           have_received(:render)
         end

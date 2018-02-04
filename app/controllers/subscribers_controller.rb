@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubscribersController < ApplicationController
   def new
   end
@@ -16,4 +18,3 @@ class SubscribersController < ApplicationController
     Subscriber.unsubscribe params[:token]
   end
 end
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventDecorator < Draper::Decorator
   decorates :event
   delegate_all
@@ -73,6 +75,6 @@ class EventDecorator < Draper::Decorator
     start_at = session.try(:start_at) || ''
     hours, minutes = start_at.split ':'
     # FIXME: Add time zone to choose from in the admin interface?
-    Time.new(date.year, date.month, date.day, hours, minutes, 0, "+03:00")
+    Time.new(date.year, date.month, date.day, hours, minutes, 0, '+03:00')
   end
 end

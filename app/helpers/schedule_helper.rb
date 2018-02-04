@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ScheduleHelper
   def render_schedule_json(event)
     return {} unless event.sessions_announced?
 
-    event.sessions.map { |s| ScheduleSessionSerializer.new(s)  }.group_by(&:track).to_json
+    event.sessions.map { |s| ScheduleSessionSerializer.new(s) }.group_by(&:track).to_json
   end
 
   class ScheduleSessionSerializer
@@ -14,7 +16,7 @@ module ScheduleHelper
       @session = session
     end
 
-    def as_json(options = {})
+    def as_json(_options = {})
       {
         title:     session.title,
         startTime: start_time,
@@ -42,4 +44,3 @@ module ScheduleHelper
     end
   end
 end
-

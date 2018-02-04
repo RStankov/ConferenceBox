@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::ConferencesController < Admin::BaseController
   def index
     @conferences = Conference.all

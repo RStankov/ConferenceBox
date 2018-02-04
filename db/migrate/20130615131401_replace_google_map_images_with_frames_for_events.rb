@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReplaceGoogleMapImagesWithFramesForEvents < ActiveRecord::Migration[4.2]
   def change
     remove_column :events, :venue_map_image_url

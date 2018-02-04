@@ -1,31 +1,33 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Session do
-  describe "(default scope)" do
-    it "orders session by start at" do
-      at_12_30 = create :session, start_at: '12:30'
-      at_15_10 = create :session, start_at: '15:10'
-      at_14_20 = create :session, start_at: '14:20'
+  describe '(default scope)' do
+    it 'orders session by start at' do
+      at1230 = create :session, start_at: '12:30'
+      at1510 = create :session, start_at: '15:10'
+      at1420 = create :session, start_at: '14:20'
 
-      expect(Session.all).to eq [at_12_30, at_14_20, at_15_10]
+      expect(described_class.all).to eq [at1230, at1420, at1510]
     end
   end
 
   describe '.announced' do
     it 'includes only announced sessions' do
-      unannounced = create :session, event: create(:event, sessions_announced: false)
-      announced   = create :session, event: create(:event, sessions_announced: true)
+      _unannounced = create :session, event: create(:event, sessions_announced: false)
+      announced = create :session, event: create(:event, sessions_announced: true)
 
-      expect(Session.announced).to eq [announced]
+      expect(described_class.announced).to eq [announced]
     end
   end
 
   describe '.by_track' do
     it 'groups by track number' do
-      track_1 = create :session, track: 1
-      track_2 = create :session, track: 2
+      track1 = create :session, track: 1
+      track2 = create :session, track: 2
 
-      expect(Session.by_track).to eq 1 => [track_1], 2 => [track_2]
+      expect(described_class.by_track).to eq 1 => [track1], 2 => [track2]
     end
   end
 end

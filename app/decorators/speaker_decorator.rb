@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpeakerDecorator < Draper::Decorator
   decorates :speaker
   delegate_all
@@ -8,7 +10,7 @@ class SpeakerDecorator < Draper::Decorator
     facebook_account: ['facebook', 'http://facebook.com/%s'],
     company_site:     ['company', '%s'],
     dribbble_account: ['dribbble', 'http://dribbble.com/%s'],
-  }
+  }.freeze
 
   def social_links
     SOCIAL_LINKS.map do |key, (type, mask)|

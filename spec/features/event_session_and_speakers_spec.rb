@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 require 'spec_helper_features'
 
-feature "Event - session and speakers" do
-  let(:event) { create :event, {conference: create(:conference, domain: 'example.com')}.merge(event_attributes) }
-  let(:event_attributes) { {speakers_announced: true, sessions_announced: true} }
+feature 'Event - session and speakers' do
+  let(:event) { create :event, { conference: create(:conference, domain: 'example.com') }.merge(event_attributes) }
+  let(:event_attributes) { { speakers_announced: true, sessions_announced: true } }
 
   let!(:session) { create :session, event: event }
 
+  context 'when sessions not announced' do
+    let(:event_attributes) { { sessions_announced: false } }
 
-  context "sessions not announced" do
-    let(:event_attributes) { {sessions_announced: false} }
-
-    it "doesn't display sessions" do
+    it 'doesnt display sessions' do
       visit root_path
 
       expect(page).not_to have_content 'Програма'
@@ -18,17 +19,17 @@ feature "Event - session and speakers" do
     end
   end
 
-  context "sessions announced" do
-    let(:event_attributes) { {sessions_announced: true} }
+  context 'when sessions announced' do
+    let(:event_attributes) { { sessions_announced: true } }
 
-    it "displays sessions" do
+    it 'displays sessions' do
       visit root_path
 
       expect(page).to have_content 'Програма'
       expect(page).to have_content session.title
     end
 
-    it "displays sessions with two speakers" do
+    it 'displays sessions with two speakers' do
       speaker1 = create(:session_speaker, session: session).speaker
       speaker2 = create(:session_speaker, session: session).speaker
 
@@ -38,13 +39,12 @@ feature "Event - session and speakers" do
         expect(page).to have_content "#{speaker1.name}, #{speaker2.name}"
       end
     end
-
   end
 
-  context "speaker not announced" do
-    let(:event_attributes) { {speakers_announced: false} }
+  context 'when speaker not announced' do
+    let(:event_attributes) { { speakers_announced: false } }
 
-    it "doesn't display speakers" do
+    it 'doesnt display speakers' do
       speaker = create(:session_speaker, session: session).speaker
 
       visit root_path
@@ -54,10 +54,10 @@ feature "Event - session and speakers" do
     end
   end
 
-  context "speaker announced" do
-    let(:event_attributes) { {speakers_announced: true} }
+  context 'when speaker announced' do
+    let(:event_attributes) { { speakers_announced: true } }
 
-    it "displays session speaker" do
+    it 'displays session speaker' do
       speaker = create(:session_speaker, session: session).speaker
 
       visit root_path
@@ -67,7 +67,7 @@ feature "Event - session and speakers" do
       expect(page).to have_content speaker.description
     end
 
-    it "displays sessions speakers event if there is more than one speaker" do
+    it 'displays sessions speakers event if there is more than one speaker' do
       speaker1 = create(:session_speaker, session: session).speaker
       speaker2 = create(:session_speaker, session: session).speaker
 
@@ -81,9 +81,9 @@ feature "Event - session and speakers" do
     end
   end
 
-  context 'multi-track sessions' do
+  context 'when multi-track sessions' do
     it 'do not display track names if there is only one track' do
-      session_1 = create :session, event: event, track: 1
+      _session = create :session, event: event, track: 1
 
       visit root_path
 
@@ -91,8 +91,8 @@ feature "Event - session and speakers" do
     end
 
     it 'displays two tracks' do
-      session_1 = create :session, event: event, track: 1
-      session_2 = create :session, event: event, track: 2
+      _session1 = create :session, event: event, track: 1
+      _session2 = create :session, event: event, track: 2
 
       visit root_path
 

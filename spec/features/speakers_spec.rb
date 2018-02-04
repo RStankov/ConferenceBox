@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper_features'
 
-feature "Speaker" do
+feature 'Speaker' do
   create_dummy_conference_event
 
-  scenario "showing speaker page" do
+  it 'showing speaker page' do
     speaker = create :speaker
 
     visit speaker_path(speaker)
@@ -12,7 +14,7 @@ feature "Speaker" do
     expect(page).to have_content speaker.description
   end
 
-  scenario "showing speaker sessions" do
+  it 'showing speaker sessions' do
     event = create :event, sessions_announced: true
 
     speaker = create :speaker

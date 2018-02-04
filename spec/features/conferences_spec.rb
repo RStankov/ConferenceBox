@@ -1,12 +1,13 @@
-# encode: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe "Conference" do
-  context "normal conference" do
+feature 'Conference' do
+  context 'when normal conference' do
     let(:conference) { create :conference, domain: 'example.com' }
 
-    describe "Subscribe" do
-      it "is always displayed" do
+    describe 'Subscribe' do
+      it 'is always displayed' do
         create :event, conference: conference
 
         visit root_path
@@ -15,8 +16,8 @@ describe "Conference" do
       end
     end
 
-    describe "Archive" do
-      it "isn't displayed when they aren't other event of current conference" do
+    describe 'Archive' do
+      it 'isnt displayed when they arent other event of current conference' do
         create :event, conference: conference
 
         visit root_path
@@ -24,7 +25,7 @@ describe "Conference" do
         expect(page).not_to have_content 'Архив'
       end
 
-      it "is displayed when they aren't at least two events current conference" do
+      it 'is displayed when they arent at least two events current conference' do
         2.times { create :event, conference: conference }
 
         visit root_path

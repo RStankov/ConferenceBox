@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::SpeakersController < Admin::BaseController
   def index
     @speakers = Speaker.all

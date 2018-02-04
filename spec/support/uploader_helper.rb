@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpecSupport
   module UploaderHelper
     include CarrierWave::Test::Matchers
@@ -11,12 +13,12 @@ module SpecSupport
         let :uploader, &block
 
         before do
-          subject.class.enable_processing = true
+          described_class.enable_processing = true
           uploader.store! File.open Rails.root.join('spec', 'fixtures', fixture_file_path)
         end
 
         after do
-          subject.class.enable_processing = false
+          described_class.enable_processing = false
           FileUtils.rm_r Rails.root.join('public', uploader.store_dir)
         end
       end

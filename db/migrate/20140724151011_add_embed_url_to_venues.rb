@@ -1,8 +1,15 @@
+# frozen_string_literal: true
+
 class AddEmbedUrlToVenues < ActiveRecord::Migration[4.2]
   def change
     add_column :events, :venue_map_embedded_url, :text
     add_column :events, :after_party_venue_map_embedded_url, :text
 
-    execute 'UPDATE events SET venue_map_embedded_url=venue_map_url, after_party_venue_map_embedded_url=after_party_venue_map_url'
+    execute %(
+      UPDATE events
+      SET
+        venue_map_embedded_url=venue_map_url,
+        after_party_venue_map_embedded_url=after_party_venue_map_url
+    )
   end
 end

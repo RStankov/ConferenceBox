@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module SpecSupport
   module Controllers
     module StubCurrentConference
       def stub_current_conference
-        current_conference { double 'Current conference'}
+        current_conference { instance_double Conference }
       end
 
       def current_conference(&block)

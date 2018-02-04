@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BackdoorController < ApplicationController
   before_action :restrict_access unless Rails.env.test?
 
@@ -14,6 +16,6 @@ class BackdoorController < ApplicationController
   private
 
   def prevent_from_execution_outside_test_environment
-    raise "How is this possible?!"
+    raise 'How is this possible?!'
   end
 end

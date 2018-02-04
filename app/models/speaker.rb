@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Speaker < ActiveRecord::Base
   has_many :session_speakers, dependent: :destroy
   has_many :sessions, through: :session_speakers
@@ -6,5 +8,5 @@ class Speaker < ActiveRecord::Base
 
   mount_uploader :photo, SpeakerPhotoUploader
 
-  default_scope ->{ order 'name ASC' }
+  default_scope -> { order 'name ASC' }
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::PhotosController < Admin::BaseController
   protect_from_forgery except: :create
 

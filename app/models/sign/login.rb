@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sign
   class Login
     include ActiveModel::Model
@@ -15,9 +17,10 @@ module Sign
       errors.add(:email, 'is required') if email.blank?
       errors.add(:password, 'is required') if password.blank?
 
-      if errors.empty? and !user.try(:authenticate, password)
-        errors.add(:email, "doesn't match password")
-      end
+      return if errors.present?
+      return if user.try(:authenticate, password)
+
+      errors.add(:email, "doesn't match password")
     end
 
     def user

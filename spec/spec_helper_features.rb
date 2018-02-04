@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 require 'capybara/rspec'
@@ -12,20 +14,19 @@ RSpec.configure do |config|
 
   config.use_transactional_fixtures = false
 
-  config.before :each do
+  config.before do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.start
   end
 
-  config.after :each do
+  config.after do
     DatabaseCleaner.clean
   end
 end
 
-
 Capybara.register_driver(:chrome) do |app|
-  chrome_args = %w[window-size=1024,768]
-  chrome_args += %w[headless disable-gpu] unless ENV['TEST_DEBUG']
+  chrome_args = %w(window-size=1024,768)
+  chrome_args += %w(headless disable-gpu) unless ENV['TEST_DEBUG']
 
   Capybara::Selenium::Driver.new(
     app,

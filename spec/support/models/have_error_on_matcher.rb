@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :have_error_on do |field, *args|
   expected_message = args.first
 
   match do |record|
     record.valid?
     message = record.errors[field]
-    message.present? and matches_message?(message, expected_message)
+    message.present? && matches_message?(message, expected_message)
   end
 
   failure_message do |record|
@@ -15,7 +17,7 @@ RSpec::Matchers.define :have_error_on do |field, *args|
   end
 
   failure_message_when_negated do |record|
-    explanation =    "expected to not have error on: #{field}"
+    explanation = "expected to not have error on: #{field}"
     explanation += "\n               but had errors: #{record.errors.enum_for(:each).to_a.inspect}"
     explanation
   end

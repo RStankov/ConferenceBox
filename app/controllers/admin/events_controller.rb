@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::EventsController < Admin::BaseController
   def index
     @events = Event.all
@@ -74,4 +76,3 @@ class Admin::EventsController < Admin::BaseController
     )
   end
 end
-

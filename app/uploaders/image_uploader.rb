@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ImageUploader
   def self.included(base)
     base.send :include, CarrierWave::RMagick
@@ -10,7 +12,8 @@ module ImageUploader
   end
 
   def default_url(_arg = nil)
-    ActionController::Base.helpers.asset_path "fallbacks/#{model.class.to_s.underscore}/#{mounted_as}/#{version_name || 'default'}.png"
+    path = "fallbacks/#{model.class.to_s.underscore}/#{mounted_as}/#{version_name || 'default'}.png"
+    ActionController::Base.helpers.asset_path path
   end
 
   def filename

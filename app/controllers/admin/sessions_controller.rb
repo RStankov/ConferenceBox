@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::SessionsController < Admin::BaseController
   def index
     @sessions = Session.all
@@ -53,5 +55,3 @@ class Admin::SessionsController < Admin::BaseController
     admin_event_path @session.event, anchor: 'sessions'
   end
 end
-
-

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe EmailValidator do
@@ -17,11 +19,11 @@ describe EmailValidator do
     EmailValidatorTestCase.new(email)
   end
 
-  it "returns true if mails is valid" do
+  it 'returns true if mails is valid' do
     expect(new_model('valid-email@example.com')).to be_valid
   end
 
-  it "returns false if mails is invalid" do
-    expect(new_model('this is no an email')).to_not be_valid
+  it 'returns false if mails is invalid' do
+    expect(new_model('this is no an email')).not_to be_valid
   end
 end

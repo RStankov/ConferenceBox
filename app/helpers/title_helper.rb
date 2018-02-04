@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TitleHelper
   def title(title, counter = nil)
     @_title = title

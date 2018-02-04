@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::FeedbacksController < Admin::BaseController
   def index
     @event = Event.find params[:event_id]

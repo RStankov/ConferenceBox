@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::BaseController < ApplicationController
   include CurrentUserMethods
 
@@ -10,5 +12,4 @@ class Admin::BaseController < ApplicationController
   def set_locale
     I18n.locale = :en
   end
-
 end

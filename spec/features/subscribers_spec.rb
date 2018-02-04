@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper_features'
 
-feature "Subscribers" do
+feature 'Subscribers' do
   create_dummy_conference_event
 
-  scenario "unsubscribe" do
+  it 'unsubscribe' do
     subscriber = create :subscriber
 
     visit unsubscribe_path(subscriber.token)

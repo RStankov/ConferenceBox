@@ -1,15 +1,14 @@
+# frozen_string_literal: true
+
 class Subscriber < ActiveRecord::Base
   belongs_to :conference
 
-  validates :email,
-      presence:   true,
-      email:      true,
-      uniqueness: {scope: :conference_id}
+  validates :email, presence: true, email: true, uniqueness: { scope: :conference_id }
 
   default_scope { order 'id DESC' }
 
   scope :active, -> { where active: true }
-  scope :for_conference, ->(id) {  where conference_id: id }
+  scope :for_conference, ->(id) { where conference_id: id }
 
   class << self
     def filter(params = {})
@@ -27,9 +26,7 @@ class Subscriber < ActiveRecord::Base
 
     def unsubscribe(token)
       where(id: EmailToken.user_id(token)).each do |user|
-        if user.token == token
-          user.update active: false
-        end
+        user.update active: false if user.token == token
       end
     end
   end
@@ -39,7 +36,7 @@ class Subscriber < ActiveRecord::Base
   end
 
   def conference_name
-    conference ? conference.name : ""
+    conference ? conference.name : ''
   end
 
   def token

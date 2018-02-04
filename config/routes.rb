@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace :admin do
     resources :conferences
     resources :events do
-      resource :notes, controller: 'event_notes', only: [:edit, :update]
-      resources :photos, controller: 'photos', only: [:index, :create, :destroy] do
+      resource :notes, controller: 'event_notes', only: %i[edit update]
+      resources :photos, controller: 'photos', only: %i[index create destroy] do
         patch :reorder, on: :collection
       end
-      resources :feedbacks, only: [:index, :destroy], shallow: true
+      resources :feedbacks, only: %i[index destroy], shallow: true
     end
-    resources :sessions, only: [:new, :create, :edit, :update, :destroy]
+    resources :sessions, only: %i[new create edit update destroy]
     resources :speakers
-    resources :subscribers, only: [:index, :create, :update, :destroy]
+    resources :subscribers, only: %i[index create update destroy]
 
-    resource :user, only: [:edit, :update]
+    resource :user, only: %i[edit update]
 
     root to: redirect('/admin/conferences')
   end
@@ -28,11 +30,11 @@ Rails.application.routes.draw do
     get '/backdoor/logout', to: 'backdoor#logout'
   end
 
-  resource :subscribers, only: [:new, :create]
-  resource :feedbacks, only: [:new, :create]
+  resource :subscribers, only: %i[new create]
+  resource :feedbacks, only: %i[new create]
 
   resources :speakers, only: [:show]
-  resources :schedules, only: [:index, :show]
+  resources :schedules, only: %i[index show]
 
   get 'unsubscribe/:token', to: 'subscribers#destroy', as: :unsubscribe
 

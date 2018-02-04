@@ -1,28 +1,30 @@
+# frozen_string_literal: true
+
 require 'spec_helper_features'
 
-feature "Event - Photos" do
-  let!(:event) { create :event, {conference: create(:conference, domain: 'example.com')}.merge(event_attributes) }
+feature 'Event - Photos' do
+  let!(:event) { create :event, { conference: create(:conference, domain: 'example.com') }.merge(event_attributes) }
 
-  context "show photo gallery is off" do
-    let(:event_attributes) { {show_photo_gallery: false} }
+  context 'when show photo gallery is off' do
+    let(:event_attributes) { { show_photo_gallery: false } }
 
-    it "doesn't display gallery" do
+    it 'doesnt display gallery' do
       visit root_path
 
       expect(page).not_to have_content 'Снимки'
     end
   end
 
-  context "show photo gallery is on" do
-    let(:event_attributes) { {show_photo_gallery: true} }
+  context 'when show photo gallery is on' do
+    let(:event_attributes) { { show_photo_gallery: true } }
 
-    it "displays gallery" do
+    it 'displays gallery' do
       visit root_path
 
       expect(page).to have_content 'Снимки'
     end
 
-    it "displays link to gallery when more the 9 photos" do
+    it 'displays link to gallery when more the 9 photos' do
       10.times { create :photo, event: event }
 
       visit root_path

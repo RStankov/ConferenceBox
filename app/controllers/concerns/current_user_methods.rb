@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CurrentUserMethods
   extend ActiveSupport::Concern
 
@@ -10,13 +12,15 @@ module CurrentUserMethods
   private
 
   def require_user
-    if current_user.blank?
-      redirect_to sign_in_path
-    end
+    return unless current_user.blank?
+    redirect_to sign_in_path
   end
 
   def current_user
-    return @current_user if defined? @current_user
-    @current_user = session[:user_id] && User.find(session[:user_id])
+    if defined? @current_user
+      @current_user
+    else
+      @current_user = session[:user_id] && User.find(session[:user_id])
+    end
   end
 end

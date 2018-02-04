@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::EventNotesController < Admin::BaseController
   def edit
     @event = Event.find event_id
@@ -18,4 +20,3 @@ class Admin::EventNotesController < Admin::BaseController
     params[:event][:notes]
   end
 end
-

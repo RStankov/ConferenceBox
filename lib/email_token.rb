@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EmailToken
   class << self
     def for(user)
@@ -15,7 +17,7 @@ class EmailToken
 
   def user_id
     id_part = @token[32, @token.size]
-    return 0 if id_part.to_i == 0
+    return 0 if id_part.to_i.zero?
     id_part.to_i(16)
   end
 
@@ -23,8 +25,7 @@ class EmailToken
     @token
   end
 
-  def ==(token)
-    token.to_s == @token
+  def ==(other)
+    other.to_s == @token
   end
 end
-

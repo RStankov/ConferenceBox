@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AllowMoreThanOneSpeakerPerSession < ActiveRecord::Migration[4.2]
   def up
     create_table :session_speakers do |t|
@@ -8,9 +10,9 @@ class AllowMoreThanOneSpeakerPerSession < ActiveRecord::Migration[4.2]
       t.timestamps null: true
     end
 
-    add_index :session_speakers, [:speaker_id, :session_id], unique: true
+    add_index :session_speakers, %i[speaker_id session_id], unique: true
 
-    execute("SELECT id, speaker_id FROM sessions WHERE speaker_id IS NOT NULL").each do |row|
+    execute('SELECT id, speaker_id FROM sessions WHERE speaker_id IS NOT NULL').each do |row|
       execute "INSERT INTO session_speakers (session_id, speaker_id) VALUES ('#{row['id']}', '#{row['speaker_id']}')"
     end
 
@@ -21,7 +23,7 @@ class AllowMoreThanOneSpeakerPerSession < ActiveRecord::Migration[4.2]
     add_column :sessions, :speaker_id, :integer
     add_foreign_key :sessions, :speakers
 
-    execute("SELECT session_id, speaker_id FROM session_speakers").each do |row|
+    execute('SELECT session_id, speaker_id FROM session_speakers').each do |row|
       execute "UPDATE sessions SET speaker_id = '#{row['speaker_id']}' WHERE id = '#{row['session_id']}'"
     end
 

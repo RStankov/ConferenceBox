@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ConferencesController < ApplicationController
   def show
     if current_conference.main?

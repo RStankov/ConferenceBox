@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   def show
     @event = EventDecorator.decorate current_conference.announced_event_named(params[:year])

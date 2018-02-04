@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Photo < ActiveRecord::Base
   belongs_to :event
 
@@ -15,13 +17,13 @@ class Photo < ActiveRecord::Base
     def change_position_of(ids, scope = {})
       position = where(id: ids).minimum('position').to_i
       Array(ids).reverse.each_with_index do |id, i|
-        where(scope.merge id: id).update_all position: position + i
+        where(scope.merge(id: id)).update_all position: position + i
       end
     end
   end
 
-  def as_json(options = {})
-    {id: id, asset_url: asset.url(:thumb)}
+  def as_json(_options = {})
+    { id: id, asset_url: asset.url(:thumb) }
   end
 
   private

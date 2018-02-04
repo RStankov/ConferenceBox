@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::SubscribersController < Admin::BaseController
   def index
     @subscribers = Subscriber.filter params[:filter] || {}

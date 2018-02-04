@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Conference < ActiveRecord::Base
   validates :name, presence: true
   validates :domain, uniqueness: true

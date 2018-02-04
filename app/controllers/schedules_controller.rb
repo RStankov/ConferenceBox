@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchedulesController < ApplicationController
   before_action :set_access_control_headers
 
@@ -15,10 +17,11 @@ class SchedulesController < ApplicationController
   end
 
   private
+
   def set_access_control_headers
-    if request.format.json?
-      response.headers['Access-Control-Allow-Origin'] = '*'
-      response.headers['Access-Control-Request-Method'] = '*'
-    end
+    return unless request.format.json?
+
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Request-Method'] = '*'
   end
 end
