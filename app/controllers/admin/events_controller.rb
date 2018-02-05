@@ -2,11 +2,12 @@
 
 class Admin::EventsController < Admin::BaseController
   def index
-    @events = Event.all
+    @conference = Conference.find(params[:conference_id]) if params[:conference_id]
+    @events = @conference ? @conference.events : Event.all
   end
 
   def new
-    @event = Event.new
+    @event = Event.new conference_id: params[:conference_id]
   end
 
   def create

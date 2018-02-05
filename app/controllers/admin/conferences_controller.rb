@@ -15,7 +15,7 @@ class Admin::ConferencesController < Admin::BaseController
   end
 
   def show
-    @conference = Conference.find conference_id
+    redirect_to admin_conference_events_path(conference_id: conference_id)
   end
 
   def edit

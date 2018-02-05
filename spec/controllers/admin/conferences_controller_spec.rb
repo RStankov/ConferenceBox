@@ -45,10 +45,9 @@ describe Admin::ConferencesController do
   end
 
   describe 'GET show' do
-    it 'assigns the conference' do
-      allow(Conference).to receive(:find).with('1').and_return conference
+    it 'redirect to conference events' do
       get :show, params: { id: '1' }
-      expect(assigns[:conference]).to eq conference
+      expect(controller).to redirect_to admin_conference_events_path('1')
     end
   end
 

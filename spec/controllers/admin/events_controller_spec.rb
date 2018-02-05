@@ -8,10 +8,30 @@ describe Admin::EventsController do
   let(:event) { instance_double Event }
 
   describe 'GET index' do
-    it 'assigns all events' do
-      allow(Event).to receive(:all).and_return [event]
-      get :index
-      expect(assigns[:events]).to eq [event]
+    context 'without conference' do
+      it 'assigns all events' do
+        allow(Event).to receive(:all).and_return [event]
+        get :index
+        expect(assigns[:events]).to eq [event]
+      end
+    end
+
+    context 'with conference' do
+      let(:conference) { instance_double(Conference, events: [event]) }
+
+      before do
+        allow(Conference).to receive(:find).with('1').and_return conference
+      end
+
+      it 'assigns conference' do
+        get :index, params: { conference_id: '1' }
+        expect(assigns[:conference]).to eq conference
+      end
+
+      it 'assigns conference events' do
+        get :index, params: { conference_id: '1' }
+        expect(assigns[:events]).to eq [event]
+      end
     end
   end
 

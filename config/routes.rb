@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   namespace :admin do
-    resources :conferences
+    resources :conferences do
+      resources :events, only: %i(index)
+    end
     resources :events do
       resource :notes, controller: 'event_notes', only: %i[edit update]
       resources :photos, controller: 'photos', only: %i[index create destroy] do

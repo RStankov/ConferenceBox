@@ -15,11 +15,12 @@
   article
     h4 Information
 
-    p Created at: #{l @event.created_at, format: :short}
-    p Updated at: #{l @event.updated_at, format: :short}
+    .content
+      p Created at: #{l @event.created_at, format: :short}
+      p Updated at: #{l @event.updated_at, format: :short}
 
-    - if @event.call_to_papers_url?
-      p Call to papers: #{link_to @event.call_to_papers_url}
+      - if @event.call_to_papers_url?
+        p Call to papers: #{link_to @event.call_to_papers_url}
 
   article
     h4
@@ -28,9 +29,10 @@
       - unless @event.dates_announced?
           span.label.label-important Not announced
 
-    p #{l @event.date, format: :long}
-    p #{@event.town}
-    = link_to @event.event_url if @event.event_url
+    .content
+      p #{l @event.date, format: :long}
+      p #{@event.town}
+      = link_to @event.event_url if @event.event_url
 
   - if @event.venue_name?
     article
@@ -38,12 +40,13 @@
         ' Venue
         - unless @event.venue_announced?
           span.label.label-important Not announced
-      p
-        ' #{link_to @event.venue_name, @event.venue_site_url}
-          #{raw "( #{link_to 'Map', @event.venue_map_url, target: :blank} )" if @event.venue_map_url?}
-      p
-        ' #{@event.venue_address}<br>
-          #{markdown @event.venue_notes}
+
+      .content
+        p
+          ' #{link_to @event.venue_name, @event.venue_site_url}
+            #{raw "( #{link_to 'Map', @event.venue_map_url, target: :blank} )" if @event.venue_map_url?}
+        p = @event.venue_address if @event.venue_address?
+        p = markdown @event.venue_notes if @event.venue_notes?
 
   - if @event.after_party_venue_name?
     article
@@ -52,13 +55,14 @@
         - unless @event.after_party_announced?
           span.label.label-important Not announced
 
-      p
-        ' #{link_to @event.after_party_venue_name, @event.after_party_venue_site_url}
-          #{raw "( #{link_to 'Map', @event.after_party_venue_map_url, target: :blank} )" if @event.after_party_venue_map_url?}
+      .content
+        p
+          ' #{link_to @event.after_party_venue_name, @event.after_party_venue_site_url}
+            #{raw "( #{link_to 'Map', @event.after_party_venue_map_url, target: :blank} )" if @event.after_party_venue_map_url?}
 
-      p
-        ' #{@event.after_party_venue_address}<br>
-          #{@event.after_party_venue_notes}
+        p
+          ' #{@event.after_party_venue_address}<br>
+            #{@event.after_party_venue_notes}
 
   article#sessions
     .actions
@@ -72,39 +76,41 @@
       - unless @event.speakers_announced?
         span.label.label-important Speakers not announced
 
-    table.table
-      - sessions_by_track = @event.sessions.by_track
-      - sessions_by_track.each do |track, sessions|
-        thead
-          - if sessions_by_track.count > 1
-            tr
-              th width="1%"
-                span.label Track #{track}
-              th colspan="7"
-          tr
-            - if sessions_by_track.count > 1
-              th
-            th width="1%" Start
-            th Name
-            th Speaker
-            th Slides
-            th Video
-            td width="60px"
-        tbody
-          - sessions.each do |session|
+    - sessions_by_track = @event.sessions.by_track
+    - if sessions_by_track.count > 1
+      .content
+        table.table
+          - sessions_by_track.each do |track, sessions|
+            thead
+              - if sessions_by_track.count > 1
+                tr
+                  th width="1%"
+                    span.label Track #{track}
+                  th colspan="7"
               tr
                 - if sessions_by_track.count > 1
-                  td
-                td = session.start_at
-                td = session.title
-                td
-                  - session.speakers.each do |speaker|
-                    = link_to(speaker.name, admin_speaker_path(speaker))
-                td = session.slides_url
-                td = session.video_url
-                td
-                  = link_to 'Edit', edit_admin_session_path(session)
-                  = link_to 'Delete', admin_session_path(session), method: :delete, confirm: 'Are you sure?'
+                  th
+                th width="1%" Start
+                th Name
+                th Speaker
+                th Slides
+                th Video
+                td width="60px"
+            tbody
+              - sessions.each do |session|
+                  tr
+                    - if sessions_by_track.count > 1
+                      td
+                    td = session.start_at
+                    td = session.title
+                    td
+                      - session.speakers.each do |speaker|
+                        = link_to(speaker.name, admin_speaker_path(speaker))
+                    td = session.slides_url
+                    td = session.video_url
+                    td
+                      = link_to 'Edit', edit_admin_session_path(session)
+                      = link_to 'Delete', admin_session_path(session), method: :delete, confirm: 'Are you sure?'
 
   article
     h4
@@ -112,14 +118,15 @@
       - unless @event.show_coverart?
           span.label.label-important hidden
 
-    p Number of feedbacks given: #{link_to @event.feedbacks.count, admin_event_feedbacks_path(@event)} #{raw '<span class="label label-important">hidden</span>' unless @event.show_feedback_form?}
-    p Number of photos: #{link_to @event.photos.count, admin_event_photos_path(@event)} #{raw '<span class="label label-important">hidden</span>' unless @event.show_photo_gallery?}
+    .content
+      p Number of feedbacks given: #{link_to @event.feedbacks.count, admin_event_feedbacks_path(@event)} #{raw '<span class="label label-important">hidden</span>' unless @event.show_feedback_form?}
+      p Number of photos: #{link_to @event.photos.count, admin_event_photos_path(@event)} #{raw '<span class="label label-important">hidden</span>' unless @event.show_photo_gallery?}
 
-    - if @event.coverart.attached?
-      = image_tag @event.coverart, width: 200
+      - if @event.coverart.attached?
+        = image_tag @event.coverart, width: 200
 
-    - if @event.logo.attached?
-      = image_tag @event.logo, width: 100
+      - if @event.logo.attached?
+        = image_tag @event.logo, width: 100
 
   article
     .actions
@@ -127,4 +134,6 @@
 
     h4 Notes
 
-    = markdown @event.notes
+    - if @event.notes?
+      .content
+        = markdown @event.notes

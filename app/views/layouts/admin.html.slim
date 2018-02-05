@@ -32,7 +32,7 @@ html
       - if breadcrumbs.present? || title_value.present?
         ul.breadcrumb
           li
-            = link_to 'Dashboard', '#'
+            = link_to 'Dashboard', admin_root_path
             span.divider = '/'
           - breadcrumbs.each do |name, link|
             li
