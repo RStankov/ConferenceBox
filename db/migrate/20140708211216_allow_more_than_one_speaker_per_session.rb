@@ -10,7 +10,7 @@ class AllowMoreThanOneSpeakerPerSession < ActiveRecord::Migration[4.2]
       t.timestamps null: true
     end
 
-    add_index :session_speakers, %i[speaker_id session_id], unique: true
+    add_index :session_speakers, %i(speaker_id session_id), unique: true
 
     execute('SELECT id, speaker_id FROM sessions WHERE speaker_id IS NOT NULL').each do |row|
       execute "INSERT INTO session_speakers (session_id, speaker_id) VALUES ('#{row['id']}', '#{row['speaker_id']}')"

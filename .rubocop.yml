@@ -63,6 +63,7 @@ Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     default: '()'
     '%w': '()'
+    '%i': '()'
 
 # Disables "Example has too many expectations."
 RSpec/MultipleExpectations:

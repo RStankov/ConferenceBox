@@ -22,7 +22,7 @@ module ConferenceBox
     config.load_defaults 5.2
     config.autoload_paths += %W[#{config.root}/lib]
     config.eager_load_paths += %W[#{config.root}/lib]
-    config.filter_parameters += %i[password password_confirmation]
+    config.filter_parameters += %i(password password_confirmation)
     config.i18n.enforce_available_locales = true
     config.generators.system_tests = nil
   end
