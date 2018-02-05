@@ -77,7 +77,7 @@
         span.label.label-important Speakers not announced
 
     - sessions_by_track = @event.sessions.by_track
-    - if sessions_by_track.count > 1
+    - if sessions_by_track.count > 0
       .content
         table.table
           - sessions_by_track.each do |track, sessions|
