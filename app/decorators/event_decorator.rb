@@ -7,7 +7,7 @@ class EventDecorator < Draper::Decorator
   delegate :about, :about?, to: :conference
 
   def favicon
-    logo.url :favicon
+    logo.variant resize: '50'
   end
 
   def formatted_date

@@ -1,9 +1,9 @@
 article#speaker
-  - if @speaker.photo?
+  - if @speaker.photo.attached?
     - if @speaker.personal_site?
-      = link_to image_tag(@speaker.photo.url(:thumb)), @speaker.personal_site, target: '_blank', class: 'avatar'
+      = link_to image_tag(@speaker.photo.variant(resize: '80')), @speaker.personal_site, target: '_blank', class: 'avatar'
     - else
-      .avatar = image_tag @speaker.photo.url(:thumb)
+      .avatar = image_tag @speaker.photo.variant(resize: '80')
 
   h2 = @speaker.name
 

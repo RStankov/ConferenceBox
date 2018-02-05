@@ -75,8 +75,8 @@
     h1 Лектори
     - @event.speakers.each do |speaker|
       section id="speaker-#{speaker.id}"
-        - if speaker.photo?
-          = link_to image_tag(speaker.photo.url(:thumb)), speaker_path(speaker), target: '_blank', class: 'avatar'
+        - if speaker.photo.attached?
+          = link_to image_tag(speaker.photo.variant(resize: '80')), speaker_path(speaker), target: '_blank', class: 'avatar'
 
         h3 = link_to speaker.name, speaker_path(speaker)
 
@@ -89,7 +89,7 @@
     section
       div
         - @event.photos.ordered.limit(9).each do |photo|
-          = image_tag photo.asset_url(:thumb), 'data-src' => "#{photo.asset_url(:original)}"
+          = image_tag photo.asset.variant(resize: '250'), 'data-src' => "#{url_for(photo.asset)}", width: 250
 
       - if @event.photos.count > 9
         = link_to 'Виж всички снимки', photos_path(@event.name), class: 'more'

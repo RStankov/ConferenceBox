@@ -6,12 +6,6 @@
 #= require 'lib/lightbox'
 #= require_self
 
-$('[data-countdown]').each ->
-  element = $(this)
-  date = new Date(element.data('countdown'))
-  element.countdown until: date, padZeroes: true
-
-$('body').scrollspy(selector: '> nav a')
 
 $ ->
   headerHeight = 10 + ($('header').height() || 0)

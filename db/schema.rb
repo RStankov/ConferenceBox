@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2015_07_19_202301) do
+ActiveRecord::Schema.define(version: 2018_02_05_201626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "conferences", id: :serial, force: :cascade do |t|
     t.string "name"
@@ -56,8 +77,6 @@ ActiveRecord::Schema.define(version: 2015_07_19_202301) do
     t.boolean "after_party_announced", default: false
     t.boolean "sessions_announced", default: false
     t.boolean "speakers_announced", default: false
-    t.string "logo"
-    t.string "coverart"
     t.boolean "current", default: false, null: false
     t.boolean "show_feedback_form", default: false, null: false
     t.boolean "show_photo_gallery", default: false, null: false
@@ -80,7 +99,6 @@ ActiveRecord::Schema.define(version: 2015_07_19_202301) do
   create_table "photos", id: :serial, force: :cascade do |t|
     t.integer "event_id", null: false
     t.integer "position", null: false
-    t.string "asset", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -113,7 +131,6 @@ ActiveRecord::Schema.define(version: 2015_07_19_202301) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "twitter_account"
-    t.string "photo"
     t.string "tshirt_size"
     t.string "github_account"
     t.string "facebook_account"

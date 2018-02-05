@@ -16,17 +16,16 @@
 #
 
 class Session < ActiveRecord::Base
-  validates :event, presence: true
+  belongs_to :event
+
+  has_many :session_speakers, dependent: :destroy
+  has_many :speakers, through: :session_speakers
+
   validates :title, presence: true
   validates :track, numericality: { only_integer: true, allow_nil: false }
   validates :start_at, presence: true, format: { with: /\A[0-9]{2}:[0-9]{2}\Z/ }
 
   attr_readonly :event_id
-
-  belongs_to :event
-
-  has_many :session_speakers, dependent: :destroy
-  has_many :speakers, through: :session_speakers
 
   default_scope -> { order 'start_at ASC' }
 

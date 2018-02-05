@@ -10,22 +10,21 @@ gem 'rails', '~> 5.2.0.rc1'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'coffee-rails', '~> 4.2'
-gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
-
 gem 'bootstrap-sass', '2.3.2.0'
-gem 'carrierwave'
+gem 'coffee-rails', '~> 4.2'
 gem 'draper'
 gem 'font-awesome-sass', '4.0.3.1'
 gem 'jquery-rails'
+gem 'mini_magick'
+gem 'puma', '~> 3.11'
 gem 'redcarpet'
 gem 'responders'
-gem 'rmagick', require: false
+gem 'sass-rails', '~> 5.0'
 gem 'simple_form'
 gem 'slim'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
+gem 'aws-sdk-s3'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

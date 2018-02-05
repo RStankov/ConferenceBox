@@ -22,7 +22,7 @@ html
       meta content="#{current_conference.slogan}" property="og:description"
       meta content="#{current_conference.slogan}" name="description"
 
-    - if current_conference.regular? && current_event.logo?
+    - if current_conference.regular? && current_event.logo.attached?
       link href="#{current_event.favicon}" rel="shortcut icon" type="image/vnd.microsoft.icon"
       meta content="#{current_event.logo}" property="og:image"
 
@@ -50,13 +50,13 @@ html
             = link_to 'Контакти', root_url(anchor: 'subscribe')
             = link_to 'Архив', root_path(anchor: 'archive')
     - else
-      - if current_event.show_coverart? && current_event.coverart?
+      - if current_event.show_coverart? && current_event.coverart.attached?
         header
-          div style="background-image: url(#{current_event.coverart.url(:default)})"
+          div style="background-image: url(#{url_for(current_event.coverart)})"
           = link_to current_event_path do
-            = image_tag current_event.logo.url(:main), alt: current_conference.name if current_event.logo?
+            = image_tag current_event.logo.variant(resize: '250'), alt: current_conference.name if current_event.logo.attached?
 
-      nav style="border-top-color: #{current_event.color}"
+      nav.js-scrollspy style="border-top-color: #{current_event.color}"
         div
           span
             = link_to 'Кога', current_event_path(anchor: 'when') if current_event.dates_announced?

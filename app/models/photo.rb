@@ -15,10 +15,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :event
 
-  validates :asset, presence: true
-  validates :event, presence: true
-
-  mount_uploader :asset, PhotoAssetUploader
+  has_one_attached :asset
 
   before_create :set_position
   after_destroy :remove_position
@@ -35,7 +32,7 @@ class Photo < ActiveRecord::Base
   end
 
   def as_json(_options = {})
-    { id: id, asset_url: asset.url(:thumb) }
+    { id: id, asset_url: asset.attached? ? asset.service_url : nil }
   end
 
   private

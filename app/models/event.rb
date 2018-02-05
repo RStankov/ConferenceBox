@@ -44,8 +44,16 @@
 #
 
 class Event < ActiveRecord::Base
+  belongs_to :conference
+
+  has_many :sessions, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
+  has_many :photos, dependent: :destroy
+
+  has_one_attached :logo
+  has_one_attached :coverart
+
   validates :name, presence: true
-  validates :conference, presence: true
   validates :date, presence: true
 
   validate :ensure_current_event_is_visible
@@ -53,15 +61,6 @@ class Event < ActiveRecord::Base
   after_save :ensure_only_one_current_event_in_conference, if: :current?
 
   attr_readonly :conference_id
-
-  belongs_to :conference
-
-  has_many :sessions, dependent: :destroy
-  has_many :feedbacks, dependent: :destroy
-  has_many :photos, dependent: :destroy
-
-  mount_uploader :logo, EventLogoUploader
-  mount_uploader :coverart, EventCoverartUploader
 
   scope :publicly_announced, -> { order('date DESC').where publicly_announced: true }
 

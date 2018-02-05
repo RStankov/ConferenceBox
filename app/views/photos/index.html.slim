@@ -4,4 +4,4 @@ article#photos
   section
     div
       - @photos.each do |photo|
-        = image_tag photo.asset_url(:thumb), 'data-src' => "#{photo.asset_url(:original)}"
+        = image_tag photo.asset.variant(resize: '250'), 'data-src' => "#{url_for(photo.asset)}", width: 250

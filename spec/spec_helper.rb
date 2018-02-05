@@ -18,7 +18,6 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
-  config.include SpecSupport::UploaderHelper, type: :uploader
   config.include SpecSupport::Controllers::RespondWith, type: :controller
   config.extend SpecSupport::Controllers::StubCurrentUser, type: :controller
   config.extend SpecSupport::Controllers::StubCurrentConference, type: :controller
