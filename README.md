@@ -1,24 +1,15 @@
-# README
+# ConferenceBox
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Multi-conference CMS. Update from [TourConf](https://github.com/RStankov/it-tour).
 
-Things you may want to cover:
+### Installation
 
-* Ruby version
+```
+./bin/dev/boot
+```
 
-* System dependencies
+### Running
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+./bin/dev/start
+```
