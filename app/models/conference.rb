@@ -16,6 +16,7 @@
 #  slogan           :string(255)
 #  main             :boolean          default(FALSE), not null
 #  about            :text
+#  theme            :string           default("default"), not null
 #
 # Indexes
 #
