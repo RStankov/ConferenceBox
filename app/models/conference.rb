@@ -24,8 +24,11 @@
 #
 
 class Conference < ActiveRecord::Base
+  THEMES = %w(it_tour not_a_conf)
+
   validates :name, presence: true
-  validates :domain, uniqueness: true
+  validates :domain, presence: true, uniqueness: true
+  validates :theme, presence: true, inclusion: { in: THEMES }
 
   has_many :events, dependent: :destroy
   has_many :subscribers, dependent: :nullify

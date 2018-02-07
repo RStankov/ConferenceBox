@@ -50,6 +50,7 @@ class Admin::ConferencesController < Admin::BaseController
       :slogan,
       :main,
       :about,
+      :theme,
     )
   end
 end

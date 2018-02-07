@@ -3,6 +3,7 @@
 
   = form.input :name
   = form.input :domain
+  = form.input :theme, collection: Conference::THEMES.map { |theme| [theme.titleize, theme] }, prompt: false
   = form.input :contact_name
   = form.input :contact_email
   = form.input :slogan
