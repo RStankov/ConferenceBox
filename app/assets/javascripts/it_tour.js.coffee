@@ -1,11 +1,10 @@
 #= require jquery
-#= require 'vendor/jquery.plugin'
-#= require 'vendor/jquery.countdown'
-#= require 'vendor/jquery.scroll_to'
-#= require 'vendor/jquery.scrollspy'
-#= require 'lib/lightbox'
+#= require 'it_tour/vendor/jquery.plugin'
+#= require 'it_tour/vendor/jquery.countdown'
+#= require 'it_tour/vendor/jquery.scroll_to'
+#= require 'it_tour/vendor/jquery.scrollspy'
+#= require 'it_tour/lib/lightbox'
 #= require_self
-
 
 $ ->
   headerHeight = 10 + ($('header').height() || 0)

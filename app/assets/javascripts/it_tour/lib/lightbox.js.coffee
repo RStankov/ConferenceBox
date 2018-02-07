@@ -1,7 +1,7 @@
 #= require vendor/underscore
 #= require vendor/backbone
 #= require vendor/backbone_bind_to
-#= require lib/swipe
+#= require it_tour/lib/swipe
 
 window.Lightbox =
   start: (container = $('body')) ->
