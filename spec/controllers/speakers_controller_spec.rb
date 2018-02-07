@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe SpeakersController do
-  stub_current_user
+  stub_current_conference
 
   describe 'GET show' do
     it 'responds with given speaker' do

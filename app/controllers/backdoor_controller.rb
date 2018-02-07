@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BackdoorController < ApplicationController
+class BackdoorController < ActionController::Base
   before_action :restrict_access unless Rails.env.test?
 
   def login

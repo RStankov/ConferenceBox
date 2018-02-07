@@ -11,8 +11,8 @@ module CurrentConferenceMethods
   private
 
   def current_conference
-    @current_conference ||= if Rails.env.development?
-                              params[:domain] ? Conference.find_for_domain(params[:domain]) : Conference.first
+    @current_conference ||= if Rails.env.development? || Rails.env.test?
+                              params[:domain] ? Conference.find_for_domain(params[:domain]) : Conference.first!
                             else
                               Conference.find_for_domain(request.domain)
                             end

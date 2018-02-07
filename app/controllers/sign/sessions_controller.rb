@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 module Sign
-  class SessionsController < ApplicationController
+  class SessionsController < ActionController::Base
+    # Prevent CSRF attacks by raising an exception.
+    # For APIs, you may want to use :null_session instead.
+    protect_from_forgery with: :exception
+
     layout false
 
     respond_to :html
+
+    self.responder = ApplicationResponder
 
     def new
       @login = Login.new

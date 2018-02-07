@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe FeedbacksController do
+  stub_current_conference
+
   describe 'POST create' do
     let(:feedback) { instance_double 'Feedback', valid?: true }
 

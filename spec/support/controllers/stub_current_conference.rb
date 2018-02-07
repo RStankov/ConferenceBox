@@ -4,7 +4,7 @@ module SpecSupport
   module Controllers
     module StubCurrentConference
       def stub_current_conference
-        current_conference { instance_double Conference }
+        current_conference { instance_double Conference, theme: 'it_tour' }
       end
 
       def current_conference(&block)

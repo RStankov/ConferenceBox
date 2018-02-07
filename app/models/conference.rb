@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: conferences
@@ -24,7 +25,7 @@
 #
 
 class Conference < ActiveRecord::Base
-  THEMES = %w(it_tour not_a_conf)
+  THEMES = %w(it_tour not_a_conf).freeze
 
   validates :name, presence: true
   validates :domain, presence: true, uniqueness: true
