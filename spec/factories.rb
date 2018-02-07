@@ -10,6 +10,7 @@ FactoryBot.define do
     contact_name 'Contact person'
     contact_email 'contact@example.org'
     domain { generate :domain }
+    theme 'it_tour'
   end
 
   factory :event do
