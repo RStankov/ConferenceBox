@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: conferences
@@ -17,6 +16,11 @@
 #  slogan           :string(255)
 #  main             :boolean          default(FALSE), not null
 #  about            :text
+#  theme            :string           default("default"), not null
+#
+# Indexes
+#
+#  index_conferences_on_main  (main)
 #
 
 require 'spec_helper'

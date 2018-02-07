@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: conferences
@@ -17,6 +16,10 @@
 #  slogan           :string(255)
 #  main             :boolean          default(FALSE), not null
 #  about            :text
+#
+# Indexes
+#
+#  index_conferences_on_main  (main)
 #
 
 class Conference < ActiveRecord::Base
