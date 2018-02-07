@@ -8,7 +8,7 @@ script:
   - bundle exec rspec spec
 before_script:
   - cp config/database.yml.travis config/database.yml
-bundler_args: -j4 --without development production --quiet
+bundler_args: -j4 --without production --quiet
 addons:
   postgresql: "9.6"
   chrome: stable
