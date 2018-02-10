@@ -5,6 +5,7 @@ module CurrentConferenceMethods
 
   included do
     helper_method :current_conference
+    helper_method :current_event
     before_action :set_view_path
   end
 
@@ -16,6 +17,10 @@ module CurrentConferenceMethods
                             else
                               Conference.find_for_domain(request.domain)
                             end
+  end
+
+  def current_event
+    @current_event ||= @event || EventDecorator.decorate(current_conference.current_event)
   end
 
   def set_view_path

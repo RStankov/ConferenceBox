@@ -6,7 +6,7 @@ class ConferencesController < ApplicationController
       @conference = current_conference
       render 'conferences/show'
     else
-      @event = EventDecorator.decorate current_conference.current_event
+      @event = current_event
       render 'events/show'
     end
   end

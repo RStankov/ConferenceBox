@@ -24,10 +24,6 @@ module ApplicationHelper
     render template: 'layouts/application'
   end
 
-  def current_event
-    @current_event ||= @event || EventDecorator.decorate(current_conference.current_event)
-  end
-
   def with_event(event)
     yield EventDecorator.decorate(event)
   end

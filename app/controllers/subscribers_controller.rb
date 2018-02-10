@@ -5,7 +5,7 @@ class SubscribersController < ApplicationController
   end
 
   def create
-    @subscriber = Subscriber.subscribe params[:subscriber][:email], current_conference
+    @subscriber = Subscriber.subscribe email_param, current_conference
 
     if @subscriber.valid?
       render :create
@@ -16,5 +16,12 @@ class SubscribersController < ApplicationController
 
   def destroy
     Subscriber.unsubscribe params[:token]
+  end
+
+  private
+
+  def email_param
+    return unless params[:subscriber]
+    params[:subscriber][:email]
   end
 end
