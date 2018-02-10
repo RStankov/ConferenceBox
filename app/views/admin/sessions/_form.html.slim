@@ -12,9 +12,12 @@
   = form.input :track
   = form.association :speakers, collection: Speaker.order('name DESC')
   = form.input :start_at, hint: 'Example: 09:10'
+  = form.input :end_at, hint: 'Example: 09:10'
 
   = form.input :slides_url
   = form.input :video_url
+
+  = form.input :description
 
   .form-actions
     = form.button :submit, class: 'btn-primary'

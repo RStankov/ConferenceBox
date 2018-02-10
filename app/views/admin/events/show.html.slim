@@ -90,7 +90,8 @@
               tr
                 - if sessions_by_track.count > 1
                   th
-                th width="1%" Start
+                th width="1%" Starts
+                th width="1%" Ends
                 th Name
                 th Speaker
                 th Slides
@@ -102,12 +103,13 @@
                     - if sessions_by_track.count > 1
                       td
                     td = session.start_at
+                    td = session.end_at
                     td = session.title
                     td
                       - session.speakers.each do |speaker|
                         = link_to(speaker.name, admin_speaker_path(speaker))
-                    td = session.slides_url
-                    td = session.video_url
+                    td = link_to 'Slides', session.slides_url, target: :blank if session.slides_url?
+                    td = link_to 'Video', session.video_url, target: :blank if session.video_url?
                     td
                       = link_to 'Edit', edit_admin_session_path(session)
                       = link_to 'Delete', admin_session_path(session), method: :delete, confirm: 'Are you sure?'

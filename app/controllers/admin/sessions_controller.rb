@@ -43,6 +43,7 @@ class Admin::SessionsController < Admin::BaseController
       :event_id,
       :title,
       :start_at,
+      :end_at,
       :slides_url,
       :video_url,
       :description,

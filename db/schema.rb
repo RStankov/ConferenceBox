@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_07_203156) do
+ActiveRecord::Schema.define(version: 2018_02_09_151659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 2018_02_07_203156) do
     t.boolean "main", default: false, null: false
     t.text "about"
     t.string "theme", default: "default", null: false
+    t.string "instagram_account"
+    t.string "copyright"
+    t.text "analytics_code"
     t.index ["main"], name: "index_conferences_on_main"
   end
 
@@ -121,6 +124,8 @@ ActiveRecord::Schema.define(version: 2018_02_07_203156) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "track", default: 1, null: false
+    t.string "end_at"
+    t.text "description"
   end
 
   create_table "speakers", id: :serial, force: :cascade do |t|
