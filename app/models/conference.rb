@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: conferences
@@ -24,7 +23,8 @@
 #
 # Indexes
 #
-#  index_conferences_on_main  (main)
+#  index_conferences_on_domain  (domain)
+#  index_conferences_on_main    (main)
 #
 
 class Conference < ActiveRecord::Base

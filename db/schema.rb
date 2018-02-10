@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_09_151659) do
+ActiveRecord::Schema.define(version: 2018_02_10_192044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2018_02_09_151659) do
     t.string "instagram_account"
     t.string "copyright"
     t.text "analytics_code"
+    t.index ["domain"], name: "index_conferences_on_domain"
     t.index ["main"], name: "index_conferences_on_main"
   end
 
