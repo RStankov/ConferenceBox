@@ -12,7 +12,7 @@
 #
 
 class Feedback < ActiveRecord::Base
-  belongs_to :event
+  belongs_to :event, inverse_of: :feedbacks
 
   validates :comment, presence: true
 

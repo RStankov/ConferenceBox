@@ -21,8 +21,8 @@
 #
 
 class SessionSpeaker < ActiveRecord::Base
-  belongs_to :speaker
-  belongs_to :session
+  belongs_to :speaker, inverse_of: :session_speakers
+  belongs_to :session, inverse_of: :session_speakers
 
   validates :speaker_id, uniqueness: { scope: :session_id }
 end

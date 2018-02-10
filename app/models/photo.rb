@@ -13,7 +13,7 @@
 #
 
 class Photo < ActiveRecord::Base
-  belongs_to :event
+  belongs_to :event, inverse_of: :photos
 
   has_one_attached :asset
 

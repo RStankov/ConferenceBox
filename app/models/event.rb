@@ -44,7 +44,7 @@
 #
 
 class Event < ActiveRecord::Base
-  belongs_to :conference
+  belongs_to :conference, inverse_of: :events
 
   has_many :sessions, dependent: :destroy
   has_many :feedbacks, dependent: :destroy

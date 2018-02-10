@@ -13,7 +13,7 @@
 #
 
 class Subscriber < ActiveRecord::Base
-  belongs_to :conference
+  belongs_to :conference, inverse_of: :subscribers
 
   validates :email, presence: true, email: true, uniqueness: { scope: :conference_id }
 
