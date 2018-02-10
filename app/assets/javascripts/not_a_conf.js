@@ -3,9 +3,7 @@
 //= require not_a_conf/jquery.counterup.min
 //= require not_a_conf/jquery.plugin
 //= require not_a_conf/jquery.countdown
-//= require not_a_conf/waypoints.min
 //= require not_a_conf/jquery.colorbox
-//= require not_a_conf/gmap3
 //= require not_a_conf/custom
 //= require_self
 
