@@ -1,33 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: conferences
-#
-#  id                :integer          not null, primary key
-#  name              :string(255)
-#  contact_name      :string(255)
-#  contact_email     :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  facebook_account  :string(255)
-#  twitter_account   :string(255)
-#  youtube_account   :string(255)
-#  domain            :string(255)
-#  slogan            :string(255)
-#  main              :boolean          default(FALSE), not null
-#  about             :text
-#  theme             :string           default("default"), not null
-#  instagram_account :string
-#  copyright         :string
-#  analytics_code    :text
-#
-# Indexes
-#
-#  index_conferences_on_domain  (domain)
-#  index_conferences_on_main    (main)
-#
-
 require 'spec_helper'
 
 describe Conference do
