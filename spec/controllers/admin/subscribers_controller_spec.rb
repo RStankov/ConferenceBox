@@ -9,7 +9,8 @@ describe Admin::SubscribersController do
 
   describe 'GET index' do
     it 'assign filtered subscribers list' do
-      allow(Subscriber).to receive(:filter).with('key' => 'value').and_return [subscriber]
+      subscribers_double = class_double(Subscriber, page: [subscriber])
+      allow(Subscriber).to receive(:filter).with('key' => 'value').and_return subscribers_double
       get :index, params: { filter: { key: 'value' } }
       expect(assigns[:subscribers]).to eq [subscriber]
     end

@@ -6,10 +6,22 @@ describe Admin::FeedbacksController do
   stub_current_user
 
   describe 'GET index' do
+    let(:event) { instance_double Event }
+
+    before do
+      feedback_double = class_double(Feedback, newest: class_double(Feedback, page: 'feedbacks'))
+      allow(Event).to receive(:find).with('1').and_return event
+      allow(event).to receive(:feedbacks).and_return feedback_double
+    end
+
     it 'assigns selected event' do
-      allow(Event).to receive(:find).with('1').and_return 'event'
       get :index, params: { event_id: 1 }
-      expect(assigns[:event]).to eq 'event'
+      expect(assigns[:event]).to eq event
+    end
+
+    it 'assigns paginaged feedbacks' do
+      get :index, params: { event_id: 1 }
+      expect(assigns[:feedbacks]).to eq 'feedbacks'
     end
   end
 

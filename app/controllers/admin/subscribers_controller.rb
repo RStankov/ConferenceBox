@@ -2,7 +2,8 @@
 
 class Admin::SubscribersController < Admin::BaseController
   def index
-    @subscribers = Subscriber.filter params[:filter] || {}
+    @subscribers = Subscriber.includes(:conference).filter(params[:filter] || {})
+    @subscribers = @subscribers.page(params[:page]) unless request.format.csv?
 
     respond_with @subscribers do |format|
       format.csv { render }

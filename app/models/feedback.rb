@@ -16,7 +16,7 @@ class Feedback < ActiveRecord::Base
 
   validates :comment, presence: true
 
-  default_scope -> { order('id DESC') }
+  scope :newest, -> { order('id DESC') }
 
   def event_name
     event.full_name

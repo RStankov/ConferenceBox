@@ -3,6 +3,7 @@
 class Admin::FeedbacksController < Admin::BaseController
   def index
     @event = Event.find params[:event_id]
+    @feedbacks = @event.feedbacks.newest.page(params[:page])
   end
 
   def destroy
