@@ -4,10 +4,43 @@ class EventDecorator < Draper::Decorator
   decorates :event
   delegate_all
 
-  delegate :about, :about?, to: :conference
+  delegate(
+    :about,
+    :about?,
+    :slogan,
+    :slogan?,
+    :analytics_code,
+    :analytics_code?,
+    :copyright,
+    :twitter_account,
+    :twitter_account?,
+    :facebook_account,
+    :facebook_account?,
+    :instagram_account,
+    :instagram_account?,
+    :youtube_account,
+    :youtube_account?,
+    :contact_email,
+    :contact_email?,
+    to: :conference,
+  )
 
-  def favicon
-    logo.variant resize: '50'
+  delegate :name, to: :conference, prefix: true
+
+  def copyright
+    "© #{Date.today.year} #{conference.copyright}"
+  end
+
+  def logo?
+    logo.attached?
+  end
+
+  def favicon_url
+    logo.variant(resize: '50').service_url
+  end
+
+  def logo_url
+    logo.service_url
   end
 
   def formatted_date
@@ -59,6 +92,16 @@ class EventDecorator < Draper::Decorator
 
   def after_party_venue_map?
     after_party_venue_map_url? && after_party_venue_map_embedded_url?
+  end
+
+  def sections
+    [
+      ['dates', dates_announced?],
+      ['venue', venue_announced?],
+      ['schedule', sessions_announced?],
+      ['speakers', speakers_announced?],
+      ['after_party', after_party_announced?],
+    ].select(&:second).map(&:first)
   end
 
   private
