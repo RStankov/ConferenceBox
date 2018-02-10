@@ -1,0 +1,56 @@
+<section id="ts-speakers" class="ts-speakers <%= background_class %>">
+  <div class="container">
+    <div class="row text-center">
+      <span class="icon-wrap"><i class="fa fa-microphone"></i></span>
+      <h2 class="section-title title-white">Awesome Speakers</h2>
+      <p class="section-sub-title">Listen, Learn, Get inspired.</p>
+    </div>
+    <div class="row">
+      <% current_event.speakers.each do |speaker| %>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <div class="ts-speaker">
+            <div class="ts-speaker-image">
+              <%= image_tag speaker.photo.variant(resize: '370x370!'), class: 'img-responsive' if speaker.photo.attached? %>
+              <ul class="social-links">
+                <% if speaker.github_account? %>
+                  <li>
+                    <%= link_to speaker.github_account, target: :blank do %>
+                      <i class="fa fa-github"></i>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if speaker.twitter_account? %>
+                  <li>
+                    <%= link_to speaker.twitter_account, target: :blank do %>
+                      <i class="fa fa-twitter"></i>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if speaker.facebook_account? %>
+                  <li>
+                    <%= link_to speaker.facebook_account, target: :blank do %>
+                      <i class="fa fa-facebook"></i>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="ts-speaker-info">
+              <h3 class="ts-speaker-name">
+                <%= speaker.name %>
+              </h3>
+              <p class="ts-speaker-designation">
+                <% if speaker.company_site? %>
+                  <%= link_to speaker.company, speaker.company_site, target: :blank %>
+                <% else %>
+                  <%= speaker.company %>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="gap-40"></div>
+  </div>
+</section>

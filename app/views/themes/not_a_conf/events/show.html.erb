@@ -1,0 +1,3 @@
+<% current_event.sections.each_with_index do |section, index| %>
+  <%= render "events/#{ section }", background_class: index.even? ? :black : :white %>
+<% end %>

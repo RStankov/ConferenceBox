@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= current_event.conference_name %></title>
+
+    <%= stylesheet_link_tag 'not_a_conf' %>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <meta content="<%= current_event.copyright %>" name="copyright" />
+    <meta content="<%= current_event.conference_name %>" property="og:site_name" />
+    <meta content="<%= current_event.conference_name %>" property="og:title" />
+    <meta content="website" property="og:type" />
+    <meta content="<%= root_url %>" property="og:url" />
+
+    <% if current_event.slogan? %>
+      <meta content="<%= current_conference.slogan %>" property="og:description" />
+      <meta content="<%= current_conference.slogan %>" name="description" />
+    <% end %>
+
+    <% if current_event.logo? %>
+      <link rel="shortcut icon" href="<%= current_event.favicon_url %>" type="image/x-icon" />
+      <link rel="icon" href="<%= current_event.favicon_url %>" type="image/x-icon" />
+      <meta content="<%= current_event.logo_url %>" property="og:image" />
+    <% end %>
+
+    <%= yield :meta_data %>
+
+    <% if Rails.env.production? && current_event.analytics_code? %>
+      <script>
+         <%= current_event.analytics_code %>
+      </script>
+    <% end %>
+  </head>
+
+  <body>
+    <header id="header" class="header header-transparent solid">
+      <div class="container">
+        <div class="row">
+          <div class="navbar-header">
+            <div class="logo">
+              <%= link_to root_path do %>
+                <%= image_tag current_event.logo.variant(resize: '40') if current_event.logo? %>
+                <h1 class="conference-name"><%= current_event.conference_name %></h1>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="site-nav-inner">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="collapse navbar-collapse navbar-responsive-collapse pull-right">
+              <ul class="nav navbar-nav">
+                <% if current_event.dates_announced? %>
+                  <li><a href="#ts-dates">When</a></li>
+                <% end %>
+                <% if current_event.venue_announced? %>
+                  <li><a href="#ts-venue">Where</a></li>
+                <% end %>
+                <% if current_event.sessions_announced? %>
+                  <li><a href="#ts-schedule">Schedule</a></li>
+                <% end %>
+                <% if current_event.speakers_announced? %>
+                  <li><a href="#ts-speakers">Speakers</a></li>
+                <% end %>
+                <% if current_event.show_photo_gallery? %>
+                  <li><a href="#photos">Photos</a></li>
+                <% end %>
+                <% if current_event.after_party_announced? %>
+                  <li><a href="#ts-after-party">After party</a></li>
+                <% end %>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="body-inner">
+      <%= content_for?(:content) ? yield(:content) : yield %>
+      <footer id="footer" class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="newsletter-form clearfix">
+              <h3>Stay Updated - Join Our Newsletter</h3>
+              <%= form_tag subscribers_path,  method: :post do %>
+                <div class="form-group">
+                  <input type="email" name="subscriber[email]" id="newsletter-form-email" class="form-control form-control-lg" placeholder="Your Email Here" value="<%= @subscriber&.email %>" autocomplete="off">
+                  <button class="btn btn-primary">Subscribe</button>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="copyright text-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="footer-social">
+                  <ul>
+                    <% if current_event.facebook_account? %>
+                      <li>
+                        <%= link_to "https://www.facebook.com/#{current_conference.facebook_account}", title: 'Facebook', target: :blank do %>
+                          <i class="fa fa-facebook"></i>
+                        <% end %>
+                      </li>
+                    <% end %>
+                    <% if current_event.twitter_account? %>
+                      <li>
+                        <%= link_to "https://twitter.com/#{current_conference.twitter_account}", title: 'Twitter', target: :blank do %>
+                          <i class="fa fa-twitter"></i>
+                        <% end %>
+                      </li>
+                    <% end %>
+                    <% if current_event.instagram_account? %>
+                      <li>
+                        <%= link_to "https://instagram.com/#{current_conference.instagram_account}", title: 'Instagram', target: :blank do %>
+                          <i class="fa fa-instagram"></i>
+                        <% end %>
+                      </li>
+                    <% end %>
+                    <% if current_event.youtube_account? %>
+                      <li>
+                        <%= link_to "https://youtube.com/#{current_conference.youtube_account}", title: 'YouTube', target: :blank do %>
+                          <i class="fa fa-youtube"></i>
+                        <% end %>
+                      </li>
+                    <% end %>
+                    <% if current_event.contact_email? %>
+                      <li>
+                        <%= link_to "mailto: #{ current_event.contact_email }", title: 'Contact via email', target: :blank do %>
+                          <i class="fa fa-envelope"></i>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+                <div class="copyright-info">
+                  <span>Copyright <%= current_event.copyright %>. All Rights Reserved.</span>
+                </div>
+              </div>
+            </div>
+            <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
+              <button class="btn btn-primary" title="Back to Top">
+                <i class="fa fa-angle-double-up"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <%= image_tag 'not_a_conf/footer_top.png', class: 'footer-top' %>
+        <%= image_tag 'not_a_conf/footer_bottom.png', class: 'footer-bottom' %>
+      </footer>
+    </div>
+
+    <%= javascript_include_tag 'not_a_conf' %>
+  </body>
+</html>

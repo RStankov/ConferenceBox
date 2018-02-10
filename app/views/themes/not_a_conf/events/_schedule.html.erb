@@ -1,0 +1,43 @@
+<section id="ts-schedule" class="ts-schedule solid-bg">
+  <div class="container">
+    <div class="row text-center">
+      <span class="icon-wrap"><i class="fa fa-calendar"></i></span>
+      <h2 class="section-title">Schedule</h2>
+      <p class="section-sub-title">Full-day Events with Awesome Speakers</p>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="schedule-tab">
+          <h2 class="schedule-date"><%= current_event.formatted_date %></h2>
+          <% current_event.sessions_by_track.each do |track, sessions| %>
+            <% sessions.each_with_index do |session, index| %>
+              <div class="schedule-listing<%= ' listing-last' if sessions.count == index + 1 %>">
+                <span class="schedule-slot-time"><%= session.start_at %><%= " - #{ session.end_at }" if session.end_at? %></span>
+                <div class="schedule-slot-info">
+                  <% session.speakers.each do |speaker| %>
+                    <% if speaker.photo.attached? %>
+                      <%= link_to speaker_path(speaker), class: 'schedule-slot-speaker-link' do %>
+                        <%= image_tag speaker.photo.variant(resize: '58'), class: 'schedule-slot-speakers' %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <div class="schedule-slot-info-content">
+                    <h3 class="schedule-slot-title"><%= session.title %></h3>
+                    <% session.speakers.each do |speaker| %>
+                      <h4 class="schedule-slot-speaker-name">
+                        <%= link_to speaker.name, speaker_path(speaker) %>
+                      </h4>
+                    <% end %>
+                    <% if session.description? %>
+                      <p class="schedule-slot-desc"><%= session.description %></p>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

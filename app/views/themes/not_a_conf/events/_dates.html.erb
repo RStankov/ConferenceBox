@@ -1,0 +1,18 @@
+<section id="banner">
+  <div class="banner-item">
+    <div class="container">
+      <div class="banner-content text-center">
+        <div class="timer" data-countdown="<%= current_event.start_time_for_javascript %>"></div>
+        <div>
+          <h1 class="banner-title"><%= current_event.conference_name %></h1>
+          <h2 class="banner-desc">
+            <span class="first"><%= current_event.date.strftime('%d %B') %></span>
+            <span><%= current_event.town %></span>
+            <span><%= current_event.date.strftime('%Y') %> Edition</span>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
