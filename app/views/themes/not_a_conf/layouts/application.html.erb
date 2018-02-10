@@ -29,9 +29,7 @@
     <%= yield :meta_data %>
 
     <% if Rails.env.production? && current_event.analytics_code? %>
-      <script>
-         <%= current_event.analytics_code %>
-      </script>
+      <%= raw current_event.analytics_code %>
     <% end %>
   </head>
 
