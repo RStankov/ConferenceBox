@@ -40,7 +40,7 @@
           <div class="navbar-header">
             <div class="logo">
               <%= link_to root_path do %>
-                <%= image_tag current_event.logo.variant(resize: '40') if current_event.logo? %>
+                <%= image_tag current_event.logo.variant(resize: '80') if current_event.logo? %>
                 <h1 class="conference-name"><%= current_event.conference_name %></h1>
               <% end %>
             </div>

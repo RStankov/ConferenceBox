@@ -2,6 +2,11 @@
   <div class="banner-item">
     <div class="container">
       <div class="banner-content text-center">
+        <% if current_event.logo? %>
+          <div class="banner-logo">
+            <%= image_tag current_event.logo.variant(resize: '200') %>
+          </div>
+        <% end %>
         <div class="timer" data-countdown="<%= current_event.start_time_for_javascript %>"></div>
         <div>
           <h1 class="banner-title"><%= current_event.conference_name %></h1>
