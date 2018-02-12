@@ -352,13 +352,7 @@
   }
 
   .logo {
-    text-align: center;
-    padding-left: 15px;
-  }
-
-  .logo img {
-    width: 180px !important;
-    background-size: contain !important;
+    display: none;
   }
 
   .logo-area {
@@ -596,8 +590,8 @@
 
   .banner-content .banner-title,
   .banner-content .classic-style .banner-title {
-    font-size: 48px;
-    line-height: 58px;
+    font-size: 38px;
+    line-height: 46px;
   }
 
   .banner-content .banner-desc {
