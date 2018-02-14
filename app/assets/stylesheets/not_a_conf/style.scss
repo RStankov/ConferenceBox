@@ -902,7 +902,7 @@ ul.navbar-nav > li.header-ticket:hover > a:after {
 .banner-content,
 .banner-reg-form {
   display: table-cell;
-  height: 600px;
+  height: 660px;
   width: 1%;
   vertical-align: middle;
   position: relative;
@@ -946,6 +946,37 @@ ul.navbar-nav > li.header-ticket:hover > a:after {
   left: 0;
   z-index: 0;
   opacity: .4;
+}
+
+.banner-cta {
+  margin: 40px 0;
+
+  .btn {
+    width: 210px;
+    display: inline-block;
+  }
+
+  .btn + .btn {
+    margin-left: 20px;
+  }
+
+  .btn.facebook {
+    background: #4868ad;
+    color: #ffffff;
+
+    &:hover {
+      background: #365899;
+    }
+  }
+
+  .btn.eventbrite {
+    background: #e66f40;
+    color: #ffffff;
+
+    &:hover {
+      background: #db5723;
+    }
+  }
 }
 
 /* Banner title equal */

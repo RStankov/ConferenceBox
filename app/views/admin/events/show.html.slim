@@ -32,7 +32,8 @@
     .content
       p #{l @event.date, format: :long}
       p #{@event.town}
-      = link_to @event.event_url if @event.event_url
+      = link_to @event.event_url if @event.event_url?
+      = link_to @event.tickets_url if @event.tickets_url?
 
   - if @event.venue_name?
     article

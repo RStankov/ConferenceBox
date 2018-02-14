@@ -15,6 +15,12 @@
             <span><%= current_event.town %></span>
             <span><%= current_event.date.strftime('%Y') %> Edition</span>
           </h2>
+          <% unless current_event.finished? %>
+            <div class="banner-cta">
+              <%= link_to 'Facebook Event', current_event.event_url, class: 'btn btn-primary facebook', target: :blank if current_event.event_url? %>
+              <%= link_to 'Reserve Free Ticket', current_event.tickets_url, class: 'btn btn-primary eventbrite', target: :blank if current_event.tickets_url? %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

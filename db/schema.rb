@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_10_192044) do
+ActiveRecord::Schema.define(version: 2018_02_14_203922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2018_02_10_192044) do
     t.string "call_to_papers_url", limit: 255
     t.text "venue_map_embedded_url"
     t.text "after_party_venue_map_embedded_url"
+    t.string "tickets_url"
   end
 
   create_table "feedbacks", id: :serial, force: :cascade do |t|

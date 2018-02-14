@@ -48,6 +48,7 @@ class Admin::EventsController < Admin::BaseController
       :town,
       :publicly_announced,
       :event_url,
+      :tickets_url,
       :venue_name,
       :venue_site_url,
       :venue_address,
