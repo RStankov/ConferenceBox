@@ -3,8 +3,9 @@
 
   = form.input :name
   = form.input :description
-  = form.input :photo, as: :file
   = form.input :tshirt_size
+
+  = upload_input form, :photo
 
   fieldset
     legend Social links

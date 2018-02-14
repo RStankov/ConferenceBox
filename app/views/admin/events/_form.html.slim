@@ -13,15 +13,8 @@
   = form.input :tickets_url
   = form.input :call_to_papers_url
 
-  = field_set_tag 'Logo' do
-    - if @event.logo.attached?
-      p = image_tag @event.logo, width: 100
-    = form.input :logo, as: :file, label: false
-
-  = field_set_tag 'Coverart' do
-    - if @event.coverart.attached?
-      p = image_tag @event.coverart, width: 200
-    = form.input :coverart, as: :file, label: false
+  = upload_input form, :logo
+  = upload_input form, :coverart
 
   = field_set_tag 'Venue' do
     = form.input :venue_name
