@@ -979,6 +979,13 @@ ul.navbar-nav > li.header-ticket:hover > a:after {
   }
 }
 
+@media (max-width: 478px) {
+  .banner-cta .btn + .btn {
+    margin-top: 30px;
+    margin-left: 0px;
+  }
+}
+
 /* Banner title equal */
 
 .banner-title-euqal {
