@@ -51,6 +51,11 @@ FactoryBot.define do
     name 'John Doe'
   end
 
+  factory :sponsor do
+    name 'Test Inc'
+    website_url 'http://example.com'
+  end
+
   factory :subscriber do
     conference
     email { generate :email }

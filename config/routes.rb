@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
     resources :sessions, only: %i(new create edit update destroy)
     resources :speakers
+    resources :sponsors
     resources :subscribers, only: %i(index create update destroy)
 
     resource :user, only: %i(edit update)

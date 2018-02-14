@@ -1,0 +1,10 @@
+= simple_form_for [:admin, @sponsor] do |form|
+  = form.error_notification
+
+  = form.input :name
+  = form.input :website_url, label: 'Website'
+
+  .form-actions
+    = form.button :submit, class: 'btn-primary'
+    = link_to 'Cancel', admin_sponsors_path, class: 'btn btn-danger'
+
