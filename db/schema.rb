@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_14_203922) do
+ActiveRecord::Schema.define(version: 2018_02_19_214232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2018_02_14_203922) do
     t.string "instagram_account"
     t.string "copyright"
     t.text "analytics_code"
+    t.string "code_of_conduct_url"
     t.index ["domain"], name: "index_conferences_on_domain"
     t.index ["main"], name: "index_conferences_on_main"
   end
@@ -143,6 +144,13 @@ ActiveRecord::Schema.define(version: 2018_02_14_203922) do
     t.string "github_account", limit: 255
     t.string "facebook_account", limit: 255
     t.string "dribbble_account", limit: 255
+  end
+
+  create_table "sponsors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "website_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subscribers", id: :serial, force: :cascade do |t|
