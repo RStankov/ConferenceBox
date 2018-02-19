@@ -22,6 +22,8 @@ class EventDecorator < Draper::Decorator
     :youtube_account?,
     :contact_email,
     :contact_email?,
+    :code_of_conduct_url,
+    :code_of_conduct_url?,
     to: :conference,
   )
 

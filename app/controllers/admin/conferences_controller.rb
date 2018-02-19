@@ -53,7 +53,8 @@ class Admin::ConferencesController < Admin::BaseController
       :about,
       :theme,
       :copyright,
-      :analytics_code
+      :analytics_code,
+      :code_of_conduct_url,
     )
   end
 end

@@ -141,6 +141,31 @@
                 <div class="copyright-info">
                   <span>Copyright <%= current_event.copyright %>. All Rights Reserved.</span>
                 </div>
+                <div class="footer-menu">
+                  <ul class="nav unstyled">
+                    <% if current_event.dates_announced? %>
+                      <li><a href="#ts-dates">When</a></li>
+                    <% end %>
+                    <% if current_event.venue_announced? %>
+                      <li><a href="#ts-venue">Where</a></li>
+                    <% end %>
+                    <% if current_event.sessions_announced? %>
+                      <li><a href="#ts-schedule">Schedule</a></li>
+                    <% end %>
+                    <% if current_event.speakers_announced? %>
+                      <li><a href="#ts-speakers">Speakers</a></li>
+                    <% end %>
+                    <% if current_event.show_photo_gallery? %>
+                      <li><a href="#photos">Photos</a></li>
+                    <% end %>
+                    <% if current_event.after_party_announced? %>
+                      <li><a href="#ts-after-party">After party</a></li>
+                    <% end %>
+                    <% if current_event.code_of_conduct_url? %>
+                      <li><%= link_to 'Code of conduct', current_event.code_of_conduct_url, target: :blank %></li>
+                    <% end %>
+                  </ul>
+                </div>
               </div>
             </div>
             <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
@@ -152,6 +177,7 @@
         </div>
         <%= image_tag 'not_a_conf/footer_top.png', class: 'footer-top' %>
         <%= image_tag 'not_a_conf/footer_bottom.png', class: 'footer-bottom' %>
+
       </footer>
     </div>
 
