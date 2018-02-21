@@ -16,16 +16,16 @@
                 <div class="schedule-slot-info">
                   <% session.speakers.each do |speaker| %>
                     <% if speaker.photo.attached? %>
-                      <%= link_to speaker_path(speaker), class: 'schedule-slot-speaker-link' do %>
+                      <span class="schedule-slot-speaker-link">
                         <%= image_tag speaker.photo.variant(resize: '58'), class: 'schedule-slot-speakers' %>
-                      <% end %>
+                      </span>
                     <% end %>
                   <% end %>
                   <div class="schedule-slot-info-content">
                     <h3 class="schedule-slot-title"><%= session.title %></h3>
                     <% session.speakers.each do |speaker| %>
                       <h4 class="schedule-slot-speaker-name">
-                        <%= link_to speaker.name, speaker_path(speaker) %>
+                        <%= speaker.name %>
                       </h4>
                     <% end %>
                     <% if session.description? %>
