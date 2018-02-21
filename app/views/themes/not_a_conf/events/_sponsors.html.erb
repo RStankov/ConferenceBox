@@ -6,11 +6,11 @@
       <p class="section-sub-title">They helping us make this event possible.</p>
     </div>
 
-    <div class="row text-center">
+    <div class="row text-center flex-grid">
       <% current_event.sponsors_by_random.each do |sponsor| %>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-          <%= link_to sponsor.website_url, target: :blank do %>
-            <%= image_tag sponsor.logo.variant(resize: 'x60') %>
+        <div class="sponsor">
+          <%= link_to sponsor.website_url, target: :blank, title: sponsor.name do %>
+            <%= attachment_image_tag sponsor.logo, height: 60 %>
           <% end %>
         </div>
       <% end %>

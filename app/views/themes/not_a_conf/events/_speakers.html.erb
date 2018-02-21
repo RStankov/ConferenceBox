@@ -10,7 +10,7 @@
         <div class="col-xs-12 col-sm-6 col-md-3">
           <div class="ts-speaker">
             <div class="ts-speaker-image">
-              <%= image_tag speaker.photo.variant(resize: '370x370!'), class: 'img-responsive' if speaker.photo.attached? %>
+              <%= attachment_image_tag speaker.photo, size: 370, class: 'img-responsive' %>
               <ul class="social-links">
                 <% if speaker.github_account? %>
                   <li>

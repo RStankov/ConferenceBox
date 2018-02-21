@@ -43,4 +43,16 @@ module ApplicationHelper
       archive_url event.name, options.merge(domain: event.domain)
     end
   end
+
+  def attachment_image_tag(attachment, height: nil, size: nil, **args)
+    return unless attachment.attached?
+
+    if size.present?
+      image_tag attachment.variant(resize: "#{size * 2}x#{size * 2}!"), size: size, **args
+    elsif height.present?
+      image_tag attachment.variant(resize: "x#{height * 2}"), height: height, **args
+    else
+      image_tag attachment, args
+    end
+  end
 end
