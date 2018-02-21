@@ -50,6 +50,8 @@ class Event < ActiveRecord::Base
   has_many :feedbacks, dependent: :destroy
   has_many :photos, dependent: :destroy
 
+  has_and_belongs_to_many :sponsors
+
   has_one_attached :logo
   has_one_attached :coverart
 
