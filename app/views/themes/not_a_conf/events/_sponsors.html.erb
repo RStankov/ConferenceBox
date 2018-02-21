@@ -1,0 +1,20 @@
+<section id="ts-partners" class="ts-partners">
+  <div class="container">
+    <div class="row text-center">
+      <span class="icon-wrap"><i class="fa fa-handshake-o"></i></span>
+      <h2 class="section-title">Partners</h2>
+      <p class="section-sub-title">They helping us make this event possible.</p>
+    </div>
+
+    <div class="row text-center">
+      <% current_event.sponsors_by_random.each do |sponsor| %>
+        <div class="col-xs-12 col-sm-4 col-md-4">
+          <%= link_to sponsor.website_url, target: :blank do %>
+            <%= image_tag sponsor.logo.variant(resize: 'x60') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+

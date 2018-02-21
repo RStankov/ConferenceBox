@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EventDecorator < Draper::Decorator
+class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   decorates :event
   delegate_all
 
@@ -73,6 +73,10 @@ class EventDecorator < Draper::Decorator
     @sessions_by_track ||= sessions.by_track
   end
 
+  def sponsors_by_random
+    @sponsors ||= sponsors.order('RANDOM()')
+  end
+
   def multi_track?
     @sessions_by_track.count > 1
   end
@@ -103,6 +107,7 @@ class EventDecorator < Draper::Decorator
       ['schedule', sessions_announced?],
       ['speakers', speakers_announced?],
       ['after_party', after_party_announced?],
+      ['sponsors', sponsors_announced?],
     ].select(&:second).map(&:first)
   end
 
