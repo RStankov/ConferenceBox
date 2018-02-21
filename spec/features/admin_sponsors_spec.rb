@@ -5,7 +5,7 @@ require 'spec_helper_features.rb'
 feature 'Admin - Managing sponsors' do
   sign_in
 
-  it 'creating sponsor' do
+  scenario 'creating sponsor' do
     visit admin_sponsors_path
 
     click_on 'New sponsor'
@@ -23,7 +23,7 @@ feature 'Admin - Managing sponsors' do
     expect(sponsor.website_url).to eq 'http://example.com'
   end
 
-  it 'creating sponsor(validation error)' do
+  scenario 'creating sponsor(validation error)' do
     visit admin_sponsors_path
 
     click_on 'New sponsor'
@@ -35,7 +35,7 @@ feature 'Admin - Managing sponsors' do
     expect(Sponsor.count).to eq 0
   end
 
-  it 'updating sponsor' do
+  scenario 'updating sponsor' do
     sponsor = create :sponsor, name: 'Test'
 
     visit admin_sponsors_path
@@ -52,7 +52,7 @@ feature 'Admin - Managing sponsors' do
     expect { sponsor.reload }.to change(sponsor, :name).from('Test').to('Updated name')
   end
 
-  it 'updating sponsor(validation error)' do
+  scenario 'updating sponsor(validation error)' do
     sponsor = create :sponsor, name: 'Test'
 
     visit admin_sponsors_path
@@ -68,7 +68,7 @@ feature 'Admin - Managing sponsors' do
     expect { sponsor.reload }.not_to change(sponsor, :name).from('Test')
   end
 
-  it 'deleting sponsor' do
+  scenario 'deleting sponsor' do
     sponsor = create :sponsor
 
     visit admin_sponsors_path
@@ -76,5 +76,37 @@ feature 'Admin - Managing sponsors' do
     click_on 'Delete'
 
     expect { sponsor.reload }.to raise_error ActiveRecord::RecordNotFound
+  end
+
+  scenario 'adding sponsor to event' do
+    event = create :event
+    sponsor = create :sponsor
+
+    visit admin_event_path(event)
+
+    within '#event-show' do
+      expect(page).not_to have_content 'Sponsors'
+    end
+
+    visit edit_admin_event_path(event)
+
+    select sponsor.name, from: 'Sponsors'
+
+    click_on 'Update Event'
+
+    within '#event-show' do
+      expect(page).to have_content 'Sponsors not announced'
+      expect(page).to have_content sponsor.name
+    end
+
+    visit edit_admin_event_path(event)
+
+    check 'Sponsors announced'
+
+    click_on 'Update Event'
+
+    within '#event-show' do
+      expect(page).not_to have_content 'Sponsors not announced'
+    end
   end
 end

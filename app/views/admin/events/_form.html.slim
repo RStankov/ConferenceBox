@@ -35,12 +35,16 @@
   = field_set_tag 'Streaming html code' do
     = form.input :streaming_code
 
+  = field_set_tag 'Sponsors' do
+    = form.association :sponsors, collection: Sponsor.order('name DESC')
+
   = field_set_tag 'Announcements & Layout'
     = form.input :dates_announced
     = form.input :venue_announced
     = form.input :after_party_announced
     = form.input :sessions_announced
     = form.input :speakers_announced
+    = form.input :sponsors_announced
     = form.input :show_feedback_form
     = form.input :show_photo_gallery
     = form.input :show_streaming

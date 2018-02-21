@@ -75,6 +75,8 @@ class Admin::EventsController < Admin::BaseController
       :show_coverart,
       :color,
       :call_to_papers_url,
+      :sponsors_announced,
+      sponsor_ids: [],
     )
   end
 end

@@ -131,11 +131,23 @@
       - if @event.logo.attached?
         = image_tag @event.logo, width: 100
 
+  - if @event.sponsors.any?
+    article
+      h4
+        ' Sponsors
+        - unless @event.sponsors_announced?
+          span.label.label-important not announced
+
+      .content
+        ul
+          - @event.sponsors.each do |sponsor|
+            li = link_to sponsor.name, admin_sponsor_path(sponsor)
+
   article
     .actions
       = link_to 'Edit', edit_admin_event_notes_path(@event), class: 'btn'
 
-    h4 Notes
+    h4 Notes for organizers
 
     - if @event.notes?
       .content
