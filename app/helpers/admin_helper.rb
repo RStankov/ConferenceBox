@@ -4,7 +4,7 @@ module AdminHelper
   def upload_input(form, field_name)
     attachment = form.object.public_send(field_name)
     preview = image_preview attachment if attachment.attached?
-    input = form.input(:logo, as: :file, label: false, wrapper_html: { style: 'display: block !important;' })
+    input = form.input(field_name, as: :file, label: false, wrapper_html: { style: 'display: block !important;' })
 
     field_set_tag field_name.to_s.humanize do
       "#{preview}#{input}".html_safe
