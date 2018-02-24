@@ -1698,7 +1698,13 @@ ul.navbar-nav > li.header-ticket:hover > a:after {
 
 .schedule-slot-speaker-link + .schedule-slot-speaker-link {
   right: -20px;
+  transition: right 0.1s ease-in-out;
 }
+
+.schedule-slot-info:hover .schedule-slot-speaker-link + .schedule-slot-speaker-link {
+  right: -70px;
+}
+
 
 .schedule-slot-speakers {
   width: 58px;
@@ -3369,5 +3375,13 @@ label {
   .row {
     margin-left: 0px;
     margin-right: 0px;
+  }
+}
+
+.schedule-media {
+  color: #000000;
+
+  &:hover {
+    color: #ea531c;
   }
 }

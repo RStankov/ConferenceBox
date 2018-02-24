@@ -17,7 +17,7 @@
                   <% session.speakers.each do |speaker| %>
                     <% if speaker.photo.attached? %>
                       <span class="schedule-slot-speaker-link">
-                        <%= image_tag speaker.photo.variant(resize: '58'), class: 'schedule-slot-speakers' %>
+                        <%= attachment_image_tag speaker.photo, size: 58, class: 'schedule-slot-speakers' %>
                       </span>
                     <% end %>
                   <% end %>
@@ -30,6 +30,16 @@
                     <% end %>
                     <% if session.description? %>
                       <p class="schedule-slot-desc"><%= session.description %></p>
+                    <% end %>
+                    <% if session.video_url? %>
+                      <%= link_to session.video_url, target: '_blank', class: 'schedule-media' do %>
+                        <i class="fa fa-file-video-o"></i> Video
+                      <% end %>
+                    <% end %>
+                    <% if session.slides_url? %>
+                      <%= link_to session.slides_url, target: '_blank', class: 'schedule-media' do %>
+                        <i class="fa fa-file-o"></i> Slides
+                      <% end %>
                     <% end %>
                   </div>
                 </div>
