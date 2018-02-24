@@ -125,11 +125,17 @@
       p Number of feedbacks given: #{link_to @event.feedbacks.count, admin_event_feedbacks_path(@event)} #{raw '<span class="label label-important">hidden</span>' unless @event.show_feedback_form?}
       p Number of photos: #{link_to @event.photos.count, admin_event_photos_path(@event)} #{raw '<span class="label label-important">hidden</span>' unless @event.show_photo_gallery?}
 
-      - if @event.coverart.attached?
-        = image_tag @event.coverart, width: 200
-
       - if @event.logo.attached?
-        = image_tag @event.logo, width: 100
+        = link_to @event.logo, target: :blank do
+          = image_tag @event.logo.variant(resize: 'x100')
+
+      - if @event.share_image.attached?
+        = link_to @event.share_image, target: :blank do
+          = image_tag @event.share_image.variant(resize: 'x100')
+
+      - if @event.coverart.attached?
+        = link_to @event.coverart, target: :blank do
+          = image_tag @event.coverart.variant(resize: 'x100')
 
   - if @event.sponsors.any?
     article

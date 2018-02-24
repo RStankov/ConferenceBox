@@ -24,6 +24,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
     :contact_email?,
     :code_of_conduct_url,
     :code_of_conduct_url?,
+    :domain,
     to: :conference,
   )
 
@@ -37,12 +38,20 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
     logo.attached?
   end
 
-  def favicon_url
-    logo.variant(resize: '50').service_url
+  def favicon
+    logo.variant(resize: '50')
   end
 
-  def logo_url
-    logo.service_url
+  def image_for_share?
+    share_image.attached? || logo.attached?
+  end
+
+  def image_for_share
+    if share_image.attached?
+      share_image
+    elsif logo.attached?
+      logo
+    end
   end
 
   def formatted_date

@@ -21,9 +21,12 @@
     <% end %>
 
     <% if current_event.logo? %>
-      <link rel="shortcut icon" href="<%= current_event.favicon_url %>" type="image/x-icon" />
-      <link rel="icon" href="<%= current_event.favicon_url %>" type="image/x-icon" />
-      <meta content="<%= current_event.logo_url %>" property="og:image" />
+      <link rel="shortcut icon" href="<%= url_for current_event.favicon %>" type="image/x-icon" />
+      <link rel="icon" href="<%= url_for current_event.favicon %>" type="image/x-icon" />
+    <% end %>
+
+    <% if current_event.image_for_share? %>
+      <meta content="<%= rails_blob_url current_event.image_for_share %>" property="og:image" />
     <% end %>
 
     <%= yield :meta_data %>

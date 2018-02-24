@@ -53,6 +53,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :sponsors
 
   has_one_attached :logo
+  has_one_attached :share_image
   has_one_attached :coverart
 
   validates :name, presence: true
