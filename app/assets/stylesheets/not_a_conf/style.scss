@@ -3364,3 +3364,10 @@ label {
   margin: 0 30px 60px;
   flex: 1;
 }
+
+@media (max-width: 768px) {
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
