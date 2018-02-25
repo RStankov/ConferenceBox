@@ -1,0 +1,26 @@
+<% title 'Sponsors', @sponsors.size %>
+
+<% actions do %>
+  <%= action_link 'New sponsor', new_admin_sponsor_path %>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Website</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @sponsors.each do |sponsor| %>
+      <tr>
+        <td><%= link_to sponsor.name, admin_sponsor_path(sponsor) %></td>
+        <td><%= link_to sponsor.website_url, sponsor.website_url, target: :blank %></td>
+        <td class="table-actions">
+          <%= edit_action edit_admin_sponsor_path(sponsor) %>
+          <%= delete_action admin_sponsor_path(sponsor) %>
+        </td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

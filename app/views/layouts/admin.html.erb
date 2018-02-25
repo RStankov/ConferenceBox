@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title_with_base 'Admin' %></title>
+    <%= stylesheet_link_tag 'admin', media: 'all' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+          <%= link_to 'Admin', admin_root_path, class: 'navbar-brand' %>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <%= link_to 'Conferences', admin_conferences_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Events', admin_events_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Speakers', admin_speakers_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sponsors', admin_sponsors_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Subscribers', admin_subscribers_path, class: 'nav-link' %>
+              </li>
+            </ul>
+            <ul class="navbar-nav mr-right">
+              <li class="nav-item">
+                <%= link_to 'Profile', edit_admin_user_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sign out', sign_out_path, method: :delete, class: 'nav-link' %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <% if alert %>
+        <div class="alert alert-danger mb-4" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <% if notice %>
+        <div class="alert alert-success mb-4" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if breadcrumbs.present? || title_value.present? %>
+        <nav aria-label="breadcrumb mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><%= link_to 'Dashboard', admin_root_path %></li>
+            <% breadcrumbs.each do |name, link| %>
+              <li class="breadcrumb-item"><%= link_to name, link %></li>
+            <% end %>
+            <li class="breadcrumb-item active" aria-current="page"><%= title_value %></li>
+          </ol>
+        </nav>
+      <% end %>
+
+      <% if title_value.present? %>
+        <div>
+          <% if content_for? :actions %>
+            <div class="float-right pt-2">
+              <%= content_for :actions %>
+            </div>
+          <% end %>
+          <h1><%= title_value %></h1>
+        </div>
+      <% end %>
+
+
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag 'admin' %>
+  </body>
+</html>

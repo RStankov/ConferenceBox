@@ -1,0 +1,60 @@
+<%= admin_form_for [:admin, @event] do |form| %>
+  <%= form.error_notification %>
+
+  <%= form.association :conference, collection: Conference.regular, prompt: '- Select -', selected: params[:conference_id] if @event.new_record? %>
+
+  <%= form.field_set do %>
+    <%= form.input :name %>
+    <%= form.input :date %>
+    <%= form.input :publicly_announced %>
+    <%= form.input :current %>
+    <%= form.input :town %>
+    <%= form.input :event_url %>
+    <%= form.input :tickets_url %>
+    <%= form.input :call_to_papers_url %>
+
+    <%= form.image_input :logo %>
+    <%= form.image_input :coverart %>
+    <%= form.image_input :share_image %>
+
+    <%= form.association :sponsors, collection: Sponsor.order('name DESC') %>
+  <% end %>
+
+  <%= form.field_set 'Venue' do %>
+    <%= form.input :venue_name %>
+    <%= form.input :venue_site_url %>
+    <%= form.input :venue_address %>
+    <%= form.input :venue_notes, as: :text %>
+    <%= form.input :venue_map_url %>
+    <%= form.input :venue_map_embedded_url %>
+  <% end %>
+
+  <%= form.field_set 'After party' do %>
+    <%= form.input :after_party_venue_name %>
+    <%= form.input :after_party_venue_site_url %>
+    <%= form.input :after_party_venue_address %>
+    <%= form.input :after_party_venue_notes, as: :text %>
+    <%= form.input :after_party_venue_map_url %>
+    <%= form.input :after_party_venue_map_embedded_url %>
+  <% end %>
+
+  <%= form.field_set 'Announcements & Layout' do %>
+    <%= form.input :dates_announced %>
+    <%= form.input :venue_announced %>
+    <%= form.input :after_party_announced %>
+    <%= form.input :sessions_announced %>
+    <%= form.input :speakers_announced %>
+    <%= form.input :sponsors_announced %>
+    <%= form.input :show_feedback_form %>
+    <%= form.input :show_photo_gallery %>
+    <%= form.input :show_streaming %>
+    <%= form.input :show_coverart %>
+  <% end %>
+
+  <%= form.field_set 'Settings' do %>
+    <%= form.input :color %>
+    <%= form.input :streaming_code %>
+  <% end %>
+
+  <%= form.buttons cancel_path: @event.new_record? ? admin_events_path : admin_event_path(@event) %>
+<% end %>

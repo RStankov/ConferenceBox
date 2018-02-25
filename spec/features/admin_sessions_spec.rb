@@ -10,12 +10,12 @@ feature 'Admin - Manage sessions' do
   it 'creating session with minumum data' do
     visit admin_event_path(event)
 
-    click_on '+ session'
+    click_on 'New session'
 
     fill_in 'Title', with: 'Test session'
     fill_in 'Start at', with: '09:00'
 
-    click_on 'Create'
+    click_on 'Submit'
 
     expect(page).to have_content 'Test session'
     expect(page).to have_content '09:00'
@@ -33,14 +33,14 @@ feature 'Admin - Manage sessions' do
 
     visit admin_event_path(event)
 
-    click_on '+ session'
+    click_on 'New session'
 
     fill_in 'Title', with: 'Test session'
     fill_in 'Start at', with: '09:00'
     select speaker1.name, from: 'Speakers'
     select speaker2.name, from: 'Speakers'
 
-    click_on 'Create'
+    click_on 'Submit'
 
     expect(page).to have_content speaker1.name
     expect(page).to have_content speaker2.name
@@ -55,13 +55,13 @@ feature 'Admin - Manage sessions' do
   it 'creating session on 2nd track' do
     visit admin_event_path(event)
 
-    click_on '+ session'
+    click_on 'New session'
 
     fill_in 'Title', with: 'Test session'
     fill_in 'Start at', with: '09:00'
     fill_in 'Track', with: '2'
 
-    click_on 'Create'
+    click_on 'Submit'
 
     expect(page).to have_content 'Test session'
     expect(page).to have_content '09:00'
@@ -99,7 +99,7 @@ feature 'Admin - Manage sessions' do
 
     fill_in 'Title', with: 'New title'
 
-    click_on 'Update'
+    click_on 'Submit'
 
     expect(page).to have_content 'New title'
 

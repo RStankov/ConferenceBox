@@ -16,6 +16,7 @@ class Admin::SpeakersController < Admin::BaseController
 
   def show
     @speaker = Speaker.find speaker_id
+    redirect_to edit_admin_speaker_path(@speaker)
   end
 
   def edit

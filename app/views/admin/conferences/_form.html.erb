@@ -1,0 +1,25 @@
+<%= admin_form_for [:admin, @conference] do |form| %>
+  <%= form.error_notification %>
+  <%= form.field_set do %>
+    <%= form.input :name %>
+    <%= form.input :domain %>
+    <%= form.input :theme, collection: Conference::THEMES.map { |theme| [theme.titleize, theme] }, prompt: false %>
+    <%= form.input :contact_name %>
+    <%= form.input :contact_email %>
+    <%= form.input :slogan %>
+    <%= form.input :about %>
+    <%= form.input :copyright %>
+    <%= form.input :code_of_conduct_url %>
+  <% end %>
+  <%= form.field_set 'Social accounts' do %>
+    <%= form.input :facebook_account %>
+    <%= form.input :twitter_account %>
+    <%= form.input :instagram_account %>
+    <%= form.input :youtube_account %>
+  <% end %>
+  <%= form.field_set 'Settings' do %>
+    <%= form.input :main %>
+    <%= form.input :analytics_code %>
+  <% end %>
+  <%= form.buttons cancel_path: admin_conferences_path %>
+<% end %>

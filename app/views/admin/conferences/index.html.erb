@@ -1,0 +1,24 @@
+<% title 'Conferences', @conferences.size %>
+
+<% actions do %>
+  <%= action_link 'New conference', new_admin_conference_path %>
+<% end %>
+
+<%= table_for @conferences do |table| %>
+  <% table.column :name do |conference| %>
+    <%= link_to conference.name, admin_conference_path(conference) %>
+    <%= badge 'main' if conference.main? %>
+  <% end %>
+  <% table.column :domain do |conference| %>
+    <%= link_to conference.domain, root_url(domain: conference.domain) if conference.domain? %>
+  <% end %>
+  <% table.column :theme do |conference| %>
+    <%= conference.theme.titleize %>
+  <% end %>
+  <% table.column :contact_person do |conference| %>
+    <%= "#{conference.contact_name} (#{conference.contact_email})" if conference.contact_name? %>
+  <% end %>
+  <% table.column '', class: 'table-actions' do |conference| %>
+    <%= edit_action edit_admin_conference_path(conference) %>
+  <% end %>
+<% end %>

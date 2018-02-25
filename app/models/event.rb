@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -40,10 +41,6 @@
 #  after_party_venue_map_embedded_url :text
 #  tickets_url                        :string
 #  sponsors_announced                 :boolean          default(FALSE), not null
-#
-# Foreign Keys
-#
-#  events_conference_id_fk  (conference_id => conferences.id)
 #
 
 class Event < ActiveRecord::Base

@@ -1,0 +1,21 @@
+<% title 'Feedback' %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.conference.name, admin_conference_path(@event.conference)], [@event.name, admin_event_path(@event)] %>
+
+<% if @feedbacks.empty? %>
+  <p>No feedback has been given yet</p>
+<% else %>
+  <% @feedbacks.each do |feedback| %>
+    <div class="card mb-3">
+      <div class="card-header">
+        <span class="card-subtitle mb-2 text-muted"><%= l feedback.created_at, format: :short %></span>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%= new_line_to_break feedback.comment %><p>
+        <%= delete_action admin_feedback_path(feedback.id) %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= paginate @feedbacks %>

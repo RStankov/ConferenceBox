@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: photos
@@ -8,10 +9,6 @@
 #  position   :integer          not null
 #  created_at :datetime
 #  updated_at :datetime
-#
-# Foreign Keys
-#
-#  photos_event_id_fk  (event_id => events.id)
 #
 
 class Photo < ActiveRecord::Base
@@ -34,7 +31,12 @@ class Photo < ActiveRecord::Base
   end
 
   def as_json(_options = {})
-    { id: id, asset_url: asset.attached? ? asset.service_url : nil }
+    url = asset.variant(resize: '250x250^', gravity: 'center', crop: '250x250+0+0').processed.service_url if asset.attached?
+
+    {
+      id: id,
+      asset_url: url,
+    }
   end
 
   private

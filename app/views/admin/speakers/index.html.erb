@@ -1,0 +1,28 @@
+<% title 'Speakers', @speakers.size %>
+
+<% actions do %>
+  <%= action_link 'New speaker', new_admin_speaker_path %>
+<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sessions</th>
+      <th>T-shirt size</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @speakers.each do |speaker| %>
+      <tr>
+        <td><%= link_to speaker.name, admin_speaker_path(speaker) %></td>
+        <td><%= speaker.sessions.count %></td>
+        <td><%= speaker.tshirt_size %></td>
+        <td class="table-actions">
+          <%= edit_action edit_admin_speaker_path(speaker) %>
+          <%= delete_action admin_speaker_path(speaker) %>
+        </td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

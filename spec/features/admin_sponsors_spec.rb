@@ -13,7 +13,7 @@ feature 'Admin - Managing sponsors' do
     fill_in 'Name', with: 'Test'
     fill_in 'Website', with: 'http://example.com'
 
-    click_on 'Create Sponsor'
+    click_on 'Submit'
 
     expect(page).to have_content 'Test'
 
@@ -28,7 +28,7 @@ feature 'Admin - Managing sponsors' do
 
     click_on 'New sponsor'
 
-    click_on 'Create Sponsor'
+    click_on 'Submit'
 
     expect(page).to have_content 'Please review the problems below'
 
@@ -44,7 +44,7 @@ feature 'Admin - Managing sponsors' do
 
     fill_in 'Name', with: 'Updated name'
 
-    click_on 'Update Sponsor'
+    click_on 'Submit'
 
     expect(page).not_to have_content 'Test'
     expect(page).to have_content 'Updated name'
@@ -61,7 +61,7 @@ feature 'Admin - Managing sponsors' do
 
     fill_in 'Name', with: ''
 
-    click_on 'Update Sponsor'
+    click_on 'Submit'
 
     expect(page).to have_content 'Please review the problems below'
 
@@ -84,7 +84,7 @@ feature 'Admin - Managing sponsors' do
 
     visit admin_event_path(event)
 
-    within '#event-show' do
+    within '[data-test="event-show"]' do
       expect(page).not_to have_content 'Sponsors'
     end
 
@@ -92,9 +92,9 @@ feature 'Admin - Managing sponsors' do
 
     select sponsor.name, from: 'Sponsors'
 
-    click_on 'Update Event'
+    click_on 'Submit'
 
-    within '#event-show' do
+    within '[data-test="event-show"]' do
       expect(page).to have_content 'Sponsors not announced'
       expect(page).to have_content sponsor.name
     end
@@ -103,9 +103,9 @@ feature 'Admin - Managing sponsors' do
 
     check 'Sponsors announced'
 
-    click_on 'Update Event'
+    click_on 'Submit'
 
-    within '#event-show' do
+    within '[data-test="event-show"]' do
       expect(page).not_to have_content 'Sponsors not announced'
     end
   end

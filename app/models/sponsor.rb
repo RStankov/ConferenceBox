@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sponsors
@@ -9,7 +10,6 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-
 
 class Sponsor < ActiveRecord::Base
   validates :name, presence: true

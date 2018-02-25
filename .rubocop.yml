@@ -8,7 +8,7 @@ AllCops:
 
 # Increases "Max line length" warning from 80 to 120
 LineLength:
-  Max: 120
+  Max: 125
 
 # Increases "Assignment Branch Condition size" warning from 15 to 30
 Metrics/AbcSize:
@@ -42,8 +42,12 @@ Style/ModuleFunction:
 Style/TrailingCommaInArguments:
   Enabled: false
 
+# Disables "Avoid comma after the last item of a array."
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
 # Disables "Avoid comma after the last item of a hash."
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 
 # Disables "Use nested module/class definitions instead of compact style."

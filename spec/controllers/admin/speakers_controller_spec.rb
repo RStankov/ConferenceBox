@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Admin::SpeakersController do
   stub_current_user
 
-  let(:speaker) { instance_double Speaker }
+  let(:speaker) { instance_double Speaker, to_param: '1' }
 
   describe 'GET index' do
     it 'assigns all speakers' do
@@ -48,7 +48,7 @@ describe Admin::SpeakersController do
     it 'assigns the speaker' do
       allow(Speaker).to receive(:find).with('1').and_return speaker
       get :show, params: { id: '1' }
-      expect(assigns[:speaker]).to eq speaker
+      expect(controller).to redirect_to edit_admin_speaker_path('1')
     end
   end
 

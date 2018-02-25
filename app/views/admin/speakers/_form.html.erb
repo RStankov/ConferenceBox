@@ -1,0 +1,19 @@
+<%= admin_form_for [:admin, @speaker] do |form| %>
+  <%= form.error_notification %>
+  <%= form.field_set do %>
+    <%= form.input :name %>
+    <%= form.input :description %>
+    <%= form.input :tshirt_size %>
+    <%= form.image_input :photo %>
+  <% end %>
+  <%= form.field_set 'Social links' do %>
+    <%= form.input :personal_site %>
+    <%= form.input :company %>
+    <%= form.input :company_site %>
+    <%= form.input :twitter_account %>
+    <%= form.input :github_account %>
+    <%= form.input :dribbble_account %>
+    <%= form.input :facebook_account %>
+  <% end %>
+  <%= form.buttons cancel_path: admin_speakers_path %>
+<% end %>

@@ -1,0 +1,11 @@
+<% title 'Edit profile' %>
+
+<%= admin_form_for [:admin, @user], url: admin_user_path do |form| %>
+  <%= form.error_notification %>
+  <%= form.input :first_name %>
+  <%= form.input :last_name %>
+  <%= form.input :email %>
+  <%= form.input :password %>
+  <%= form.input :password_confirmation %>
+  <%= form.buttons %>
+<% end %>

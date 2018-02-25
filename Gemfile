@@ -11,7 +11,7 @@ gem 'rails', '~> 5.2.0.rc1'
 gem 'aws-sdk-s3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap-sass', '2.3.2.0'
+gem 'bootstrap'
 gem 'coffee-rails', '~> 4.2'
 gem 'draper'
 gem 'font-awesome-sass', '4.0.3.1'

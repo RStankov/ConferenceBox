@@ -1,0 +1,10 @@
+<%= admin_form_for [:admin, @sponsor] do |form| %>
+  <%= form.error_notification %>
+
+  <%= form.input :name %>
+  <%= form.input :website_url, label: 'Website' %>
+
+  <%= form.image_input :logo %>
+
+  <%= form.buttons cancel_path: admin_sponsors_path %>
+<% end %>

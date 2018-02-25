@@ -1,6 +1,8 @@
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require_tree ./admin
+//= require_self
 
 $(document).on('focus', 'textarea', function() {
   var namespace = 'sizer';

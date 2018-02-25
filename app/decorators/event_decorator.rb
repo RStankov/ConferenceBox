@@ -83,7 +83,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   end
 
   def sponsors_by_random
-    @sponsors ||= sponsors.order('RANDOM()')
+    @sponsors_by_random ||= sponsors.order('RANDOM()')
   end
 
   def multi_track?

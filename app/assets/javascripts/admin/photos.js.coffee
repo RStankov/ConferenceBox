@@ -61,7 +61,7 @@ $('#js-photos').each ->
       'file:error':    'photoWasntUploaded'
 
     photoWasAdded: (fileId) ->
-      @$article.prepend """<div id="photo-#{fileId}"><mark></mark></div>"""
+      @$article.prepend """<div id="photo-#{fileId}" class="card m-1 loading"></div>"""
 
     photoWasUploaded: (fileId, data) ->
       @$("#photo-#{fileId}").replaceWith @photoHtml(data)
@@ -81,9 +81,11 @@ $('#js-photos').each ->
 
     photoHtml: (photo) ->
       """
-        <div data-id="#{photo.id}">
-          <img src="#{photo.asset_url}" />
-          <button class="btn" data-action="delete">Delete</button>
+        <div data-id="#{photo.id}" class="card m-1">
+          <img src="#{photo.asset_url}" class="card-img-top" />
+          <div class="card-footer text-center">
+            <button class="btn btn-sm btn-dark" data-action="delete">Delete</button>
+          </div>
         </div>
       """
 

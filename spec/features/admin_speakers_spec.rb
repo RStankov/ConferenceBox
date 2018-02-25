@@ -14,7 +14,7 @@ feature 'Admin - Managing speakers' do
     fill_in 'Description', with: 'This just a test speaker'
     fill_in 'Tshirt size', with: 'XXXL'
 
-    click_on 'Create Speaker'
+    click_on 'Submit'
 
     expect(page).to have_content 'Test Testers'
 
@@ -29,7 +29,7 @@ feature 'Admin - Managing speakers' do
 
     click_on 'New speaker'
 
-    click_on 'Create Speaker'
+    click_on 'Submit'
 
     expect(page).to have_content 'Please review the problems below'
 
@@ -45,7 +45,7 @@ feature 'Admin - Managing speakers' do
 
     fill_in 'Name', with: 'Updated name'
 
-    click_on 'Update Speaker'
+    click_on 'Submit'
 
     expect(page).not_to have_content 'Test name'
     expect(page).to have_content 'Updated name'
@@ -62,7 +62,7 @@ feature 'Admin - Managing speakers' do
 
     fill_in 'Name', with: ''
 
-    click_on 'Update Speaker'
+    click_on 'Submit'
 
     expect(page).to have_content 'Please review the problems below'
 
@@ -74,7 +74,6 @@ feature 'Admin - Managing speakers' do
 
     visit admin_speakers_path
 
-    click_on speaker.name
     click_on 'Delete'
 
     expect { speaker.reload }.to raise_error ActiveRecord::RecordNotFound

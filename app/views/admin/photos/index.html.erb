@@ -1,0 +1,15 @@
+<% title 'Photos' %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.conference.name, admin_conference_path(@event.conference)], [@event.name, admin_event_path(@event)] %>
+
+<% actions do %>
+  <%= action_link 'View in site', photos_path(@event.name) %>
+<% end %>
+
+<div id="js-photos" data-url="<%= admin_event_photos_path(@event) %>">
+  <button id="js-photo-upload" class="btn btn-primary">Upload photos</button>
+  <hr />
+  <article class="photos-list flex-grid">
+    <script type="text/json"><%= raw @event.photos.ordered.to_json %></script>
+  </article>
+</div>

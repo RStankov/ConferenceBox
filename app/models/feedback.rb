@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: feedbacks
@@ -8,10 +9,6 @@
 #  comment    :text             not null
 #  created_at :datetime
 #  updated_at :datetime
-#
-# Foreign Keys
-#
-#  feedbacks_event_id_fk  (event_id => events.id)
 #
 
 class Feedback < ActiveRecord::Base

@@ -1,0 +1,17 @@
+<% breadcrumbs ['Conferences', admin_conferences_path], [@session.event.conference.name, admin_conference_path(@session.event.conference)], [@session.event.name, admin_event_path(@session.event)] %>
+
+<%= admin_form_for [:admin, @session] do |form| %>
+  <%= form.error_notification %>
+  <%= form.hidden_field :event_id if @session.new_record? %>
+
+  <%= form.input :title %>
+  <%= form.input :track %>
+  <%= form.association :speakers, collection: Speaker.order('name DESC') %>
+  <%= form.input :start_at, hint: 'Example: 09:10' %>
+  <%= form.input :end_at, hint: 'Example: 09:10' %>
+  <%= form.input :slides_url %>
+  <%= form.input :video_url %>
+  <%= form.input :description %>
+
+  <%= form.buttons cancel_path: admin_event_path(@session.event) %>
+<% end %>

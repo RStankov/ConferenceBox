@@ -1,0 +1,187 @@
+<% title @event.full_name %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.conference.name, admin_conference_path(@event.conference)] %>
+
+<% actions do %>
+  <%= action_link 'View', archive_path(@event.name, domain: @event.conference.domain) if @event.publicly_announced? %>
+  <%= edit_action edit_admin_event_path(@event) %>
+  <%= delete_action admin_event_path(@event) %>
+<% end %>
+
+<div data-test="event-show">
+  <div class="mb-3">
+    <%= badge 'current', type: :success if @event.current? %>
+    <%= badge 'hidden', type: :danger unless @event.publicly_announced? %>
+    <span class="badge badge-secondary" style="background-color: <%= @event.color %>"><%= @event.color %></span>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      Information
+      <div class="float-right">
+        <%= badge 'not announced', type: :danger unless @event.dates_announced? %>
+      </div>
+    </div>
+    <div class="card-body">
+      <div>Town: <%= @event.town %></div>
+      <div>Date: <%= l @event.date, format: :long %></div>
+      <% if @event.call_to_papers_url? %>
+        <div>Call to papers: <%= link_to 'link', @event.call_to_papers_url %></div>
+      <% end %>
+      <% if @event.event_url? %>
+        <div>Event url: <%= link_to 'link', @event.event_url %></div>
+      <% end %>
+      <% if @event.tickets_url? %>
+        <div>Tickets url: <%= link_to 'link', @event.tickets_url %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @event.venue_name? %>
+    <div class="card mb-3">
+      <div class="card-header">
+        Venue
+        <div class="float-right">
+          <%= badge 'not announced', type: :danger unless @event.venue_announced? %>
+        </div>
+      </div>
+      <div class="card-body">
+        <%= link_to @event.venue_name, @event.venue_site_url %>
+        <% if @event.venue_map_url?  %>
+          <span>(<%= link_to 'map', @event.venue_map_url, target: :blank %>)</span>
+        <% end %>
+        <% if @event.venue_address?  %>
+          <div>
+            <%= @event.venue_address %>
+          </div>
+        <% end %>
+        <%= markdown @event.venue_notes if @event.venue_notes?  %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @event.after_party_venue_name? %>
+    <div class="card mb-3">
+      <div class="card-header">
+        After party venue
+        <div class="float-right">
+          <%= badge 'not announced', type: :danger unless @event.after_party_announced? %>
+        </div>
+      </div>
+      <div class="card-body">
+        <%= link_to @event.after_party_venue_name, @event.after_party_venue_site_url %>
+        <% if @event.after_party_venue_map_url?  %>
+          <span>(<%= link_to 'map', @event.after_party_venue_map_url, target: :blank %>)</span>
+        <% end %>
+        <% if @event.after_party_venue_address?  %>
+          <div>
+            <%= @event.after_party_venue_address %>
+          </div>
+        <% end %>
+        <%= markdown @event.after_party_venue_notes if @event.after_party_venue_notes?  %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      Sessions
+      <div class="float-right">
+        <%= badge 'Sessions not announced', type: :danger unless @event.sessions_announced? %>
+        <%= badge 'Speakers not announced', type: :danger unless @event.speakers_announced? %>
+      </div>
+    </div>
+    <div class="card-body">
+      <%= action_link 'New session', new_admin_session_path(event_id: @event.id) %>
+      <% sessions_by_track = @event.sessions.includes(:speakers).by_track %>
+      <% if sessions_by_track.size > 0 %>
+        <% sessions_by_track.each do |track, sessions| %>
+          <div class="mt-3">
+            <% if sessions_by_track.size > 1 %>
+              <h5 class="card-title">Track <%= track %></h5>
+            <% end %>
+            <%= table_for sessions do |table| %>
+              <% table.column :time do |session| %>
+                <%= [session.start_at, session.end_at].reject(&:blank?).join(' - ') %>
+              <% end %>
+              <% table.column :title %>
+              <% table.column :speaker do |session| %>
+                <% session.speakers.each do |speaker| %>
+                  <%= link_to(speaker.name, admin_speaker_path(speaker)) %><br />
+                <% end %>
+              <% end %>
+              <% table.column :slides do |session| %>
+                <%= link_to 'link', session.slides_url, target: :blank if session.slides_url? %>
+              <% end %>
+              <% table.column :video do |session| %>
+                <%= link_to 'link', session.video_url, target: :blank if session.video_url? %>
+              <% end %>
+              <% table.actions do |session| %>
+                <%= edit_action edit_admin_session_path(session) %>
+                <%= delete_action admin_session_path(session) %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if [@event.logo, @event.share_image, @event.coverart].select(&:attached?).any? %>
+    <div class="card mb-3">
+      <div class="card-header">
+        Media
+        <div class="float-right">
+          <%= badge 'not announced', type: :danger unless @event.show_coverart? %>
+        </div>
+      </div>
+      <div class="card-body">
+        <% if @event.logo.attached? %>
+          <%= link_to @event.logo, target: :blank do %>
+            <%= image_tag @event.logo.variant(resize: 'x100') %>
+          <% end %>
+        <% end %>
+
+        <% if @event.share_image.attached? %>
+          <%= link_to @event.share_image, target: :blank do %>
+            <%= image_tag @event.share_image.variant(resize: 'x100') %>
+          <% end %>
+        <% end %>
+
+        <% if @event.coverart.attached? %>
+          <%= link_to @event.coverart, target: :blank do %>
+            <%= image_tag @event.coverart.variant(resize: 'x100') %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @event.sponsors.any? %>
+    <div class="card mb-3">
+      <div class="card-header">
+        Sponsors
+        <div class="float-right">
+          <%= badge 'not announced', type: :danger unless @event.sponsors_announced? %>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <% @event.sponsors.each do |sponsor| %>
+            <li><%= link_to sponsor.name, admin_sponsor_path(sponsor) %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      Notes for organizers
+    </div>
+    <div class="card-body">
+      <%= markdown @event.notes %>
+      <%= edit_action edit_admin_event_notes_path(@event) %>
+    </div>
+  </div>
+  <div>
