@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: subscribers
@@ -10,6 +9,10 @@
 #  active        :boolean          default(TRUE), not null
 #  created_at    :datetime
 #  updated_at    :datetime
+#
+# Foreign Keys
+#
+#  subscribers_conference_id_fk  (conference_id => conferences.id)
 #
 
 class Subscriber < ActiveRecord::Base

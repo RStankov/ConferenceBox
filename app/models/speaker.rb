@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: speakers
@@ -13,7 +12,6 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  twitter_account  :string(255)
-#  photo            :string(255)
 #  tshirt_size      :string(255)
 #  github_account   :string(255)
 #  facebook_account :string(255)

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: conferences
@@ -22,11 +21,6 @@
 #  copyright           :string
 #  analytics_code      :text
 #  code_of_conduct_url :string
-#
-# Indexes
-#
-#  index_conferences_on_domain  (domain)
-#  index_conferences_on_main    (main)
 #
 
 class Conference < ActiveRecord::Base

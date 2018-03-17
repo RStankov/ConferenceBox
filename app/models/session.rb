@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: sessions
@@ -13,8 +12,12 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  track       :integer          default(1), not null
-#  end_at      :string(255)
+#  end_at      :string
 #  description :text
+#
+# Foreign Keys
+#
+#  sessions_event_id_fk  (event_id => events.id)
 #
 
 class Session < ActiveRecord::Base

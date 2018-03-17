@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -11,10 +10,6 @@
 #  password_digest :string(255)      default(""), not null
 #  created_at      :datetime
 #  updated_at      :datetime
-#
-# Indexes
-#
-#  index_users_on_email  (email) UNIQUE
 #
 
 class User < ActiveRecord::Base

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: session_speakers
@@ -9,10 +8,6 @@
 #  session_id :integer          not null
 #  created_at :datetime
 #  updated_at :datetime
-#
-# Indexes
-#
-#  index_session_speakers_on_speaker_id_and_session_id  (speaker_id,session_id) UNIQUE
 #
 # Foreign Keys
 #

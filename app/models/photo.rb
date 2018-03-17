@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: photos
@@ -7,9 +6,12 @@
 #  id         :integer          not null, primary key
 #  event_id   :integer          not null
 #  position   :integer          not null
-#  asset      :string(255)      not null
 #  created_at :datetime
 #  updated_at :datetime
+#
+# Foreign Keys
+#
+#  photos_event_id_fk  (event_id => events.id)
 #
 
 class Photo < ActiveRecord::Base

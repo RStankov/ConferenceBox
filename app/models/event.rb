@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: events
@@ -29,8 +28,6 @@
 #  after_party_announced              :boolean          default(FALSE)
 #  sessions_announced                 :boolean          default(FALSE)
 #  speakers_announced                 :boolean          default(FALSE)
-#  logo                               :string(255)
-#  coverart                           :string(255)
 #  current                            :boolean          default(FALSE), not null
 #  show_feedback_form                 :boolean          default(FALSE), not null
 #  show_photo_gallery                 :boolean          default(FALSE), not null
@@ -41,6 +38,12 @@
 #  call_to_papers_url                 :string(255)
 #  venue_map_embedded_url             :text
 #  after_party_venue_map_embedded_url :text
+#  tickets_url                        :string
+#  sponsors_announced                 :boolean          default(FALSE), not null
+#
+# Foreign Keys
+#
+#  events_conference_id_fk  (conference_id => conferences.id)
 #
 
 class Event < ActiveRecord::Base
