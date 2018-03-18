@@ -28,4 +28,8 @@ class Speaker < ActiveRecord::Base
   has_one_attached :photo
 
   default_scope -> { order 'name ASC' }
+
+  def sessions_count
+    sessions.count
+  end
 end
