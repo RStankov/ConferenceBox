@@ -46,7 +46,7 @@
         </div>
       </nav>
     </div>
-    <div class="container">
+    <main class="container">
       <% if alert %>
         <div class="alert alert-danger mb-4" role="alert">
           <%= alert %>
@@ -82,9 +82,9 @@
         </div>
       <% end %>
 
-
       <%= yield %>
-    </div>
+    </main>
+
     <%= javascript_include_tag 'admin' %>
   </body>
 </html>

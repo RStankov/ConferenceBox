@@ -4,7 +4,7 @@
   <%= action_link 'Export', admin_subscribers_path(params, format: 'csv') %>
 <% end %>
 
-<div class="card mb-4 pt-3 pr-3 pl-3">
+<div class="card mb-4 p-3">
   <%= admin_form_for [:admin, Subscriber.new], wrapper: :inline_form, html: { class: 'form-inline' } do |form| %>
     <%= form.input :email, required: false %>
     <%= form.association :conference, required: false, prompt: 'Please select' %>

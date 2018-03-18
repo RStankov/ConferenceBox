@@ -1,8 +1,10 @@
 @import "bootstrap";
 
-.simple_form {
+main {
   margin-bottom: 20px;
+}
 
+.simple_form {
   abbr {
     text-decoration: none;
     cursor: default;
@@ -50,8 +52,6 @@ a + a,
 }
 
 .photos-list {
-  margin-bottom: 20px;
-
   .loading {
     background: white image-url('admin/loading.gif') center no-repeat;
   }
@@ -66,4 +66,11 @@ a + a,
     @extend .m-1;
     background: #eee;
   }
+}
+
+.pagination[aria-label="pager"] {
+  @extend .justify-content-center;
+
+  .page, .next, .last, .first, .prev { @extend .page-item; @extend .page-link; }
+  .page.current { @extend .active; }
 }
