@@ -59,7 +59,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   end
 
   def speakers
-    sessions.map(&:speakers).flatten
+    sessions.map(&:speakers).flatten.shuffle
   end
 
   def start_time_for_javascript
