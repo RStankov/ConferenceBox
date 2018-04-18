@@ -40,7 +40,7 @@ class Admin::SponsorsController < Admin::BaseController
   end
 
   def sponsor_params
-    params.require(:sponsor).permit(
+    params.require(:record).permit(
       :name,
       :website_url,
       :logo,
