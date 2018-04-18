@@ -17,6 +17,7 @@ gem 'draper'
 gem 'font-awesome-sass', '4.0.3.1'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'loofah'
 gem 'mini_magick'
 gem 'puma', '~> 3.11'
 gem 'redcarpet'
@@ -25,7 +26,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'simple_form'
 gem 'slim'
 gem 'uglifier', '>= 1.3.0'
-gem 'loofah'
 
 group :development, :test do
   gem 'byebug', platforms: %i(mri mingw x64_mingw)
