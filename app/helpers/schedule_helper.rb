@@ -16,6 +16,11 @@ module ScheduleHelper
       return {} unless event.sessions_announced?
 
       {
+        event: {
+          id: event.id,
+          name: event.conference.name,
+          logoUrl: Attachment.url(event.logo)
+        },
         sessions: sessions,
         sponsors: sponsors
       }
@@ -45,6 +50,7 @@ module ScheduleHelper
 
     def as_json(_options = {})
       {
+        id: session.id,
         title: session.title,
         startTime: time(session.start_at),
         endTime: time(session.end_at),
@@ -64,6 +70,7 @@ module ScheduleHelper
     def speakers
       session.speakers.map do |speaker|
         {
+          id: speaker.id,
           name: speaker.name,
           avatarUrl: Attachment.url(speaker.photo, size: 350),
         }
@@ -80,6 +87,7 @@ module ScheduleHelper
 
     def as_json(_options = {})
       {
+        id: sponsor.id,
         url: sponsor.website_url,
         logoUrl: Attachment.url(sponsor.logo, height: 60)
       }
