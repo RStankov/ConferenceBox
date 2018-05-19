@@ -6,16 +6,6 @@ feature 'Conference' do
   context 'when normal conference' do
     let(:conference) { create :conference, domain: 'example.com' }
 
-    describe 'Subscribe' do
-      it 'is always displayed' do
-        create :event, conference: conference
-
-        visit root_path
-
-        expect(page).to have_content 'Записвания'
-      end
-    end
-
     describe 'Archive' do
       it 'isnt displayed when they arent other event of current conference' do
         create :event, conference: conference
