@@ -32,7 +32,6 @@ class Conference < ActiveRecord::Base
   validates :theme, presence: true, inclusion: { in: THEMES }
 
   has_many :events, dependent: :destroy
-  has_many :subscribers, dependent: :nullify
 
   after_save :ensure_only_one_main, if: :main?
 

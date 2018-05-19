@@ -109,6 +109,5 @@
       address = @event.after_party_venue_notes
 
 
-= render 'subscribers/form'
 = render 'feedbacks/form' if @event.show_feedback_form?
 = render 'shared/archive', events: @event.other_conference_events

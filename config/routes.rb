@@ -15,7 +15,6 @@ Rails.application.routes.draw do
     resources :sessions, only: %i(new create edit update destroy)
     resources :speakers
     resources :sponsors
-    resources :subscribers, only: %i(index create update destroy)
 
     resource :user, only: %i(edit update)
 
@@ -33,13 +32,10 @@ Rails.application.routes.draw do
     get '/backdoor/logout', to: 'backdoor#logout'
   end
 
-  resource :subscribers, only: %i(new create)
   resource :feedbacks, only: %i(new create)
 
   resources :speakers, only: [:show]
   resources :schedules, only: %i(index show)
-
-  get 'unsubscribe/:token', to: 'subscribers#destroy', as: :unsubscribe
 
   get 'archive/:year', to: 'events#show', as: :archive
   get 'archive/:year/photos', to: 'photos#index', as: :photos
