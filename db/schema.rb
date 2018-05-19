@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_21_211127) do
+ActiveRecord::Schema.define(version: 2018_05_19_080801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,14 +164,6 @@ ActiveRecord::Schema.define(version: 2018_02_21_211127) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "subscribers", id: :serial, force: :cascade do |t|
-    t.integer "conference_id"
-    t.string "email", limit: 255, null: false
-    t.boolean "active", default: true, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "first_name", limit: 255, null: false
     t.string "last_name", limit: 255, null: false
@@ -190,5 +182,4 @@ ActiveRecord::Schema.define(version: 2018_02_21_211127) do
   add_foreign_key "session_speakers", "sessions", name: "session_speakers_session_id_fk"
   add_foreign_key "session_speakers", "speakers", name: "session_speakers_speaker_id_fk"
   add_foreign_key "sessions", "events", name: "sessions_event_id_fk"
-  add_foreign_key "subscribers", "conferences", name: "subscribers_conference_id_fk"
 end
