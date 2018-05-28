@@ -1,0 +1,41 @@
+#gdpr-cookie-message {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+  max-width: 375px;
+  background-color: black;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.25);
+  font-family: system-ui;
+}
+#gdpr-cookie-message h4 {
+  color: #ea531c;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+}
+#gdpr-cookie-message p {
+  color: white;
+  font-size: 15px;
+  line-height: 1.5em;
+  margin: 0 0 10px 0;
+}
+
+#gdpr-cookie-message button {
+  border: none;
+  background: #ea531c;
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  padding: 7px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+#gdpr-cookie-message button:hover {
+  background: white;
+  color: #ea531c;
+  transition: all 0.1s ease-in;
+}
