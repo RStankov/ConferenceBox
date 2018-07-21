@@ -2,37 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><%= current_event.conference_name %></title>
+    <title><%= current_conference.name %></title>
 
     <%= stylesheet_link_tag 'plain' %>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <meta content="<%= current_event.copyright %>" name="copyright" />
-    <meta content="<%= current_event.conference_name %>" property="og:site_name" />
-    <meta content="<%= current_event.conference_name %>" property="og:title" />
+    <meta content="<%= current_conference.copyright %>" name="copyright" />
+    <meta content="<%= current_conference.name %>" property="og:site_name" />
+    <meta content="<%= current_conference.name %>" property="og:title" />
     <meta content="website" property="og:type" />
     <meta content="<%= root_url %>" property="og:url" />
 
-    <% if current_event.slogan? %>
+    <% if current_conference.slogan? %>
       <meta content="<%= current_conference.slogan %>" property="og:description" />
       <meta content="<%= current_conference.slogan %>" name="description" />
     <% end %>
 
-    <% if current_event.logo? %>
-      <link rel="shortcut icon" href="<%= url_for current_event.favicon %>" type="image/x-icon" />
-      <link rel="icon" href="<%= url_for current_event.favicon %>" type="image/x-icon" />
-    <% end %>
+    <% unless current_conference.main? %>
+      <% if current_event.logo? %>
+        <link rel="shortcut icon" href="<%= url_for current_event.favicon %>" type="image/x-icon" />
+        <link rel="icon" href="<%= url_for current_event.favicon %>" type="image/x-icon" />
+      <% end %>
 
-    <% if current_event.image_for_share? %>
-      <meta content="<%= rails_blob_url current_event.image_for_share %>" property="og:image" />
+      <% if current_event.image_for_share? %>
+        <meta content="<%= rails_blob_url current_event.image_for_share %>" property="og:image" />
+      <% end %>
     <% end %>
 
     <%= yield :meta_data %>
 
-    <% if Rails.env.production? && current_event.analytics_code? %>
-      <%= raw current_event.analytics_code %>
+    <% if Rails.env.production? && current_conference.analytics_code? %>
+      <%= raw current_conference.analytics_code %>
     <% end %>
   </head>
 
