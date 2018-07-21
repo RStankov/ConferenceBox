@@ -2,6 +2,16 @@
 
 input { text-indent: 1% !important; }
 
+.page {
+  margin: 20px auto;
+  text-align: center;
+  max-width: 600px;
+}
+
 .events {
   li { display: block; margin: 5px 0; }
+}
+
+footer {
+  font-size: 12px;
 }
