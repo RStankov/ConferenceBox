@@ -16,7 +16,7 @@ feature 'Conference' do
       end
 
       it 'is displayed when they arent at least two events current conference' do
-        2.times { create :event, conference: conference }
+        create_list :event, 2, conference: conference
 
         visit root_path
 

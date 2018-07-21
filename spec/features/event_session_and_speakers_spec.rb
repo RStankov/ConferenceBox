@@ -73,7 +73,7 @@ feature 'Event - session and speakers' do
 
       visit root_path
 
-      expect(page).to have_content "#{speaker1.name}#{speaker2.name}"
+      expect(page).to have_content "#{speaker1.name}\n#{speaker2.name}"
       expect(page).to have_content speaker1.name
       expect(page).to have_content speaker1.description
       expect(page).to have_content speaker2.name

@@ -25,7 +25,7 @@ feature 'Event - Photos' do
     end
 
     it 'displays link to gallery when more the 9 photos' do
-      10.times { create :photo, event: event }
+      create_list :photo, 10, event: event
 
       visit root_path
       click_on 'Виж всички снимки'
