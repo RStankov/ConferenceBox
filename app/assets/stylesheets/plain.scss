@@ -1,3 +1,7 @@
 //= require not_a_conf/bootstrap
 
 input { text-indent: 1% !important; }
+
+.events {
+  li { display: block; margin: 5px 0; }
+}

@@ -1,0 +1,13 @@
+<% events = Event.publicly_announced %>
+<% if events.count > 1 %>
+  <h3>Events organized by our team</h3>
+  <ul class="events">
+    <% events.each do |event| %>
+      <% with_event(event) do |event| %>
+        <li>
+          <%= link_to "#{event.conference.name} #{event.name}", conference_url(event.conference) + archive_path(event.name) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
