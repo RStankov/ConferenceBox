@@ -25,7 +25,7 @@
 #
 
 class Conference < ActiveRecord::Base
-  THEMES = %w(it_tour not_a_conf).freeze
+  THEMES = %w(it_tour not_a_conf plain).freeze
 
   validates :name, presence: true
   validates :domain, presence: true, uniqueness: true

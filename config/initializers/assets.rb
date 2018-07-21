@@ -18,4 +18,5 @@ Rails.application.config.assets.precompile += [
   'it_tour.js',
   'not_a_conf.css',
   'not_a_conf.js',
+  'plain.css',
 ]
