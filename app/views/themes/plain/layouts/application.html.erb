@@ -41,7 +41,7 @@
       <h1><%= current_conference.name %></h1>
       <h2><%= current_conference.slogan %></h2>
       <%= content_for?(:content) ? yield(:content) : yield %>
-      <footer>Copyright <%= current_event.copyright %>. All Rights Reserved.</footer>
+      <footer>Copyright <%= current_conference.copyright %>. All Rights Reserved.</footer>
     </main>
   </body>
 </html>

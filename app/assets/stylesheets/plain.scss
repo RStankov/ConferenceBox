@@ -9,7 +9,15 @@ input { text-indent: 1% !important; }
 }
 
 .events {
-  li { display: block; margin: 5px 0; }
+  li {
+    display: block; margin: 20px 0;
+  }
+
+  a {
+    border: 1px solid #eee;
+    padding: 5px 10px;
+    border-radius: 50px;
+  }
 }
 
 footer {
