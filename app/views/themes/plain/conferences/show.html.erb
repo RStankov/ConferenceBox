@@ -2,7 +2,7 @@
   <% Speaker.organizers.each do |speaker| %>
     <% with_speaker(speaker) do |speaker| %>
       <article class="speaker">
-        <%= attachment_image_tag speaker.photo, height: 100, class: 'speaker-photo' %>
+        <%= image_tag speaker.photo.service_url, class: 'speaker-photo' %>
         <h4>
           <%= speaker.name %>
         </h4>
@@ -22,7 +22,7 @@
     <% Event.publicly_announced.each do |event| %>
       <% with_event(event) do |event| %>
         <li>
-          <%= link_to attachment_image_tag(event.logo), conference_url(event.conference) + archive_path(event.name), class: 'event-logo' if event.logo.attached? %>
+          <%= link_to image_tag(event.logo.service_url), conference_url(event.conference) + archive_path(event.name), class: 'event-logo' if event.logo.attached? %>
           <%= link_to "#{event.conference.name} #{event.name}", conference_url(event.conference) + archive_path(event.name), class: 'event-link' %>
           <%= l event.date, format: :long %>
         </li>
