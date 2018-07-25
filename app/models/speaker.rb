@@ -1,22 +1,24 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: speakers
 #
-#  id               :integer          not null, primary key
-#  name             :string(255)      not null
-#  description      :text
-#  personal_site    :string(255)
-#  company          :string(255)
-#  company_site     :string(255)
-#  created_at       :datetime
-#  updated_at       :datetime
-#  twitter_account  :string(255)
-#  tshirt_size      :string(255)
-#  github_account   :string(255)
-#  facebook_account :string(255)
-#  dribbble_account :string(255)
-#  organizer        :boolean          default(FALSE), not null
+#  id                :integer          not null, primary key
+#  name              :string(255)      not null
+#  description       :text
+#  personal_site     :string(255)
+#  company           :string(255)
+#  company_site      :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  twitter_account   :string(255)
+#  tshirt_size       :string(255)
+#  github_account    :string(255)
+#  facebook_account  :string(255)
+#  dribbble_account  :string(255)
+#  organizer         :boolean          default(FALSE), not null
+#  instagram_account :string
 #
 
 class Speaker < ActiveRecord::Base

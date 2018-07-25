@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_24_132135) do
+ActiveRecord::Schema.define(version: 2018_07_25_084543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_132135) do
     t.string "facebook_account", limit: 255
     t.string "dribbble_account", limit: 255
     t.boolean "organizer", default: false, null: false
+    t.string "instagram_account"
   end
 
   create_table "sponsors", force: :cascade do |t|

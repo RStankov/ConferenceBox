@@ -41,18 +41,19 @@ class Admin::SpeakersController < Admin::BaseController
 
   def speaker_params
     params.require(:speaker).permit(
-      :name,
-      :description,
-      :personal_site,
       :company,
       :company_site,
-      :twitter_account,
-      :facebook_account,
+      :description,
       :dribbble_account,
+      :facebook_account,
       :github_account,
+      :instagram_account,
+      :name,
+      :organizer,
+      :personal_site,
       :photo,
       :tshirt_size,
-      :organizer
+      :twitter_account
     )
   end
 end
