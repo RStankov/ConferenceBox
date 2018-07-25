@@ -1,4 +1,5 @@
-//= require not_a_conf/bootstrap
+@import "not_a_conf/bootstrap";
+@import "plain/icons";
 
 input { text-indent: 1% !important; }
 
@@ -8,18 +9,55 @@ input { text-indent: 1% !important; }
   max-width: 600px;
 }
 
-.events {
-  li {
-    display: block; margin: 20px 0;
-  }
-
-  a {
-    border: 1px solid #eee;
-    padding: 5px 10px;
-    border-radius: 50px;
-  }
-}
 
 footer {
   font-size: 12px;
 }
+
+.speaker-photo {
+  height: 100px;
+  border-radius: 50%;
+}
+
+.speaker-list {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+.speaker {
+  padding: 10px 20px;
+}
+
+.events-list ul {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0px;
+}
+
+.events-list li {
+  padding: 10px 20px;
+}
+
+.event-logo {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.event-logo img {
+  height: 100px;
+  border-radius: 50%;
+}
+
+.event-link {
+  display: block;
+  font-size: 18px;
+}
+
+a.link-twitter { @include icon($fa-var-twitter-square); }
+a.link-site { @include icon($fa-var-external-link-square); }
+a.link-facebook { @include icon($fa-var-facebook-square); }
+a.link-github { @include icon($fa-var-github-square); }
+a.link-instagram { @include icon($fa-var-instagram); }

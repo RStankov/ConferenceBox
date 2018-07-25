@@ -24,6 +24,10 @@ module ApplicationHelper
     yield EventDecorator.decorate(event)
   end
 
+  def with_speaker(speaker)
+    yield SpeakerDecorator.decorate(speaker)
+  end
+
   def conference_url(conference)
     "http://#{conference.domain}"
   end

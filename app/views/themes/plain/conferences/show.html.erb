@@ -1,13 +1,32 @@
-<% events = Event.publicly_announced %>
-<% if events.count > 1 %>
-  <h3>Events organized by our team</h3>
-  <ul class="events">
-    <% events.each do |event| %>
+<div class="speaker-list">
+  <% Speaker.organizers.each do |speaker| %>
+    <% with_speaker(speaker) do |speaker| %>
+      <article class="speaker">
+        <%= image_tag speaker.photo.variant(resize: 200), class: 'speaker-photo' %>
+        <h4>
+          <%= speaker.name %>
+        </h4>
+        <div class="speaker-links">
+          <% speaker.social_links.each do |type, url| %>
+            <%= link_to '', url, class: "link-#{ type }", title: type.humanize, target: :blank %>
+          <% end %>
+        </div>
+      <% end %>
+      </article>
+    <% end %>
+</div>
+
+<div class="events-list">
+  <h3>Events organized by our team:</h3>
+  <ul>
+    <% Event.where(id: [10, 2]).publicly_announced.each do |event| %>
       <% with_event(event) do |event| %>
         <li>
-          <%= link_to "#{event.conference.name} #{event.name}", conference_url(event.conference) + archive_path(event.name) %>
+          <%= link_to image_tag(event.logo.variant(resize: '200')), conference_url(event.conference) + archive_path(event.name), class: 'event-logo' if event.logo.attached? %>
+          <%= link_to "#{event.conference.name} #{event.name}", conference_url(event.conference) + archive_path(event.name), class: 'event-link' %>
+          <%= l event.date, format: :long %>
         </li>
       <% end %>
     <% end %>
   </ul>
-<% end %>
+</div>

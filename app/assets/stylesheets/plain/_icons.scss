@@ -1,0 +1,19 @@
+@import "font-awesome/variables";
+@import "font-awesome/path";
+
+@mixin icon($text) {
+  text-decoration: none;
+
+  &:before {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color: #000000;
+    content: $text;
+    display: inline-block;
+    font-family: FontAwesome;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+  }
+}

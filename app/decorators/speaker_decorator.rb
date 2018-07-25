@@ -5,11 +5,12 @@ class SpeakerDecorator < Draper::Decorator
   delegate_all
 
   SOCIAL_LINKS = {
-    twitter_account:  ['twitter', 'http://twitter.com/%s'],
-    github_account:   ['github', 'http://github.com/%s'],
-    facebook_account: ['facebook', 'http://facebook.com/%s'],
-    company_site:     ['company', '%s'],
-    dribbble_account: ['dribbble', 'http://dribbble.com/%s'],
+    twitter_account:   ['twitter', 'https://twitter.com/%s'],
+    github_account:    ['github', 'https://github.com/%s'],
+    facebook_account:  ['facebook', 'https://facebook.com/%s'],
+    instagram_account: ['instagram', 'https://instagram.com/%s'],
+    dribbble_account:  ['dribbble', 'https://dribbble.com/%s'],
+    personal_site:     ['site', '%s'],
   }.freeze
 
   def social_links
