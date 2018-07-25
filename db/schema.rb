@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_19_080801) do
+ActiveRecord::Schema.define(version: 2018_07_24_132135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,11 @@ ActiveRecord::Schema.define(version: 2018_05_19_080801) do
   create_table "events_sponsors", id: false, force: :cascade do |t|
     t.bigint "event_id", null: false
     t.bigint "sponsor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id", "sponsor_id"], name: "index_events_sponsors_on_event_id_and_sponsor_id", unique: true
+    t.index ["event_id"], name: "index_events_sponsors_on_event_id"
+    t.index ["sponsor_id"], name: "index_events_sponsors_on_sponsor_id"
   end
 
   create_table "feedbacks", id: :serial, force: :cascade do |t|
@@ -150,6 +155,7 @@ ActiveRecord::Schema.define(version: 2018_05_19_080801) do
     t.string "github_account", limit: 255
     t.string "facebook_account", limit: 255
     t.string "dribbble_account", limit: 255
+    t.boolean "organizer", default: false, null: false
   end
 
   create_table "sponsors", force: :cascade do |t|
@@ -170,6 +176,8 @@ ActiveRecord::Schema.define(version: 2018_05_19_080801) do
   end
 
   add_foreign_key "events", "conferences", name: "events_conference_id_fk"
+  add_foreign_key "events_sponsors", "events"
+  add_foreign_key "events_sponsors", "sponsors"
   add_foreign_key "feedbacks", "events", name: "feedbacks_event_id_fk"
   add_foreign_key "photos", "events", name: "photos_event_id_fk"
   add_foreign_key "session_speakers", "sessions", name: "session_speakers_session_id_fk"

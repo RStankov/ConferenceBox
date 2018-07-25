@@ -52,6 +52,7 @@ class Admin::SpeakersController < Admin::BaseController
       :github_account,
       :photo,
       :tshirt_size,
+      :organizer
     )
   end
 end

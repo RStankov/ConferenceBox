@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: speakers
@@ -17,6 +16,7 @@
 #  github_account   :string(255)
 #  facebook_account :string(255)
 #  dribbble_account :string(255)
+#  organizer        :boolean          default(FALSE), not null
 #
 
 class Speaker < ActiveRecord::Base
@@ -26,6 +26,8 @@ class Speaker < ActiveRecord::Base
   validates :name, presence: true
 
   has_one_attached :photo
+
+  scope :organizers, -> { where(organizer: true) }
 
   default_scope -> { order 'name ASC' }
 

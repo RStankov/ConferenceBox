@@ -8,6 +8,7 @@
   <% table.column :name do |speaker| %>
     <%= link_to speaker.name, admin_speaker_path(speaker) %>
   <% end %>
+  <% table.boolean :organizer %>
   <% table.number :sessions_count %>
   <% table.column :tshirt_size, class: 'text-right', header_class: 'text-right' %>
   <% table.actions do |speaker| %>
