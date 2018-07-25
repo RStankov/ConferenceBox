@@ -6,7 +6,7 @@
     <%= form.input :theme, collection: Conference::THEMES.map { |theme| [theme.titleize, theme] }, prompt: false %>
     <%= form.input :contact_name %>
     <%= form.input :contact_email %>
-    <%= form.input :slogan %>
+    <%= form.input :slogan, as: :text %>
     <%= form.input :about %>
     <%= form.input :copyright %>
     <%= form.input :code_of_conduct_url %>
