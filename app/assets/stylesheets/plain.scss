@@ -21,24 +21,27 @@ footer {
 
 .speaker-list {
   display: flex;
-  flex-flow: row;
+  flex-flow: row wrap;
   justify-content: center;
 }
 
 .speaker {
+  flex: 1;
   padding: 10px 20px;
 }
 
 .events-list ul {
   display: flex;
-  flex-flow: row;
+  flex-flow: row wrap;
   justify-content: center;
   list-style-type: none;
   padding: 0px;
 }
 
 .events-list li {
+  flex: 1;
   padding: 10px 20px;
+  white-space: nowrap;
 }
 
 .event-logo {

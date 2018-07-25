@@ -5,18 +5,18 @@ class SpeakerDecorator < Draper::Decorator
   delegate_all
 
   SOCIAL_LINKS = {
-    twitter_account:   ['twitter', 'https://twitter.com/%s'],
-    github_account:    ['github', 'https://github.com/%s'],
-    facebook_account:  ['facebook', 'https://facebook.com/%s'],
-    instagram_account: ['instagram', 'https://instagram.com/%s'],
-    dribbble_account:  ['dribbble', 'https://dribbble.com/%s'],
-    personal_site:     ['site', '%s'],
+    twitter_account:   'twitter',
+    github_account:    'github',
+    facebook_account:  'facebook',
+    instagram_account: 'instagram',
+    dribbble_account:  'dribbble',
+    personal_site:     'site',
   }.freeze
 
   def social_links
-    SOCIAL_LINKS.map do |key, (type, mask)|
+    SOCIAL_LINKS.map do |key, type|
       link = object.public_send key
-      [type, mask % link] if link.present?
+      [type, link] if link.present?
     end.compact
   end
 

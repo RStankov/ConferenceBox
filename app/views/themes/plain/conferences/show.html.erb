@@ -19,7 +19,7 @@
 <div class="events-list">
   <h3>Events organized by our team:</h3>
   <ul>
-    <% Event.where(id: [10, 2]).publicly_announced.each do |event| %>
+    <% Event.publicly_announced.each do |event| %>
       <% with_event(event) do |event| %>
         <li>
           <%= link_to image_tag(event.logo.variant(resize: '200')), conference_url(event.conference) + archive_path(event.name), class: 'event-logo' if event.logo.attached? %>
