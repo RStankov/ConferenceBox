@@ -25,6 +25,12 @@ module TableHelper
     def number(name, &block)
       column name, class: 'number', header_class: 'number', &block
     end
+
+    def boolean(name, label: name)
+      column label, class: 'number', header_class: 'boolean' do |record|
+        record.public_send(name) ? '✅' : '❌'
+      end
+    end
   end
 
   class TableColumn
