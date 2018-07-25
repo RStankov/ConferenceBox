@@ -19,6 +19,7 @@
 #  dribbble_account  :string(255)
 #  organizer         :boolean          default(FALSE), not null
 #  instagram_account :string
+#  linkedin_account  :string
 #
 
 class Speaker < ActiveRecord::Base

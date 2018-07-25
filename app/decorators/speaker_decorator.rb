@@ -9,6 +9,7 @@ class SpeakerDecorator < Draper::Decorator
     github_account:    'github',
     facebook_account:  'facebook',
     instagram_account: 'instagram',
+    linkedin_account:  'linked-in',
     dribbble_account:  'dribbble',
     personal_site:     'site',
   }.freeze

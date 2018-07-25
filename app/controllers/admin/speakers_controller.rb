@@ -48,6 +48,7 @@ class Admin::SpeakersController < Admin::BaseController
       :facebook_account,
       :github_account,
       :instagram_account,
+      :linkedin_account,
       :name,
       :organizer,
       :personal_site,
