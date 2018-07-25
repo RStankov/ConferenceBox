@@ -30,6 +30,7 @@ footer {
   padding: 10px 20px;
 }
 
+
 .events-list ul {
   display: flex;
   flex-flow: row wrap;
@@ -51,12 +52,17 @@ footer {
 
 .event-logo img {
   height: 100px;
-  border-radius: 50%;
 }
 
 .event-link {
   display: block;
   font-size: 18px;
+}
+
+@media only screen and (max-device-width : 400px) {
+  .speaker-list, .events-list ul {
+    flex-flow: column;
+  }
 }
 
 a.link-twitter { @include icon($fa-var-twitter-square); }
