@@ -55,6 +55,7 @@ class Admin::ConferencesController < Admin::BaseController
       :copyright,
       :analytics_code,
       :code_of_conduct_url,
+      :subscribe_code,
     )
   end
 end

@@ -24,6 +24,8 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
     :contact_email?,
     :code_of_conduct_url,
     :code_of_conduct_url?,
+    :subscribe_code,
+    :subscribe_code?,
     :domain,
     to: :conference,
   )
@@ -119,6 +121,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
       ['speakers', speakers_announced?],
       ['after_party', after_party_announced?],
       ['sponsors', sponsors_announced?],
+      ['subscribe_form', subscribe_code?],
     ].select(&:second).map(&:first)
   end
 

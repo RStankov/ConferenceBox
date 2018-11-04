@@ -22,6 +22,7 @@
 #  copyright           :string
 #  analytics_code      :text
 #  code_of_conduct_url :string
+#  subscribe_code      :text
 #
 
 class Conference < ActiveRecord::Base

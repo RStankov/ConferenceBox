@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_100843) do
+ActiveRecord::Schema.define(version: 2018_11_04_143312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_07_25_100843) do
     t.string "copyright"
     t.text "analytics_code"
     t.string "code_of_conduct_url"
+    t.text "subscribe_code"
     t.index ["domain"], name: "index_conferences_on_domain"
     t.index ["main"], name: "index_conferences_on_main"
   end
