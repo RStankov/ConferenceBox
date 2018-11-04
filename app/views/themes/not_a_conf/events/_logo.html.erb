@@ -1,0 +1,21 @@
+<section id="banner">
+  <div class="banner-item">
+    <div class="container">
+      <div class="banner-content text-center">
+        <% if current_event.logo? %>
+          <div class="banner-logo">
+            <%= image_tag current_event.logo.variant(resize: '200') %>
+          </div>
+        <% end %>
+        <div>
+          <h1 class="banner-title"><%= current_event.conference_name %></h1>
+          <h2 class="banner-desc">
+            <span><%= current_event.town %></span>
+            <span><%= current_event.date.strftime('%Y') %> Edition</span>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -111,6 +111,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
 
   def sections
     [
+      ['logo', !dates_announced?],
       ['dates', dates_announced?],
       ['about', about?],
       ['venue', venue_announced?],
