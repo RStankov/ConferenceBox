@@ -157,6 +157,12 @@
                     <% if current_event.code_of_conduct_url? %>
                       <li><%= link_to 'Code of conduct', current_event.code_of_conduct_url, target: :blank %></li>
                     <% end %>
+                    <% if current_event.other_conference_events? %>
+                      <li>Previous events:</li>
+                      <% current_event.other_conference_events.each do |event| %>
+                        <li><%= link_to event.name, archive_path(event.name), target: :blank %></li>
+                      <% end %>
+                    <% end %>
                   </ul>
                 </div>
               </div>
