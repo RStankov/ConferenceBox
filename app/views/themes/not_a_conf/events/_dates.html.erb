@@ -7,7 +7,9 @@
             <%= image_tag current_event.logo.variant(resize: '200') %>
           </div>
         <% end %>
-        <div class="timer" data-countdown="<%= current_event.start_time_for_javascript %>"></div>
+        <% unless current_event.finished? %>
+          <div class="timer" data-countdown="<%= current_event.start_time_for_javascript %>"></div>
+        <% end %>
         <div>
           <h1 class="banner-title"><%= current_event.conference_name %></h1>
           <h2 class="banner-desc">
