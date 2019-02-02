@@ -80,6 +80,14 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
     other_conference_events.any?
   end
 
+  def last_year_event?
+    current? && last_year_event.present?
+  end
+
+  def last_year_event
+    @last_year_event ||= other_conference_events.second
+  end
+
   def sessions_by_track
     @sessions_by_track ||= sessions.by_track
   end

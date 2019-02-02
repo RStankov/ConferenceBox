@@ -79,6 +79,9 @@
                 <% if current_event.after_party_announced? %>
                   <li><a href="#ts-after-party">After party</a></li>
                 <% end %>
+                <% if current_event.last_year_event? %>
+                  <li><%= link_to "Last year (#{ current_event.last_year_event.name })", archive_path(current_event.last_year_event.name), target: :blank %></li>
+                <% end %>
               </ul>
             </nav>
           </div>
