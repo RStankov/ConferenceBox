@@ -1,22 +1,21 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: speakers
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)      not null
+#  name              :string           not null
 #  description       :text
-#  personal_site     :string(255)
-#  company           :string(255)
-#  company_site      :string(255)
+#  personal_site     :string
+#  company           :string
+#  company_site      :string
 #  created_at        :datetime
 #  updated_at        :datetime
-#  twitter_account   :string(255)
-#  tshirt_size       :string(255)
-#  github_account    :string(255)
-#  facebook_account  :string(255)
-#  dribbble_account  :string(255)
+#  twitter_account   :string
+#  tshirt_size       :string
+#  github_account    :string
+#  facebook_account  :string
+#  dribbble_account  :string
 #  organizer         :boolean          default(FALSE), not null
 #  instagram_account :string
 #  linkedin_account  :string

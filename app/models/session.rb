@@ -1,15 +1,14 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: sessions
 #
 #  id          :integer          not null, primary key
 #  event_id    :integer          not null
-#  start_at    :string(255)      not null
-#  title       :string(255)      not null
-#  slides_url  :string(255)
-#  video_url   :string(255)
+#  start_at    :string           not null
+#  title       :string           not null
+#  slides_url  :string
+#  video_url   :string
 #  created_at  :datetime
 #  updated_at  :datetime
 #  track       :integer          default(1), not null

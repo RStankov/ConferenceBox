@@ -1,16 +1,15 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  first_name      :string(255)      not null
-#  last_name       :string(255)      not null
-#  email           :string(255)      default(""), not null
-#  password_digest :string(255)      default(""), not null
-#  created_at      :datetime
-#  updated_at      :datetime
+#  first_name      :string           not null
+#  last_name       :string           not null
+#  email           :string           default(""), not null
+#  password_digest :string           default(""), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class User < ActiveRecord::Base

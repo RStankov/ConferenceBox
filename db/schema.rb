@@ -37,16 +37,16 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
   end
 
   create_table "conferences", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "contact_name", limit: 255
-    t.string "contact_email", limit: 255
+    t.string "name"
+    t.string "contact_name"
+    t.string "contact_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "facebook_account", limit: 255
-    t.string "twitter_account", limit: 255
-    t.string "youtube_account", limit: 255
-    t.string "domain", limit: 255
-    t.string "slogan", limit: 255
+    t.string "facebook_account"
+    t.string "twitter_account"
+    t.string "youtube_account"
+    t.string "domain"
+    t.string "slogan"
     t.boolean "main", default: false, null: false
     t.text "about"
     t.string "theme", default: "default", null: false
@@ -61,23 +61,23 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
 
   create_table "events", id: :serial, force: :cascade do |t|
     t.integer "conference_id"
-    t.string "name", limit: 255, null: false
+    t.string "name", null: false
     t.date "date", null: false
     t.boolean "publicly_announced", default: false, null: false
-    t.string "event_url", limit: 255
-    t.string "venue_name", limit: 255
-    t.string "venue_site_url", limit: 255
-    t.string "venue_address", limit: 255
-    t.string "venue_map_url", limit: 255
+    t.string "event_url"
+    t.string "venue_name"
+    t.string "venue_site_url"
+    t.string "venue_address"
+    t.string "venue_map_url"
     t.text "venue_notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "after_party_venue_name", limit: 255
-    t.string "after_party_venue_site_url", limit: 255
-    t.string "after_party_venue_address", limit: 255
-    t.string "after_party_venue_notes", limit: 255
+    t.string "after_party_venue_name"
+    t.string "after_party_venue_site_url"
+    t.string "after_party_venue_address"
+    t.string "after_party_venue_notes"
     t.text "after_party_venue_map_url"
-    t.string "town", limit: 255
+    t.string "town"
     t.text "notes"
     t.boolean "dates_announced", default: false
     t.boolean "venue_announced", default: false
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.text "streaming_code"
     t.boolean "show_streaming", default: false, null: false
     t.boolean "show_coverart", default: false, null: false
-    t.string "color", limit: 255
-    t.string "call_to_papers_url", limit: 255
+    t.string "color"
+    t.string "call_to_papers_url"
     t.text "venue_map_embedded_url"
     t.text "after_party_venue_map_embedded_url"
     t.string "tickets_url"
@@ -132,10 +132,10 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
 
   create_table "sessions", id: :serial, force: :cascade do |t|
     t.integer "event_id", null: false
-    t.string "start_at", limit: 255, null: false
-    t.string "title", limit: 255, null: false
-    t.string "slides_url", limit: 255
-    t.string "video_url", limit: 255
+    t.string "start_at", null: false
+    t.string "title", null: false
+    t.string "slides_url"
+    t.string "video_url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "track", default: 1, null: false
@@ -144,18 +144,18 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
   end
 
   create_table "speakers", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+    t.string "name", null: false
     t.text "description"
-    t.string "personal_site", limit: 255
-    t.string "company", limit: 255
-    t.string "company_site", limit: 255
+    t.string "personal_site"
+    t.string "company"
+    t.string "company_site"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "twitter_account", limit: 255
-    t.string "tshirt_size", limit: 255
-    t.string "github_account", limit: 255
-    t.string "facebook_account", limit: 255
-    t.string "dribbble_account", limit: 255
+    t.string "twitter_account"
+    t.string "tshirt_size"
+    t.string "github_account"
+    t.string "facebook_account"
+    t.string "dribbble_account"
     t.boolean "organizer", default: false, null: false
     t.string "instagram_account"
     t.string "linkedin_account"
@@ -169,21 +169,21 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "first_name", limit: 255, null: false
-    t.string "last_name", limit: 255, null: false
-    t.string "email", limit: 255, default: "", null: false
-    t.string "password_digest", limit: 255, default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "events", "conferences", name: "events_conference_id_fk"
+  add_foreign_key "events", "conferences"
   add_foreign_key "events_sponsors", "events"
   add_foreign_key "events_sponsors", "sponsors"
-  add_foreign_key "feedbacks", "events", name: "feedbacks_event_id_fk"
-  add_foreign_key "photos", "events", name: "photos_event_id_fk"
-  add_foreign_key "session_speakers", "sessions", name: "session_speakers_session_id_fk"
-  add_foreign_key "session_speakers", "speakers", name: "session_speakers_speaker_id_fk"
-  add_foreign_key "sessions", "events", name: "sessions_event_id_fk"
+  add_foreign_key "feedbacks", "events"
+  add_foreign_key "photos", "events"
+  add_foreign_key "session_speakers", "sessions"
+  add_foreign_key "session_speakers", "speakers"
+  add_foreign_key "sessions", "events"
 end
