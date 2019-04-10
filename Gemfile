@@ -6,11 +6,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.3.1'
 
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.3'
 
 gem 'aws-sdk-s3'
 gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.3', require: false
 gem 'bootstrap'
 gem 'coffee-rails', '~> 4.2'
 gem 'draper'
