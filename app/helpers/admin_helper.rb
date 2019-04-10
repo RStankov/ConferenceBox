@@ -60,7 +60,7 @@ module AdminHelper
       input_tag = input field_name, as: :file, label: false, wrapper_html: { style: 'display: block !important; margin: 0;' }
 
       html = label field_name, "#{options[:label] || field_name.to_s.humanize}:", class: 'control-label'
-      html << @template.content_tag(:div, "#{preview_tag}#{input_tag}".html_safe, class: 'form-control p-2')
+      html << @template.content_tag(:div, "#{preview_tag}#{input_tag}".html_safe, class: 'form-control p-2', style: 'height: 100%')
 
       @template.content_tag :div, html, class: 'form-group'
     end
