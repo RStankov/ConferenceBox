@@ -24,6 +24,7 @@ RSpec::Matchers.define :have_error_on do |field, *args|
 
   def matches_message?(actual, expected)
     return true if expected.nil?
+
     Array.wrap(actual).include? expected
   end
 end

@@ -17,6 +17,7 @@ module RenderMarkdown
 
   def to_html(text)
     return '' if text.blank?
+
     RENDERER.render text
   end
 end

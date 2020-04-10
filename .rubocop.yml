@@ -1,4 +1,6 @@
-require: rubocop-rspec
+require:
+  - rubocop-rspec
+  - rubocop-performance
 
 AllCops:
   TargetRubyVersion: 2.3
@@ -80,3 +82,7 @@ RSpec/ExampleLength:
 # Disables "Use describe instead of feature."
 Capybara/FeatureMethods:
   Enabled: false
+
+Layout/AlignHash:
+  Enabled: false
+

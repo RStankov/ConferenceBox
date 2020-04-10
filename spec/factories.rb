@@ -6,26 +6,26 @@ FactoryBot.define do
   sequence(:domain) { |n| "example-#{n}.org" }
 
   factory :conference do
-    name 'Conference name'
-    contact_name 'Contact person'
-    contact_email 'contact@example.org'
+    name { 'Conference name' }
+    contact_name { 'Contact person' }
+    contact_email { 'contact@example.org' }
     domain { generate :domain }
-    theme 'it_tour'
+    theme { 'it_tour' }
   end
 
   factory :event do
     conference
-    name 'year name'
+    name { 'year name' }
     date { Date.new(2013, 6, 20) }
-    publicly_announced true
-    current false
+    publicly_announced { true }
+    current { false }
 
     factory :future_event do
-      publicly_announced false
+      publicly_announced { false }
     end
 
     factory :current_event do
-      current true
+      current { true }
     end
 
     factory :finished_event do
@@ -35,25 +35,25 @@ FactoryBot.define do
 
   factory :session do
     event
-    title 'Session name'
+    title { 'Session name' }
     start_at { generate :session_start_at }
   end
 
   factory :user do
-    first_name             'Joe'
-    last_name              'Doe'
+    first_name             { 'Joe' }
+    last_name              { 'Doe' }
     email                  { generate :email }
-    password               '123456'
-    password_confirmation  '123456'
+    password               { '123456' }
+    password_confirmation  { '123456' }
   end
 
   factory :speaker do
-    name 'John Doe'
+    name { 'John Doe' }
   end
 
   factory :sponsor do
-    name 'Test Inc'
-    website_url 'http://example.com'
+    name { 'Test Inc' }
+    website_url { 'http://example.com' }
   end
 
   factory :subscriber do
@@ -63,7 +63,7 @@ FactoryBot.define do
 
   factory :feedback do
     event
-    comment 'I liked the event'
+    comment { 'I liked the event' }
   end
 
   factory :photo do

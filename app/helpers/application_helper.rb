@@ -11,6 +11,7 @@ module ApplicationHelper
 
   def new_line_to_break(text)
     return '' if text.blank?
+
     text = h(text)
     raw text.gsub(/[\r]*[\n]/, '<br>').strip
   end

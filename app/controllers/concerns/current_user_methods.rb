@@ -13,6 +13,7 @@ module CurrentUserMethods
 
   def require_user
     return unless current_user.blank?
+
     redirect_to sign_in_path
   end
 
