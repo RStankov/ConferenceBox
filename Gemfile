@@ -3,15 +3,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4.2'
 
 gem 'aws-sdk-s3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.3', require: false
-gem 'bootstrap'
+gem 'bootstrap', '>= 4.3.1'
 gem 'coffee-rails', '~> 4.2'
 gem 'draper'
 gem 'font-awesome-sass', '4.0.3.1'

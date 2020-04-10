@@ -42,7 +42,7 @@ describe Photo do
     end
 
     it 'is decreased when photo from event is removed' do
-      event  = create :event
+      event = create :event
 
       photo1 = create :photo, event: event, position: 1
       photo2 = create :photo, event: event, position: 2

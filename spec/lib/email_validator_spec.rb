@@ -2,19 +2,19 @@
 
 require 'spec_helper'
 
-describe EmailValidator do
-  EmailValidatorTestCase = Class.new do
-    include ActiveModel::Validations
+EmailValidatorTestCase = Class.new do
+  include ActiveModel::Validations
 
-    attr_reader :email
+  attr_reader :email
 
-    validates :email, email: true
+  validates :email, email: true
 
-    def initialize(email)
-      @email = email
-    end
+  def initialize(email)
+    @email = email
   end
+end
 
+describe EmailValidator do
   def new_model(email)
     EmailValidatorTestCase.new(email)
   end
