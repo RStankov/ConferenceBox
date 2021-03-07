@@ -6,7 +6,7 @@ feature 'Speaker' do
   create_dummy_conference_event
 
   it 'showing speaker page' do
-    speaker = create :speaker
+    speaker = create :speaker, description: 'description'
 
     visit speaker_path(speaker)
 
