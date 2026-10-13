@@ -19,6 +19,11 @@ class User < ActiveRecord::Base
 
   enum :role, { admin: 'admin', organizer: 'organizer', reviewer: 'reviewer' }, validate: true
 
+  with_options foreign_key: :reviewer_id, dependent: :destroy, inverse_of: :reviewer do
+    has_many :review_assignments, class_name: 'Cfp::ReviewAssignment'
+    has_many :reviews, class_name: 'Cfp::Review'
+  end
+
   validates :password_confirmation, presence: true, if: :password?
 
   validates :email, uniqueness: true, email: true
