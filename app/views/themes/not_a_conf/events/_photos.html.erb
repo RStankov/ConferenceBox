@@ -1,71 +1,30 @@
-<section id="ts-gallery" class="ts-gallery">
+<section id="photos" class="ts-gallery">
   <div class="container">
     <div class="row text-center">
       <span class="icon-wrap"><i class="fa fa-image"></i></span>
-      <h2 class="section-title">Events Gallery</h2>
-      <p class="section-sub-title">Be a part of this great event</p>
+      <h2 class="section-title">Gallery</h2>
+      <p class="section-sub-title">Moments from <%= current_event.full_name %></p>
     </div>
 
     <div class="row">
       <div id="gallery">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="gallery-container">
-            <a class="gallery-popup" href="images/gallery/gallery1.jpg">
-              <img class="img-responsive" src="images/gallery/gallery1.jpg" alt="">
-              <span class="gallery-icon"><i class="fa fa-search"></i></span>
-            </a>
+        <% current_event.photos.ordered.limit(6).each do |photo| %>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="gallery-container">
+              <%= link_to url_for(photo.asset), class: 'gallery-popup' do %>
+                <%= image_tag photo.asset.variant(resize: '600'), class: 'img-responsive', alt: '' %>
+                <span class="gallery-icon"><i class="fa fa-search"></i></span>
+              <% end %>
+            </div>
           </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="gallery-container">
-            <a class="gallery-popup" href="images/gallery/gallery2.jpg">
-              <img class="img-responsive" src="images/gallery/gallery2.jpg" alt="">
-              <span class="gallery-icon"><i class="fa fa-search"></i></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="gallery-container">
-            <a class="gallery-popup" href="images/gallery/gallery3.jpg">
-              <img class="img-responsive" src="images/gallery/gallery3.jpg" alt="">
-              <span class="gallery-icon"><i class="fa fa-search"></i></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="gallery-container">
-            <a class="gallery-popup" href="images/gallery/gallery4.jpg">
-              <img class="img-responsive" src="images/gallery/gallery4.jpg" alt="">
-              <span class="gallery-icon"><i class="fa fa-search"></i></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="gallery-container">
-            <a class="gallery-popup" href="images/gallery/gallery5.jpg">
-              <img class="img-responsive" src="images/gallery/gallery5.jpg" alt="">
-              <span class="gallery-icon"><i class="fa fa-search"></i></span>
-            </a>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="gallery-container">
-            <a class="gallery-popup" href="images/gallery/gallery6.jpg">
-              <img class="img-responsive" src="images/gallery/gallery6.jpg" alt="">
-              <span class="gallery-icon"><i class="fa fa-search"></i></span>
-            </a>
-          </div>
-        </div>
-
+        <% end %>
       </div>
-
     </div>
 
+    <% if current_event.photos.count > 6 %>
+      <div class="row text-center">
+        <%= link_to 'See all photos', photos_path(current_event.name), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
 </section>
-

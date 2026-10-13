@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <%= tag.attributes theme_root_attributes(current_event) %>>
   <head>
     <meta charset="utf-8">
     <title><%= current_event.conference_name %></title>
@@ -56,34 +56,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <nav class="collapse navbar-collapse navbar-responsive-collapse pull-right">
-              <ul class="nav navbar-nav">
-                <% if current_event.dates_announced? %>
-                  <li><a href="#ts-dates">When</a></li>
-                <% end %>
-                <% if current_event.venue_announced? %>
-                  <li><a href="#ts-venue">Where</a></li>
-                <% end %>
-                <% if current_event.sessions_announced? %>
-                  <li><a href="#ts-schedule">Schedule</a></li>
-                <% end %>
-                <% if current_event.speakers_announced? %>
-                  <li><a href="#ts-speakers">Speakers</a></li>
-                <% end %>
-                <% if current_event.show_photo_gallery? %>
-                  <li><a href="#photos">Photos</a></li>
-                <% end %>
-                <% if current_event.sponsors_announced? %>
-                  <li><a href="#ts-partners">Partners</a></li>
-                <% end %>
-                <% if current_event.after_party_announced? %>
-                  <li><a href="#ts-after-party">After party</a></li>
-                <% end %>
-                <% if current_event.last_year_event? %>
-                  <li><%= link_to "Last year (#{ current_event.last_year_event.name })", archive_path(current_event.last_year_event.name), target: :blank %></li>
-                <% end %>
-              </ul>
-            </nav>
+            <%= render 'shared/nav' %>
           </div>
         </div>
       </div>
@@ -96,43 +69,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="footer-social">
-                  <ul>
-                    <% if current_event.facebook_account? %>
-                      <li>
-                        <%= link_to "https://www.facebook.com/#{current_conference.facebook_account}", title: 'Facebook', target: :blank do %>
-                          <i class="fa fa-facebook"></i>
-                        <% end %>
-                      </li>
-                    <% end %>
-                    <% if current_event.twitter_account? %>
-                      <li>
-                        <%= link_to "https://twitter.com/#{current_conference.twitter_account}", title: 'Twitter', target: :blank do %>
-                          <i class="fa fa-twitter"></i>
-                        <% end %>
-                      </li>
-                    <% end %>
-                    <% if current_event.instagram_account? %>
-                      <li>
-                        <%= link_to "https://instagram.com/#{current_conference.instagram_account}", title: 'Instagram', target: :blank do %>
-                          <i class="fa fa-instagram"></i>
-                        <% end %>
-                      </li>
-                    <% end %>
-                    <% if current_event.youtube_account? %>
-                      <li>
-                        <%= link_to "https://youtube.com/#{current_conference.youtube_account}", title: 'YouTube', target: :blank do %>
-                          <i class="fa fa-youtube"></i>
-                        <% end %>
-                      </li>
-                    <% end %>
-                    <% if current_event.contact_email? %>
-                      <li>
-                        <%= link_to "mailto: #{ current_event.contact_email }", title: 'Contact via email', target: :blank do %>
-                          <i class="fa fa-envelope"></i>
-                        <% end %>
-                      </li>
-                    <% end %>
-                  </ul>
+                  <%= render 'shared/social_links', links: conference_social_links(current_conference) %>
                 </div>
                 <div class="copyright-info">
                   <span>Copyright <%= current_event.copyright %>. All Rights Reserved.</span>
