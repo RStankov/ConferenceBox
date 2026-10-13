@@ -45,6 +45,7 @@ class Admin::SpeakersController < Admin::BaseController
       :company_site,
       :description,
       :dribbble_account,
+      :email,
       :facebook_account,
       :github_account,
       :instagram_account,
