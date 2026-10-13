@@ -22,6 +22,7 @@ class Session < ActiveRecord::Base
 
   has_many :session_speakers, dependent: :destroy
   has_many :speakers, through: :session_speakers
+  has_one :cfp_proposal, class_name: 'Cfp::Proposal', dependent: :nullify
 
   validates :title, presence: true
   validates :track, numericality: { only_integer: true, allow_nil: false }
