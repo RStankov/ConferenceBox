@@ -1,0 +1,33 @@
+<% title 'Decision emails' %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.full_name, admin_event_path(@event)], ['Proposals', admin_event_cfp_proposals_path(@event)] %>
+
+<div class="row" data-test="decision-emails">
+  <div class="col-md-6">
+    <%= admin_form_for @form, as: :decision_email, url: admin_event_cfp_decision_emails_path(@event) do |form| %>
+      <%= form.error_notification %>
+      <%= form.input :status, collection: Cfp::DecisionEmailForm::TEMPLATES.keys.map { [_1.humanize, _1] }, include_blank: false, hint: 'Pick a status to load its default template' %>
+      <%= form.input :subject %>
+      <%= form.input :body, as: :text, input_html: { rows: 14 }, hint: "Placeholders: #{Cfp::DecisionEmailForm::PLACEHOLDERS.map { "{{#{_1}}}" }.join(', ')}" %>
+      <%= form.button :submit, 'Preview', name: 'preview', class: 'btn btn-light' %>
+      <%= form.button :submit, "Send to #{pluralize @recipients.size, 'speaker'}", class: 'btn btn-primary', data: { confirm: 'Send these emails now?' }, disabled: @recipients.empty? %>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Preview</div>
+      <div class="card-body" data-test="decision-email-preview">
+        <% if @preview %>
+          <p class="text-muted small">
+            Shown for "<%= @preview.title %>". <%= pluralize @recipients.size, 'proposal' %> with status <%= @form.status.humanize.downcase %> still need an email.
+          </p>
+          <p><strong><%= @form.render_subject @preview %></strong></p>
+          <pre class="mb-0" style="white-space: pre-wrap"><%= @form.render_body @preview %></pre>
+        <% else %>
+          <p class="text-muted mb-0">No proposals with status <%= @form.status.humanize.downcase %> are waiting for an email.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

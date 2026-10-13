@@ -1,0 +1,20 @@
+<div class="card mb-3" data-test="proposal-comments">
+  <div class="card-header">Internal discussion</div>
+  <div class="card-body">
+    <% if comments.empty? %>
+      <p class="text-muted">No comments yet. Only the team sees this thread.</p>
+    <% end %>
+    <% comments.each do |comment| %>
+      <div class="mb-3">
+        <strong><%= comment.user.full_name %></strong>
+        <small class="text-muted"><%= l comment.created_at, format: :short %></small>
+        <div><%= new_line_to_break comment.body %></div>
+      </div>
+    <% end %>
+
+    <%= admin_form_for comment, as: :comment, url: admin_cfp_proposal_comments_path(proposal) do |form| %>
+      <%= form.input :body, label: false, placeholder: 'Add a note for the team', input_html: { rows: 2 } %>
+      <%= form.button :submit, 'Comment' %>
+    <% end %>
+  </div>
+</div>

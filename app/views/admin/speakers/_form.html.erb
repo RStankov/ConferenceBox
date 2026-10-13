@@ -2,6 +2,7 @@
   <%= form.error_notification %>
   <%= form.field_set do %>
     <%= form.input :name %>
+    <%= form.input :email, hint: 'Used to match accepted call for papers proposals to this speaker' %>
     <%= form.input :description %>
     <%= form.input :tshirt_size %>
     <%= form.image_input :photo %>

@@ -25,9 +25,6 @@
     <div class="card-body">
       <div>Town: <%= @event.town %></div>
       <div>Date: <%= l @event.date, format: :long %></div>
-      <% if @event.call_to_papers_url? %>
-        <div>Call to papers: <%= link_to 'link', @event.call_to_papers_url %></div>
-      <% end %>
       <% if @event.event_url? %>
         <div>Event url: <%= link_to 'link', @event.event_url %></div>
       <% end %>
@@ -60,8 +57,24 @@
             <div>Tracks: <%= window.track_list.join(', ') %></div>
           <% end %>
         <% end %>
+        <% status_counts = @event.cfp_proposals.submitted.group(:status).count %>
+        <div class="mt-2">
+          <% if status_counts.empty? %>
+            No proposals yet
+          <% else %>
+            <% status_counts.sort.each do |status, count| %>
+              <%= badge "#{status.humanize}: #{count}", type: :secondary %>
+            <% end %>
+          <% end %>
+        </div>
         <div class="mt-3">
+          <%= action_link 'Proposals', admin_event_cfp_proposals_path(@event) %>
           <%= edit_action edit_admin_event_cfp_window_path(@event) %>
+        </div>
+      <% elsif @event.call_to_papers_url? %>
+        <div>External call for papers: <%= link_to @event.call_to_papers_url, @event.call_to_papers_url, target: :blank %></div>
+        <div class="mt-3">
+          <%= action_link 'Run call for papers here instead', new_admin_event_cfp_window_path(@event) %>
         </div>
       <% else %>
         <%= action_link 'Open call for papers', new_admin_event_cfp_window_path(@event) %>

@@ -1,5 +1,12 @@
 <% breadcrumbs ['Conferences', admin_conferences_path], [@session.event.conference.name, admin_conference_path(@session.event.conference)], [@session.event.name, admin_event_path(@session.event)] %>
 
+<% if @session.cfp_proposal %>
+  <div class="alert alert-info">
+    Created from proposal <%= link_to @session.cfp_proposal.title, admin_event_cfp_proposal_path(@session.event, @session.cfp_proposal) %>.
+    The time slot is a placeholder, adjust it to fit the schedule.
+  </div>
+<% end %>
+
 <%= admin_form_for [:admin, @session] do |form| %>
   <%= form.error_notification %>
   <%= form.hidden_field :event_id if @session.new_record? %>

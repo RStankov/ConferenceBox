@@ -44,7 +44,7 @@
     h1 Програма
     section
       p Ако искате да сте лектор на събитието, изпратете ни предложението си за презентация и ще се свържем с вас.
-      .link = link_to 'Предложи лекция', @event.call_to_papers_url
+      .link = link_to 'Предложи лекция', @event.call_to_papers_path
 
 - if @event.sessions_announced?
   article#schedule

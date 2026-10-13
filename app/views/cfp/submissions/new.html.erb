@@ -1,0 +1,18 @@
+<article id="cfp-submission" data-test="cfp-speaker-step">
+  <%= render 'cfp/flash' %>
+  <h1>Submit a proposal</h1>
+
+  <%= render 'steps', current_step: 1 %>
+
+  <h2>About you</h2>
+
+  <%= simple_form_for @form, as: :speaker, url: cfp_submissions_path do |form| %>
+    <%= form.error_notification %>
+    <%= form.input :name %>
+    <%= form.input :email, hint: 'We will send a private link to this address so you can edit your proposal later' %>
+    <%= form.input :company %>
+    <%= form.input :bio, as: :text, input_html: { rows: 5 }, hint: 'A short bio we can use in the program' %>
+    <%= form.input :links, as: :text, input_html: { rows: 3 }, hint: 'Personal site, GitHub, previous talks. One per line' %>
+    <%= form.button :submit, 'Continue to the proposal' %>
+  <% end %>
+</article>
