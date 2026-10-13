@@ -1,0 +1,18 @@
+<% title 'Team', @users.size %>
+
+<p class="text-muted">
+  Admins manage everything, organizers run events and the call for papers, reviewers only see their review queue.
+</p>
+
+<%= table_for @users do |table| %>
+  <% table.column :name do |user| %>
+    <%= user.full_name %>
+  <% end %>
+  <% table.column :email %>
+  <% table.column :role do |user| %>
+    <%= badge user.role.humanize, type: user.admin? ? :primary : :secondary %>
+  <% end %>
+  <% table.actions do |user| %>
+    <%= edit_action edit_admin_team_member_path(user) unless user == current_user %>
+  <% end %>
+<% end %>
