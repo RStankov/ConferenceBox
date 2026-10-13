@@ -34,53 +34,7 @@
     </div>
   </div>
 
-  <div class="card mb-3" data-test="event-cfp">
-    <div class="card-header">
-      Call for papers
-      <div class="float-right">
-        <% if @event.cfp_window %>
-          <% with_cfp_window @event.cfp_window do |window| %>
-            <%= badge window.status_label, type: window.status_badge_type %>
-          <% end %>
-        <% else %>
-          <%= badge 'not configured', type: :secondary %>
-        <% end %>
-      </div>
-    </div>
-    <div class="card-body">
-      <% if @event.cfp_window %>
-        <% with_cfp_window @event.cfp_window do |window| %>
-          <div><%= window.deadline_sentence %></div>
-          <div>Max submissions per speaker: <%= window.max_submissions_per_speaker %></div>
-          <div>Blind review: <%= window.blind_review? ? 'yes' : 'no' %></div>
-          <% if window.track_list.any? %>
-            <div>Tracks: <%= window.track_list.join(', ') %></div>
-          <% end %>
-        <% end %>
-        <% status_counts = @event.cfp_proposals.submitted.group(:status).count %>
-        <div class="mt-2">
-          <% if status_counts.empty? %>
-            No proposals yet
-          <% else %>
-            <% status_counts.sort.each do |status, count| %>
-              <%= badge "#{status.humanize}: #{count}", type: :secondary %>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="mt-3">
-          <%= action_link 'Proposals', admin_event_cfp_proposals_path(@event) %>
-          <%= edit_action edit_admin_event_cfp_window_path(@event) %>
-        </div>
-      <% elsif @event.call_to_papers_url? %>
-        <div>External call for papers: <%= link_to @event.call_to_papers_url, @event.call_to_papers_url, target: :blank %></div>
-        <div class="mt-3">
-          <%= action_link 'Run call for papers here instead', new_admin_event_cfp_window_path(@event) %>
-        </div>
-      <% else %>
-        <%= action_link 'Open call for papers', new_admin_event_cfp_window_path(@event) %>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'admin/events/cfp', event: @event %>
 
   <% if @event.venue_name? %>
     <div class="card mb-3">
@@ -138,7 +92,7 @@
     </div>
     <div class="card-body">
       <%= action_link 'New session', new_admin_session_path(event_id: @event.id) %>
-      <% sessions_by_track = @event.sessions.includes(:speakers).by_track %>
+      <% sessions_by_track = @event.sessions.includes(:speakers, :cfp_proposal).by_track %>
       <% if sessions_by_track.size > 0 %>
         <% sessions_by_track.each do |track, sessions| %>
           <div class="mt-3">
@@ -149,7 +103,12 @@
               <% table.column :time do |session| %>
                 <%= [session.start_at, session.end_at].reject(&:blank?).join(' - ') %>
               <% end %>
-              <% table.column :title %>
+              <% table.column :title do |session| %>
+                <%= session.title %>
+                <% if session.cfp_proposal %>
+                  <%= link_to badge('from proposal', type: :info), admin_event_cfp_proposal_path(@event, session.cfp_proposal) %>
+                <% end %>
+              <% end %>
               <% table.column :speaker do |session| %>
                 <% session.speakers.each do |speaker| %>
                   <%= link_to(speaker.name, admin_speaker_path(speaker)) %><br />

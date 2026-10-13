@@ -29,10 +29,6 @@ module ApplicationHelper
     yield SpeakerDecorator.decorate(speaker)
   end
 
-  def with_cfp_window(window)
-    yield Cfp::WindowDecorator.decorate(window)
-  end
-
   def conference_url(conference)
     "http://#{conference.domain}"
   end
