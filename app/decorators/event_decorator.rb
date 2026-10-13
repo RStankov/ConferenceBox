@@ -112,7 +112,17 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   end
 
   def show_call_to_papers?
-    call_to_papers_url? && !sessions_announced?
+    return false if sessions_announced?
+
+    cfp_open? || call_to_papers_url?
+  end
+
+  def cfp_open?
+    cfp_window.present? && cfp_window.open?
+  end
+
+  def call_to_papers_path
+    cfp_open? ? h.cfp_path : call_to_papers_url
   end
 
   def after_party_venue_map?
