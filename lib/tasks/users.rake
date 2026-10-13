@@ -5,6 +5,7 @@ task create_user: :environment do
   last_name  = ENV['last_name'].dup
   email      = ENV['email'].dup
   password   = ENV['password'].dup
+  role       = ENV.fetch('role', 'admin')
 
   User.create!(
     first_name: first_name,
@@ -12,5 +13,6 @@ task create_user: :environment do
     email: email,
     password: password,
     password_confirmation: password,
+    role: role,
   )
 end
