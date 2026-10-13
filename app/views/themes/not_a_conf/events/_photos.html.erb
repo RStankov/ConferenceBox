@@ -11,7 +11,7 @@
         <% current_event.photos.ordered.limit(6).each do |photo| %>
           <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="gallery-container">
-              <%= link_to url_for(photo.asset), class: 'gallery-popup' do %>
+              <%= link_to url_for(photo.asset), class: 'gallery-popup', data: { src: url_for(photo.asset) } do %>
                 <%= image_tag photo.asset.variant(resize: '600'), class: 'img-responsive', alt: '' %>
                 <span class="gallery-icon"><i class="fa fa-search"></i></span>
               <% end %>

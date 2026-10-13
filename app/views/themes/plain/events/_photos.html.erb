@@ -2,7 +2,7 @@
   <h3>Photos</h3>
   <div class="photo-grid">
     <% current_event.photos.ordered.limit(6).each do |photo| %>
-      <%= link_to image_tag(photo.asset.variant(resize: '600')), url_for(photo.asset), target: :blank %>
+      <%= link_to image_tag(photo.asset.variant(resize: '600')), url_for(photo.asset), data: { src: url_for(photo.asset) } %>
     <% end %>
   </div>
 </section>

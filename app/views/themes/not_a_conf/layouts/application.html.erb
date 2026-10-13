@@ -107,8 +107,8 @@
                 </div>
               </div>
             </div>
-            <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top affix">
-              <button class="btn btn-primary" title="Back to Top">
+            <div id="back-to-top" class="back-to-top affix" data-back-to-top hidden>
+              <button type="button" class="btn btn-primary" title="Back to Top">
                 <i class="fa fa-angle-double-up"></i>
               </button>
             </div>
@@ -120,6 +120,6 @@
       </footer>
     </div>
 
-    <%= javascript_include_tag 'not_a_conf' %>
+    <%= javascript_include_tag 'not_a_conf', defer: true %>
   </body>
 </html>

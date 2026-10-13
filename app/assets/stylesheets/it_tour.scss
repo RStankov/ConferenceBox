@@ -4,7 +4,8 @@
 @import "shared/components";
 @import "it_tour/variables";
 @import "it_tour/mixins";
-@import "it_tour/lightbox";
+@import "shared/lightbox";
+@import "shared/cookie_notice";
 @import "it_tour/reset";
 
 body {

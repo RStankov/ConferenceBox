@@ -4,7 +4,8 @@
 //= require not_a_conf/font-awesome
 //= require not_a_conf/animate
 //= require not_a_conf/colorbox
-//= require not_a_conf/cookies_notice
 
 @import "shared/tokens";
 @import "shared/components";
+@import "shared/lightbox";
+@import "shared/cookie_notice";
