@@ -956,6 +956,11 @@ ul.navbar-nav > li.header-ticket:hover > a:after {
     display: inline-block;
   }
 
+  .btn.cfp {
+    background: transparent;
+    border: 2px solid #fff;
+  }
+
   .btn + .btn {
     margin-left: 20px;
   }
@@ -3393,4 +3398,13 @@ label {
 
 .form-control {
   background: #ffffff;
+}
+
+/* Call for papers */
+.ts-call-for-papers {
+  padding: 80px 0;
+
+  .btn {
+    margin-top: 20px;
+  }
 }

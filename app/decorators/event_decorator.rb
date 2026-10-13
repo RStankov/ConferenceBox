@@ -97,7 +97,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   end
 
   def multi_track?
-    @sessions_by_track.count > 1
+    sessions_by_track.count > 1
   end
 
   def other_conference_events
@@ -136,6 +136,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
       ['about', about?],
       ['venue', venue_announced?],
       ['schedule', sessions_announced?],
+      ['call_for_papers', show_call_to_papers?],
       ['speakers', speakers_announced?],
       ['after_party', after_party_announced?],
       ['sponsors', sponsors_announced?],

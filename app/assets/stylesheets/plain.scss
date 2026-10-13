@@ -9,7 +9,6 @@ input { text-indent: 1% !important; }
   max-width: 600px;
 }
 
-
 footer {
   font-size: 12px;
 }
@@ -29,7 +28,6 @@ footer {
   flex: 1;
   padding: 10px 20px;
 }
-
 
 .events-list ul {
   display: flex;
@@ -71,3 +69,33 @@ a.link-facebook { @include icon($fa-var-facebook-square); }
 a.link-github { @include icon($fa-var-github-square); }
 a.link-instagram { @include icon($fa-var-instagram); }
 a.link-linked-in { @include icon($fa-var-linkedin-square); }
+
+.cfp-teaser {
+  margin: 30px 0;
+}
+
+.cfp-steps {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style-type: none;
+  padding: 0;
+  color: #999;
+
+  .current { color: #333; font-weight: bold; }
+  .done { color: #28a745; }
+}
+
+.cfp-flash {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.cfp-flash-alert { background: #f8d7da; }
+.cfp-flash-notice { background: #d4edda; }
+
+.cfp-summary {
+  text-align: left;
+
+  dt { font-weight: bold; margin-top: 10px; }
+}
