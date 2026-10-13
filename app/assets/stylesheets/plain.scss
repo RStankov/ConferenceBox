@@ -1,48 +1,93 @@
 @import "not_a_conf/bootstrap";
+@import "shared/tokens";
+@import "shared/components";
 @import "plain/icons";
+
+body {
+  font-family: var(--cb-font-body);
+  color: var(--cb-ink);
+  background: var(--cb-surface-alt);
+}
 
 input { text-indent: 1% !important; }
 
-.page {
-  margin: 20px auto;
-  text-align: center;
-  max-width: 600px;
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--cb-surface);
+  border-bottom: 1px solid var(--cb-line);
+  border-top: 4px solid var(--cb-accent);
+
+  .container { display: flex; align-items: center; justify-content: space-between; min-height: 60px; }
+  .brand { font-family: var(--cb-font-display); font-weight: 700; font-size: 20px; color: var(--cb-ink); text-decoration: none; }
+  ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  a { padding: 8px 12px; border-radius: var(--cb-radius-pill); color: var(--cb-ink-muted); text-decoration: none; }
+  a:hover, a:focus { background: var(--cb-surface-alt); color: var(--cb-accent); }
 }
 
+.page {
+  margin: 0 auto;
+  text-align: center;
+  max-width: 820px;
+  padding: var(--cb-space-5) var(--cb-space-3);
+
+  > h1 { font-family: var(--cb-font-display); font-size: 48px; letter-spacing: -0.02em; margin: 0; }
+  > h2 { color: var(--cb-ink-muted); font-weight: 400; font-size: 20px; margin: var(--cb-space-2) 0 var(--cb-space-5); }
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--cb-accent), #0b1f1d);
+  color: #fff;
+  padding: var(--cb-space-6) var(--cb-space-3);
+  text-align: center;
+
+  h1 { font-family: var(--cb-font-display); font-size: 56px; margin: 0; }
+  p { opacity: 0.85; font-size: 18px; margin: var(--cb-space-3) 0 0; }
+  img { max-height: 120px; margin-bottom: var(--cb-space-3); }
+  .cb-button { margin-top: var(--cb-space-4); background: #fff; color: var(--cb-accent); border-color: #fff; }
+}
+
+.section {
+  margin: var(--cb-space-6) 0;
+
+  h3 { font-family: var(--cb-font-display); font-size: 28px; margin-bottom: var(--cb-space-4); }
+}
 
 footer {
   font-size: 12px;
+  color: var(--cb-ink-muted);
+  padding: var(--cb-space-5) 0;
 }
 
 .speaker-photo {
   height: 100px;
+  width: 100px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
 .speaker-list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  display: grid;
+  gap: var(--cb-space-3);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
 .speaker {
-  flex: 1;
-  padding: 10px 20px;
+  @extend .cb-card;
+  padding: var(--cb-space-3);
 }
 
-
 .events-list ul {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  display: grid;
+  gap: var(--cb-space-3);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   list-style-type: none;
   padding: 0px;
 }
 
 .events-list li {
-  flex: 1;
-  padding: 10px 20px;
-  white-space: nowrap;
+  @extend .cb-card;
 }
 
 .event-logo {
@@ -51,18 +96,57 @@ footer {
 }
 
 .event-logo img {
-  height: 100px;
+  height: 80px;
 }
 
 .event-link {
   display: block;
   font-size: 18px;
+  font-weight: 600;
 }
 
-@media only screen and (max-device-width : 400px) {
-  .speaker-list, .events-list ul {
-    flex-flow: column;
-  }
+.schedule {
+  text-align: left;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--cb-space-2);
+
+  li { @extend .cb-card; display: grid; grid-template-columns: 90px 1fr; gap: var(--cb-space-3); padding: var(--cb-space-3); }
+  time { font-weight: 700; color: var(--cb-accent); }
+  .speakers { color: var(--cb-ink-muted); font-size: 14px; }
+}
+
+.sponsor-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cb-space-4);
+  justify-content: center;
+  align-items: center;
+
+  img { height: 50px; filter: grayscale(1); opacity: 0.7; }
+  a:hover img { filter: none; opacity: 1; }
+}
+
+.photo-grid {
+  display: grid;
+  gap: var(--cb-space-2);
+  grid-template-columns: repeat(3, 1fr);
+
+  img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--cb-radius); }
+}
+
+.map {
+  border-radius: var(--cb-radius);
+  overflow: hidden;
+  margin-top: var(--cb-space-3);
+}
+
+@media only screen and (max-width: 500px) {
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  .schedule li { grid-template-columns: 1fr; }
+  .page > h1 { font-size: 34px; }
+  .hero h1 { font-size: 36px; }
 }
 
 a.link-twitter { @include icon($fa-var-twitter-square); }

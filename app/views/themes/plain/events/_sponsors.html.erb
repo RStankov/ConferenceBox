@@ -1,0 +1,10 @@
+<section id="sponsors" class="section">
+  <h3>Sponsors</h3>
+  <div class="sponsor-list">
+    <% current_event.sponsors_by_random.each do |sponsor| %>
+      <%= link_to sponsor.website_url, target: :blank, title: sponsor.name do %>
+        <%= attachment_image_tag sponsor.logo, height: 50, alt: sponsor.name %>
+      <% end %>
+    <% end %>
+  </div>
+</section>
