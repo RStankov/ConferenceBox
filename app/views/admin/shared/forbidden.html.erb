@@ -1,0 +1,6 @@
+<% title 'Access denied' %>
+
+<div class="alert alert-warning" role="alert" data-test="forbidden">
+  Your account (<%= current_user.role.humanize.downcase %>) does not have access to this page.
+  Ask an admin if you think this is a mistake.
+</div>
