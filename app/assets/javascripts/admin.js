@@ -17,11 +17,11 @@ $(document).on('focus', 'textarea', function() {
 
   calculateHeight();
 
-  textarea.on("keypress.#{namespace} input.#{namespace} beforepaste.#{namespace}", calculateHeight);
+  textarea.on('keypress.' + namespace + ' input.' + namespace + ' beforepaste.' + namespace, calculateHeight);
 
-  textarea.on("blur.#{namespace}", function() {
+  textarea.on('blur.' + namespace, function() {
     calculateHeight();
-    textarea.off(".#{namespace}");
+    textarea.off('.' + namespace);
   });
 });
 

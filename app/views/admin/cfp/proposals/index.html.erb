@@ -5,8 +5,8 @@
 <% actions do %>
   <%= action_link 'Export CSV', admin_event_cfp_proposals_path(@event, request.query_parameters.merge(format: :csv)) %>
   <%= action_link 'Decision emails', new_admin_event_cfp_decision_emails_path(@event) %>
-  <%= button_to 'Auto-assign reviewers', admin_event_cfp_auto_assignments_path(@event), class: 'btn btn-light', form_class: 'd-inline' %>
-  <%= button_to 'Remind reviewers', admin_event_cfp_reviewer_reminders_path(@event), class: 'btn btn-light', form_class: 'd-inline' %>
+  <%= action_button 'Auto-assign reviewers', admin_event_cfp_auto_assignments_path(@event) %>
+  <%= action_button 'Remind reviewers', admin_event_cfp_reviewer_reminders_path(@event) %>
 <% end %>
 
 <div class="mb-3" data-test="proposal-status-counts">

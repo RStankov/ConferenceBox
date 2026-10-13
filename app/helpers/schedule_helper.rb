@@ -31,13 +31,13 @@ module ScheduleHelper
     def sessions
       return [] unless event.sessions_announced?
 
-      event.sessions.map { |s| SessionSerializer.new(s) }.group_by(&:track)
+      event.sessions.map { SessionSerializer.new(_1) }.group_by(&:track)
     end
 
     def sponsors
       return [] unless event.sponsors_announced?
 
-      event.sponsors.map { |s| SponsorSerializer.new(s) }
+      event.sponsors.map { SponsorSerializer.new(_1) }
     end
   end
 
@@ -62,12 +62,12 @@ module ScheduleHelper
 
     private
 
-    def time(hour)
-      return unless hour.present?
+    def time(value)
+      return if value.blank?
 
-      hour, minute = hour.split(':')
+      hour, minute = value.split(':').map(&:to_i)
       date = session.event.date
-      Time.new(date.year, date.month, date.day, hour.to_i, minute.to_i)
+      Time.new(date.year, date.month, date.day, hour, minute)
     end
 
     def speakers

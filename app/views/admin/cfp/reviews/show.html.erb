@@ -4,7 +4,7 @@
 
 <% actions do %>
   <% if @assignment && !@assignment.conflict_of_interest? %>
-    <%= button_to 'Conflict of interest, skip', conflict_admin_cfp_proposal_review_path(@proposal), class: 'btn btn-light', form_class: 'd-inline', data: { confirm: 'Remove this proposal from your queue?' } %>
+    <%= action_button 'Conflict of interest, skip', conflict_admin_cfp_proposal_review_path(@proposal), confirm: 'Remove this proposal from your queue?' %>
   <% end %>
 <% end %>
 
