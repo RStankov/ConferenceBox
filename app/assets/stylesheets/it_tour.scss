@@ -1,125 +1,143 @@
 @import "font-awesome/variables";
 @import "font-awesome/path";
+@import "shared/tokens";
+@import "shared/components";
 @import "it_tour/variables";
 @import "it_tour/mixins";
 @import "it_tour/lightbox";
 @import "it_tour/reset";
 
 body {
-  font-family: "Roboto Condensed", tahoma, verdana, arial, sans-serif;;
-  font-size: 14px;
+  font-family: var(--cb-font-body);
+  font-size: 15px;
   color: $text;
   background: $background;
+  -webkit-font-smoothing: antialiased;
 
   @media all and (max-width: 700px) {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 
-a {
-  transition: all 0.3s;
+h1, h2, h3, h4, nav, .hero, .countdown-amount {
+  font-family: var(--cb-font-display);
+}
 
-  color: inherit;
+a {
+  transition: color 0.2s, border-color 0.2s;
+
+  color: $accent;
   text-decoration: none;
-  border-bottom: 1px dotted $line;
-  white-space: nowrap;
+  border-bottom: 1px solid transparent;
 
   &:focus,
-  &:hover { border-style: solid; }
+  &:hover { border-color: $accent; }
   &:active { color: $dark; border-color: $dark }
 }
 
 nav {
-  border-top: 10px solid #488695;
-  font-size: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: $nav-height;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $line-light;
+  border-top: 4px solid var(--cb-accent, $accent);
   text-align: center;
-  overflow: hidden;
 
-  a { @include no-link-underline; display: inline-block; transition: all 0.3s; padding: 22px 15px; text-decoration: none; color: $text; }
-  a.active { background-color: $line-light; }
-  a.focus,
-  a:hover { color: $dark; }
+  div { height: 100%; display: flex; align-items: center; justify-content: center; overflow-x: auto; }
+  span { display: inline-flex; gap: 4px; padding: 0 16px; }
 
-  div { background: asset-url('it_tour/nav_background.png') repeat; z-index: 2; min-width: 680px; }
-  &.sticky div { position: fixed; top: 0px; left: 0px; right: 0px;}
+  a {
+    @include no-link-underline;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: var(--cb-radius-pill);
+    color: $text;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  a.active,
+  a:hover,
+  a:focus { background: $accent-soft; color: $accent; }
 
   @media all and (max-width: 740px) {
-    &.sticky div { position: relative; }
-    div { display: none; }
-  }
-
-  @media all and (min-width: 1000px) {
-    div span { position: relative; }
-    div span:before { content: ""; position: absolute; top: 50%; width: 83px; height: 4px; left: -83 - 55px; background-color: #626262; }
-    div span:after { content: ""; position: absolute; top: 50%; width: 83px; height: 4px; right: - 83 - 55px; background-color: #626262; }
+    height: auto;
+    span { padding: 8px; flex-wrap: wrap; justify-content: center; }
   }
 }
 
 header {
-  height: 300px;
   position: relative;
-  min-width: 300px;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cb-accent, $accent), $dark);
 
-  div {
-    background-size: cover;
-    background-position: top center;
+  div.cover {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    filter: blur(2px);
-    filter: asset-url("it_tour/blur.svg#blur");
-    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='2');
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    filter: saturate(0.6);
   }
 
-  img { position: absolute; top: 50%; left: 50%; margin-top: -127px; margin-left: -127px; }
+  .hero {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    padding: 60px 20px;
+
+    img { max-width: 180px; margin-bottom: 20px; }
+    h1 { @include heading1; }
+    p { @include heading3; opacity: 0.85; margin-top: 10px; }
+    .cb-button { margin-top: 24px; }
+  }
 }
 
 footer {
   @include centered-content;
-  @include heading4;
 
-  padding: 40px 0;
+  padding: 50px 0 40px;
+  margin-top: 60px;
   border-top: 1px solid $line-light;
   text-align: center;
+  color: $text-light;
 
-  .copyright { margin: 14px 0 10px; font-size: 0.8em; line-height: 22px; }
+  .copyright { margin: 14px 0 10px; font-size: 0.9em; line-height: 22px; }
   .copyright a { @include no-link-underline; }
+  .cb-social { margin-bottom: 20px; }
 
-  a.top { @include icon($fa-var-arrow-circle-o-up); color: $text-light; }
+  a.top { @include icon($fa-var-arrow-circle-o-up); color: $text-light; display: inline-block; margin-top: 20px; }
   a.top:hover,
-  a.top:focus { color: $text; }
+  a.top:focus { color: $accent; }
 }
 
 article {
-  padding: 90px 0 40px;
+  padding: 70px 0 20px;
   position: relative;
-
   margin: 0 auto;
 
-  h1 { @include centered-content; @include heading1; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid $line; position: relative; }
-  h1:after { content: ""; display: block; border-bottom: 1px solid $line; position: absolute; height: 1px; bottom: -3px; left: 0px; right: 0px;  }
-  h2 { @include centered-content; @include heading1; margin-bottom: 28px; }
+  h1 { @include centered-content; @include heading1; margin-bottom: 32px; }
+  h1:before { @include section-label; content: attr(data-label); }
+  h2 { @include centered-content; @include heading2; margin-bottom: 24px; }
   section { @include centered-content; }
 
   p {
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.6;
   }
 
   @media all and (max-width: 700px) {
-    padding-top: 20px;
-    h1 { @include heading2; padding-bottom: 15px; margin-bottom: 15px; }
-    h2 { @include centered-content; @include heading2; margin-bottom: 15px !important; }
-  }
-
-  @media all and (min-width: 700px) {
-    + article { border-top: 2px solid $line-light; }
-    + article:before { content: "●"; position: absolute; top: -9px; left: 50%; color: $line; z-index: 1; background: $background; padding: 0 6px; margin-left: -7px; font-size: 14px; }
+    padding-top: 36px;
+    h1 { @include heading2; margin-bottom: 16px; }
   }
 }
 
@@ -127,17 +145,17 @@ form {
   @include centered-content;
 
   textarea,
-  input[type="email"] { border: 1px solid $text; padding: 11px; width: 90%; }
-  textarea { resize: none; }
+  input[type="email"] { border: 1px solid $line; border-radius: $radius; padding: 14px; width: 100%; font: inherit; background: $surface; }
+  textarea { resize: vertical; min-height: 140px; }
+  textarea:focus,
+  input:focus { outline: none; border-color: $accent; box-shadow: 0 0 0 3px $accent-soft; }
   .field_with_errors textarea,
   .field_with_errors input[type="email"] { border-color: $error; }
   .error { color: $error; }
   .input { margin-bottom: 20px; }
-  label { display: block; padding: 15px 0; }
-  input[type="submit"] { transition: all 0.2s; border: 1px solid $text; background: asset-url('it_tour/button.png') center; height: 46px; color: $text; font-size: 14px; padding: 0 30px; cursor: pointer; }
-  input[type="submit"]:hover,
-  input[type="submit"]:focus { color: $dark; border-color: $dark; }
-  input[type="submit"]:active { transform: translateY(2px); }
+  label { display: block; padding: 12px 0; font-weight: 600; }
+  input[type="submit"] { @extend .cb-button; cursor: pointer; font: inherit; font-weight: 600; }
+  input[type="submit"]:active { transform: translateY(1px); }
 }
 
 #when {
@@ -147,22 +165,22 @@ form {
 
   h2 { @include heading2; }
 
-  .about { margin-bottom: 40px; }
+  .about { margin-bottom: 40px; text-align: left; }
+
+  .status-pill { @extend .cb-badge; font-size: 1em; padding: 8px 18px; background: $accent-soft; color: $accent; }
 
   .is-countdown {
     margin: 40px auto 0;
 
-    .countdown-section { display: inline-block; position: relative; }
-    .countdown-section + .countdown-section { margin-left: 40px; }
-    .countdown-section + .countdown-section .countdown-amount:before { position: absolute; left: -30px; color: $text-light; }
-    .countdown-section:nth-last-of-type(-n+2) .countdown-amount:before { content: ':'; }
-    .countdown-amount { font-size: 120px; }
-    .countdown-period { display: block; }
+    .countdown-section { display: inline-block; position: relative; min-width: 90px; }
+    .countdown-section + .countdown-section { margin-left: 16px; }
+    .countdown-amount { @include card; display: block; font-size: 64px; font-weight: 700; padding: 12px 0; color: $accent; }
+    .countdown-period { display: block; margin-top: 8px; color: $text-light; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7em; }
 
     @media all and (max-width: 700px) {
-      .countdown-amount { font-size: 30px; }
-      .countdown-section + .countdown-section { margin-left: 10px; }
-      .countdown-section:nth-last-of-type(-n+2) .countdown-amount:before { margin-left: 25px; }
+      .countdown-section { min-width: 60px; }
+      .countdown-amount { font-size: 28px; }
+      .countdown-section + .countdown-section { margin-left: 6px; }
     }
   }
 
@@ -170,76 +188,54 @@ form {
 
   .entrance { @include icon($fa-var-smile-o); }
   .facebook { @include icon($fa-var-facebook-square); margin-left: 18px; }
-  .facebook:hover,
-  .facebook:focus { color: $dark; }
-  .facebook:active { color: $text-light; }
 }
 
 #venue, #after-party {
-  h2 { margin-bottom: 50px; }
+  h2 { margin-bottom: 30px; }
   section { @include heading3; text-align: center; margin-top: 30px; }
   section p + p { margin-top: 20px; }
 
-  @media all and (max-width: 700px) {
-    iframe { @include centered-content; }
-  }
-
-  .map { position: relative; }
+  .map { position: relative; border-radius: $radius; overflow: hidden; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1); }
   .map .overlay { position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; border: none; }
 }
 
 #call-for-papers {
-  .link {
-    @include heading3;
-    margin-top: 10px;
-    text-align: center;
-  }
+  text-align: center;
+
+  .link a { @extend .cb-button; margin-top: 10px; }
 }
 
 #schedule {
-  h3 { @include heading2; padding: 22px 0 22px 10px; }
+  h3 { @include heading2; padding: 22px 0 10px; }
 
-  ol li { position: relative; padding: 10px 0 10px 80px; }
-  ol li time { @include heading3; font-weight: bold; position: absolute; left: 10px; top: 10px }
-  ol li strong { @include heading3; font-weight: bold; display: block; }
-  ol li .speaker { @include heading4; @include no-link-underline;  font-weight: lighter; }
-  ol li .speaker:hover { border-bottom: 1px solid $text; }
-  ol li .speaker + .links:before { content: " / "; }
-  ol li .links { @include heading4; margin-top: 4px; font-weight: lighter; }
-  ol li .links a span { margin: 0 10px 0 5px; border-bottom: 1px dotted $line; }
-  ol li .links a:focus span,
-  ol li .links a:hover span { border-style: solid; }
-  ol li .links a:active span { color: $dark; border-color: $dark }
-  ol li .links .video { @include icon($fa-var-youtube-play); }
-  ol li .links .slides { @include icon($fa-var-file); }
-  ol li:nth-child(even) { background: #e0e0e0; }
+  .schedule-cards { display: grid; gap: 12px; list-style: none; padding: 0; }
+  .schedule-card { @include card; display: grid; grid-template-columns: 80px 1fr; gap: 16px; align-items: start; padding: 18px 20px; }
+  .schedule-card time { @include heading3; font-weight: 700; color: $accent; }
+  .schedule-card strong { @include heading3; font-weight: 700; display: block; }
+  .schedule-card .speakers { @include heading4; color: $text-light; margin-top: 4px; }
+  .schedule-card .speakers a { @include no-link-underline; color: $text-light; }
+  .schedule-card .speakers a:hover { color: $accent; }
+  .schedule-card .links { margin-top: 10px; display: flex; gap: 14px; font-size: 0.95em; }
+  .schedule-card .links .video { @include icon($fa-var-youtube-play); }
+  .schedule-card .links .slides { @include icon($fa-var-file); }
+
+  @media all and (max-width: 700px) {
+    .schedule-card { grid-template-columns: 1fr; gap: 6px; }
+  }
 }
 
 #speakers {
-  .avatar { @include image-link; float: left; margin-right: 25px; }
-  .avatar img { border-radius: 100%; }
-
-  h3 { @include heading2; float: left; padding: 22px 0; }
-  h3 a { @include no-link-underline; }
-  h3 a:hover { border-bottom: 1px solid $text; }
-
-  .content {
-    clear: both;
-    padding: 24px 0;
-    @include heading3;
-
-    strong { font-weight: bold; }
-    em { font-style: italic; }
-  }
-
-  section { padding-top: 20px; }
-
-  @media all and (max-width: 700px) {
-    h3 { @include heading3; display: block; text-align: center; width: 100%; }
-    .content { padding: 0px; }
-    .avatar { display: block; float: none; text-align: center; }
-    .avatar img { width: 60px; }
-  }
+  .speaker-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .speaker-card { @include card; text-align: center; }
+  .speaker-card .avatar { @include image-link; display: inline-block; margin-bottom: 14px; }
+  .speaker-card .avatar img { border-radius: 100%; width: 96px; height: 96px; object-fit: cover; }
+  .speaker-card h3 { @include heading2; margin-bottom: 10px; }
+  .speaker-card h3 a { @include no-link-underline; color: $text; }
+  .speaker-card h3 a:hover { color: $accent; }
+  .speaker-card .content { color: $text-light; line-height: 1.5; font-size: 0.95em; }
+  .speaker-card .content strong { font-weight: bold; }
+  .speaker-card .content em { font-style: italic; }
+  .speaker-card .content p { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 }
 
 #speaker {
@@ -248,78 +244,42 @@ form {
 
   text-align: center;
 
-  .avatar { display: inline-block; @include image-link; margin-bottom: 60px; }
-  .avatar img { border-radius: 100%; }
+  .avatar { display: inline-block; @include image-link; margin-bottom: 20px; }
+  .avatar img { border-radius: 100%; width: 140px; height: 140px; object-fit: cover; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15); }
+  .company { color: $text-light; margin-bottom: 30px; }
 
-  .description { padding: 60px 0; margin: 60px auto; border-top: 1px solid $line; border-bottom: 1px solid $line; text-align: left; }
+  .description { @include card; padding: 40px; margin: 40px auto; text-align: left; line-height: 1.6; }
 
-  .sessions { padding-bottom: 60px; margin-bottom: 60px; border-bottom: 1px solid $line; }
-  .sessions li { margin: 5px 0; }
+  .sessions { padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid $line; }
+  .sessions li { margin: 10px 0; }
   .sessions a { margin-left: 10px; }
   .sessions a.video { @include icon($fa-var-youtube-play); }
   .sessions a.slides { @include icon($fa-var-file); }
 
   .links { margin-bottom: 60px; }
   .links li { margin-bottom: 10px; }
-  .links a + a { margin-left: 10px; }
-  .links a.twitter { @include icon($fa-var-twitter-square); }
-  .links a.company { @include icon($fa-var-external-link-square); }
-  .links a.facebook { @include icon($fa-var-facebook-square); }
-  .links a.github { @include icon($fa-var-github-square); }
-  .links a.dribbble { @include icon($fa-var-dribbble); }
 }
 
-#more {
-  @include heading3;
-
-  padding: 22px 0 28px;
-
-  &:before { top: -17px !important; }
-
-  .contact { display: inline-block; width: 50%; margin-right: 40px; }
-  .contact strong { display: block; margin-bottom: 5px; }
-
-  .conferences { display: inline-block; width: 300px; }
-
-  @media all and (max-width: 700px) {
-    text-align: center;
-    .contact { margin-right: 0px; }
-    .conferences { display: none; }
-  }
-
-  .social { margin-top: 8px; }
-  .social a { transition: color 0.5s; }
-  .social a:hover,
-  .social a:active { color: $dark; }
-
-  .facebook { @include icon($fa-var-facebook-square); }
-  .youtube { @include icon($fa-var-youtube-square); }
-  .twitter { @include icon($fa-var-twitter-square); }
-}
-
-#archive {
-  &:before { top: -9px !important; }
-
-  ul { @include centered-content; @include heading3; }
-  ul li { @include clearfix; }
-  ul li .logo { @include image-link; float: left; margin-right: 20px; }
-  ul li + li { margin-top: 40px; }
-
-  @media all and (max-width: 700px) {
-    ul { text-align: center; }
-    ul li .logo { display: block; width: 100%; float: none; }
-  }
-}
-
-#conferences {
-  ul { @include centered-content; @include heading3; }
-  ul li h3 { @include heading2; }
-  ul li + li { margin-top: 40px; }
+#archive, #conferences {
+  ul { @include centered-content; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  ul li { @include card; @include heading3; }
+  ul li .logo { @include image-link; display: block; margin-bottom: 12px; }
+  ul li .logo img { max-height: 60px; }
+  ul li h3 { @include heading2; margin-bottom: 6px; }
+  ul li p { color: $text-light; font-size: 0.95em; margin-bottom: 10px; }
   ul li .arrow { @include icon($fa-var-arrow-circle-o-right); margin-right: 5px; }
 }
 
 #photos {
-  div { @include clearfix; margin-left: -1.6%; margin-right: -1.6%; }
-  div img { float: left; width: 30%; margin: 1.6%; cursor: pointer; }
-  .more { float: right; }
+  .photo-grid { display: grid; gap: 10px; grid-template-columns: repeat(3, 1fr); }
+  .photo-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: $radius; cursor: pointer; }
+  .more { display: inline-block; margin-top: 20px; }
+
+  @media all and (max-width: 700px) {
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+}
+
+#streaming {
+  iframe { width: 100%; border-radius: $radius; }
 }
