@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <%= tag.attributes theme_root_attributes(current_conference.regular? ? current_event : current_conference) %>>
   <head>
     <meta charset="utf-8">
     <title><%= current_conference.name %></title>
@@ -39,11 +39,44 @@
   </head>
 
   <body>
+    <nav class="site-nav">
+      <div class="container">
+        <%= link_to current_conference.name, root_path, class: 'brand' %>
+        <ul>
+          <% unless current_conference.main? %>
+            <% current_event.sections.each do |section| %>
+              <li><%= link_to section.humanize, current_event_path(anchor: section) %></li>
+            <% end %>
+          <% end %>
+          <% if current_conference.code_of_conduct_url? %>
+            <li><%= link_to 'Code of conduct', current_conference.code_of_conduct_url, target: :blank %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <% unless current_conference.main? %>
+      <section class="hero">
+        <%= image_tag current_event.logo.variant(resize: 'x120'), alt: current_conference.name if current_event.logo? %>
+        <h1><%= current_conference.name %> <%= current_event.name %></h1>
+        <% if current_conference.slogan? %>
+          <p><%= new_line_to_break current_conference.slogan %></p>
+        <% end %>
+        <% if current_event.information.present? %>
+          <p><%= current_event.information %></p>
+        <% end %>
+        <%= link_to 'Get a ticket', current_event.tickets_url, class: 'cb-button', target: :blank if current_event.tickets_url? %>
+      </section>
+    <% end %>
     <main class="page">
-      <h1><%= current_conference.name %></h1>
-      <h2><%= new_line_to_break current_conference.slogan %></h2>
+      <% if current_conference.main? %>
+        <h1><%= current_conference.name %></h1>
+        <h2><%= new_line_to_break current_conference.slogan %></h2>
+      <% end %>
       <%= content_for?(:content) ? yield(:content) : yield %>
-      <footer>Copyright <%= current_conference.copyright %>. All Rights Reserved.</footer>
+      <footer>
+        <%= render 'shared/social_links', links: conference_social_links(current_conference) %>
+        <p>Copyright <%= current_conference.copyright %>. All Rights Reserved.</p>
+      </footer>
     </main>
   </body>
 </html>
