@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_172517) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_175701) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_172517) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "cfp_windows", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.datetime "opens_at", null: false
+    t.datetime "closes_at", null: false
+    t.boolean "blind_review", default: false, null: false
+    t.integer "max_submissions_per_speaker", default: 3, null: false
+    t.text "guidelines"
+    t.text "tracks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_cfp_windows_on_event_id", unique: true
   end
 
   create_table "conferences", force: :cascade do |t|
@@ -178,10 +191,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_172517) do
     t.string "password_digest", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role", default: "admin", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["role"], name: "index_users_on_role"
   end
 
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cfp_windows", "events"
   add_foreign_key "events", "conferences"
   add_foreign_key "events_sponsors", "events"
   add_foreign_key "events_sponsors", "sponsors"
