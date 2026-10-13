@@ -1,0 +1,44 @@
+<% window = event.cfp_window && Cfp::WindowDecorator.decorate(event.cfp_window) %>
+
+<div class="card mb-3" data-test="event-cfp">
+  <div class="card-header">
+    Call for papers
+    <div class="float-right">
+      <% if window %>
+        <%= badge window.status_label, type: window.status_badge_type %>
+      <% else %>
+        <%= badge 'not configured', type: :secondary %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body">
+    <% if window %>
+      <div><%= window.deadline_sentence %></div>
+      <div>Max submissions per speaker: <%= window.max_submissions_per_speaker %></div>
+      <div>Blind review: <%= window.blind_review? ? 'yes' : 'no' %></div>
+      <% if window.track_list.any? %>
+        <div>Tracks: <%= window.track_list.join(', ') %></div>
+      <% end %>
+      <div class="mt-2">
+        <% if window.status_counts.empty? %>
+          No proposals yet
+        <% else %>
+          <% window.status_counts.each do |status, count| %>
+            <%= badge "#{status.humanize}: #{count}", type: :secondary %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="mt-3">
+        <%= action_link 'Proposals', admin_event_cfp_proposals_path(event) %>
+        <%= edit_action edit_admin_event_cfp_window_path(event) %>
+      </div>
+    <% elsif event.call_to_papers_url? %>
+      <div>External call for papers: <%= link_to event.call_to_papers_url, event.call_to_papers_url, target: :blank %></div>
+      <div class="mt-3">
+        <%= action_link 'Run call for papers here instead', new_admin_event_cfp_window_path(event) %>
+      </div>
+    <% else %>
+      <%= action_link 'Open call for papers', new_admin_event_cfp_window_path(event) %>
+    <% end %>
+  </div>
+</div>
