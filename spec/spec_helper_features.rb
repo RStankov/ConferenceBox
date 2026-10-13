@@ -6,33 +6,16 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/session'
 
-ConferenceBox::Application.config.cache_classes = true
-
 RSpec.configure do |config|
   config.include SpecSupport::Features::Authentication, type: :feature
   config.extend SpecSupport::Features::ConferenceEvent, type: :feature
-
-  config.use_transactional_fixtures = false
-
-  config.before do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
-  end
-
-  config.after do
-    DatabaseCleaner.clean
-  end
 end
 
 Capybara.register_driver(:chrome) do |app|
-  chrome_args = %w(window-size=1024,768)
-  chrome_args += %w(headless disable-gpu) unless ENV['TEST_DEBUG']
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w(window-size=1024,768))
+  options.add_argument('headless') unless ENV['TEST_DEBUG']
 
-  Capybara::Selenium::Driver.new(
-    app,
-    browser: :chrome,
-    desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: chrome_args })
-  )
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Capybara.configure do |config|

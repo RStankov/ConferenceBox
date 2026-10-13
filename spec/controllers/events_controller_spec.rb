@@ -5,7 +5,7 @@ require 'spec_helper'
 describe EventsController do
   stub_current_conference
 
-  let(:event) { instance_double 'Event' }
+  let(:event) { instance_double Event }
 
   describe 'GET show' do
     before do

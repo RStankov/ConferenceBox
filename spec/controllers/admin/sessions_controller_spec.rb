@@ -17,12 +17,12 @@ describe Admin::SessionsController do
 
   describe 'POST create' do
     before do
-      allow(Session).to receive(:create).with('title' => 'Opening').and_return session
+      allow(Session).to receive(:create).with(permitted_params(title: 'Opening')).and_return session
     end
 
     it 'creates a new session' do
       post :create, params: { session: { title: 'Opening' } }
-      expect(Session).to have_received(:create).with('title' => 'Opening')
+      expect(Session).to have_received(:create).with(permitted_params(title: 'Opening'))
     end
 
     it 'assigns the new session' do
@@ -46,12 +46,12 @@ describe Admin::SessionsController do
 
   describe 'PATCH update' do
     before do
-      allow(Session).to receive(:update).with('1', 'title' => 'Opening').and_return session
+      allow(Session).to receive(:update).with('1', permitted_params(title: 'Opening')).and_return session
     end
 
     it 'updates the session' do
       patch :update, params: { id: '1', session: { title: 'Opening' } }
-      expect(Session).to have_received(:update).with('1', 'title' => 'Opening')
+      expect(Session).to have_received(:update).with('1', permitted_params(title: 'Opening'))
     end
 
     it 'assigns the session' do

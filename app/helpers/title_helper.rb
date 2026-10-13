@@ -11,7 +11,7 @@ module TitleHelper
   end
 
   def title_header
-    "#{@_title}#{' (' + @_title_counter.to_s + ')' if @_title_counter.present?}"
+    "#{@_title}#{" (#{@_title_counter})" if @_title_counter.present?}"
   end
 
   def title_with_base(base_title)

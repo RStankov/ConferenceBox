@@ -16,7 +16,7 @@ module Sign
 
     describe 'POST create' do
       before do
-        allow(Login).to receive(:new).with('email' => 'some', 'password' => 'some').and_return login
+        allow(Login).to receive(:new).with(permitted_params(email: 'some', password: 'some')).and_return login
         allow(login).to receive(:user_id).and_return 1
       end
 

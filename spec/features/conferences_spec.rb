@@ -12,7 +12,7 @@ feature 'Conference' do
 
         visit root_path
 
-        expect(page).not_to have_content 'Архив'
+        expect(page).to have_no_text 'Архив'
       end
 
       it 'is displayed when they arent at least two events current conference' do
@@ -20,7 +20,7 @@ feature 'Conference' do
 
         visit root_path
 
-        expect(page).to have_content 'Архив'
+        expect(page).to have_text 'Архив'
       end
     end
   end

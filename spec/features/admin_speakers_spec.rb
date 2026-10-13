@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper_features.rb'
+require 'spec_helper_features'
 
 feature 'Admin - Managing speakers' do
   sign_in
@@ -16,7 +16,7 @@ feature 'Admin - Managing speakers' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Test Testers'
+    expect(page).to have_text 'Test Testers'
 
     speaker = Speaker.first
 
@@ -31,7 +31,7 @@ feature 'Admin - Managing speakers' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_text 'Please review the problems below'
 
     expect(Speaker.count).to eq 0
   end
@@ -47,8 +47,8 @@ feature 'Admin - Managing speakers' do
 
     click_on 'Submit'
 
-    expect(page).not_to have_content 'Test name'
-    expect(page).to have_content 'Updated name'
+    expect(page).to have_no_text 'Test name'
+    expect(page).to have_text 'Updated name'
 
     expect { speaker.reload }.to change(speaker, :name).from('Test name').to('Updated name')
   end
@@ -64,7 +64,7 @@ feature 'Admin - Managing speakers' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_text 'Please review the problems below'
 
     expect { speaker.reload }.not_to change(speaker, :name).from('Test name')
   end

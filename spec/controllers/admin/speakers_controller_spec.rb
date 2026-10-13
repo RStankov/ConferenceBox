@@ -25,12 +25,12 @@ describe Admin::SpeakersController do
 
   describe 'POST create' do
     before do
-      allow(Speaker).to receive(:create).with('name' => 'VarnaConf').and_return speaker
+      allow(Speaker).to receive(:create).with(permitted_params(name: 'VarnaConf')).and_return speaker
     end
 
     it 'creates a new speaker' do
       post :create, params: { speaker: { name: 'VarnaConf' } }
-      expect(Speaker).to have_received(:create).with('name' => 'VarnaConf')
+      expect(Speaker).to have_received(:create).with(permitted_params(name: 'VarnaConf'))
     end
 
     it 'assigns the new speaker' do
@@ -62,12 +62,12 @@ describe Admin::SpeakersController do
 
   describe 'PATCH update' do
     before do
-      allow(Speaker).to receive(:update).with('1', 'name' => 'VarnaConf').and_return speaker
+      allow(Speaker).to receive(:update).with('1', permitted_params(name: 'VarnaConf')).and_return speaker
     end
 
     it 'updates the speaker' do
       patch :update, params: { id: '1', speaker: { name: 'VarnaConf' } }
-      expect(Speaker).to have_received(:update).with('1', 'name' => 'VarnaConf')
+      expect(Speaker).to have_received(:update).with('1', permitted_params(name: 'VarnaConf'))
     end
 
     it 'assigns the speaker' do

@@ -11,7 +11,7 @@ feature 'Event - Photos' do
     it 'doesnt display gallery' do
       visit root_path
 
-      expect(page).not_to have_content 'Снимки'
+      expect(page).to have_no_text 'Снимки'
     end
   end
 
@@ -21,7 +21,7 @@ feature 'Event - Photos' do
     it 'displays gallery' do
       visit root_path
 
-      expect(page).to have_content 'Снимки'
+      expect(page).to have_text 'Снимки'
     end
 
     it 'displays link to gallery when more the 9 photos' do
@@ -30,7 +30,7 @@ feature 'Event - Photos' do
       visit root_path
       click_on 'Виж всички снимки'
 
-      expect(page).to have_content "Снимки от #{event.conference.name}"
+      expect(page).to have_text "Снимки от #{event.conference.name}"
     end
   end
 end

@@ -10,17 +10,17 @@ describe EventDecorator do
 
     it 'returns false if call to papers is nil' do
       event = Event.new(call_to_papers_url: nil)
-      expect(show_call_to_papers?(event)).to eq false
+      expect(show_call_to_papers?(event)).to be false
     end
 
     it 'returns true if call to papers is set' do
       event = Event.new(call_to_papers_url: 'http://example.org')
-      expect(show_call_to_papers?(event)).to eq true
+      expect(show_call_to_papers?(event)).to be true
     end
 
     it 'returns false if call to papers is set and sessions are announced' do
       event = Event.new(call_to_papers_url: 'http://example.org', sessions_announced: true)
-      expect(show_call_to_papers?(event)).to eq false
+      expect(show_call_to_papers?(event)).to be false
     end
   end
 end

@@ -31,7 +31,7 @@ class Photo < ActiveRecord::Base
   end
 
   def as_json(_options = {})
-    url = asset.variant(resize: '250x250^', gravity: 'center', crop: '250x250+0+0').processed.service_url if asset.attached?
+    url = asset.variant(resize: '250x250^', gravity: 'center', crop: '250x250+0+0').processed.url if asset.attached?
 
     {
       id: id,

@@ -45,12 +45,12 @@ describe Admin::EventsController do
 
   describe 'POST create' do
     before do
-      allow(Event).to receive(:create).with('name' => 'VarnaConf').and_return event
+      allow(Event).to receive(:create).with(permitted_params(name: 'VarnaConf')).and_return event
     end
 
     it 'creates a new event' do
       post :create, params: { event: { name: 'VarnaConf' } }
-      expect(Event).to have_received(:create).with('name' => 'VarnaConf')
+      expect(Event).to have_received(:create).with(permitted_params(name: 'VarnaConf'))
     end
 
     it 'assigns the new event' do
@@ -82,12 +82,12 @@ describe Admin::EventsController do
 
   describe 'PATCH update' do
     before do
-      allow(Event).to receive(:update).with('1', 'name' => 'VarnaConf').and_return event
+      allow(Event).to receive(:update).with('1', permitted_params(name: 'VarnaConf')).and_return event
     end
 
     it 'updates the event' do
       patch :update, params: { id: '1', event: { name: 'VarnaConf' } }
-      expect(Event).to have_received(:update).with('1', 'name' => 'VarnaConf')
+      expect(Event).to have_received(:update).with('1', permitted_params(name: 'VarnaConf'))
     end
 
     it 'assigns the event' do

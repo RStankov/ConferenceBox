@@ -8,8 +8,7 @@ describe ConferencesController do
   describe '#show' do
     context 'when regular conference' do
       before do
-        allow(current_conference).to receive(:current_event).and_return 'event'
-        allow(current_conference).to receive(:main?).and_return false
+        allow(current_conference).to receive_messages(current_event: 'event', main?: false)
 
         allow(EventDecorator).to receive(:decorate).with('event').and_return 'decorated event'
       end

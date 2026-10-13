@@ -17,8 +17,8 @@ feature 'Admin - Manage sessions' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Test session'
-    expect(page).to have_content '09:00'
+    expect(page).to have_text 'Test session'
+    expect(page).to have_text '09:00'
 
     session = event.sessions.first
 
@@ -42,9 +42,9 @@ feature 'Admin - Manage sessions' do
 
     click_on 'Submit'
 
-    expect(page).to have_content speaker1.name
-    expect(page).to have_content speaker2.name
-    expect(page).not_to have_content speaker3.name
+    expect(page).to have_text speaker1.name
+    expect(page).to have_text speaker2.name
+    expect(page).to have_no_text speaker3.name
 
     session = event.sessions.first
 
@@ -63,9 +63,9 @@ feature 'Admin - Manage sessions' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Test session'
-    expect(page).to have_content '09:00'
-    expect(page).to have_content '2'
+    expect(page).to have_text 'Test session'
+    expect(page).to have_text '09:00'
+    expect(page).to have_text '2'
 
     session = event.sessions.first
 
@@ -83,7 +83,7 @@ feature 'Admin - Manage sessions' do
       click_on 'Delete'
     end
 
-    expect(page).not_to have_content session.title
+    expect(page).to have_no_text session.title
 
     expect { session.reload }.to raise_error ActiveRecord::RecordNotFound
   end
@@ -101,7 +101,7 @@ feature 'Admin - Manage sessions' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'New title'
+    expect(page).to have_text 'New title'
 
     expect { session.reload }.to change(session, :title).to 'New title'
   end

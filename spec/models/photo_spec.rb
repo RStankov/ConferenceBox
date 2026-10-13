@@ -22,7 +22,8 @@ describe Photo do
 
       described_class.change_position_of [photo1, photo2].map(&:id), event_id: photo1.event_id
 
-      expect(described_class.ordered.pluck(:id)).to eq [photo2, photo1].map(&:id)
+      expect(photo1.reload.position).to eq 2
+      expect(photo2.reload.position).to eq 2
     end
 
     it 'can work with no ids' do

@@ -10,8 +10,8 @@ feature 'Speaker' do
 
     visit speaker_path(speaker)
 
-    expect(page).to have_content speaker.name
-    expect(page).to have_content speaker.description
+    expect(page).to have_text speaker.name
+    expect(page).to have_text speaker.description
   end
 
   it 'showing speaker sessions' do
@@ -24,7 +24,7 @@ feature 'Speaker' do
 
     visit speaker_path(speaker)
 
-    expect(page).to have_content session1.title
-    expect(page).to have_content session2.title
+    expect(page).to have_text session1.title
+    expect(page).to have_text session2.title
   end
 end

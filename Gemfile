@@ -3,49 +3,48 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '3.3.3'
 
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'rails', '~> 5.2.4.2'
+gem 'rails', '~> 8.1'
+gem 'sqlite3'
 
 gem 'aws-sdk-s3'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.4.3', require: false
-gem 'bootstrap', '>= 4.3.1'
-gem 'coffee-rails', '~> 4.2'
+gem 'bcrypt'
+gem 'bootsnap', require: false
+gem 'bootstrap', '~> 4.6'
 gem 'draper'
-gem 'font-awesome-sass', '4.0.3.1'
+gem 'font-awesome-sass', '~> 4.7'
+gem 'image_processing'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'loofah'
 gem 'mini_magick'
-gem 'puma', '~> 4.3'
+gem 'puma'
 gem 'redcarpet'
 gem 'responders'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'simple_form'
 gem 'slim'
-gem 'uglifier', '>= 1.3.0'
+gem 'sprockets-rails'
+gem 'terser'
 
 group :development, :test do
-  gem 'byebug', platforms: %i(mri mingw x64_mingw)
+  gem 'debug'
   gem 'pry'
 end
 
 group :development do
-  gem 'annotate'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'annotaterb'
+  gem 'listen'
   gem 'rubocop'
+  gem 'rubocop-capybara'
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console'
 end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'launchy'
   gem 'rails-controller-testing'

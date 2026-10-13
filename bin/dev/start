@@ -2,6 +2,4 @@
 
 set -e
 
-docker-compose up -d --no-recreate
-
 bundle exec rails server

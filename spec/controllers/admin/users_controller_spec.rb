@@ -25,7 +25,7 @@ describe Admin::UsersController do
     it 'updates the user' do
       patch :update, params: { user: { email: 'new-email@example.org' } }
 
-      expect(current_user).to have_received(:update).with('email' => 'new-email@example.org')
+      expect(current_user).to have_received(:update).with(permitted_params(email: 'new-email@example.org'))
     end
 
     it 'responds with the user' do

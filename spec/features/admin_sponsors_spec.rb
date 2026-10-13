@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper_features.rb'
+require 'spec_helper_features'
 
 feature 'Admin - Managing sponsors' do
   sign_in
@@ -15,7 +15,7 @@ feature 'Admin - Managing sponsors' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Test'
+    expect(page).to have_text 'Test'
 
     sponsor = Sponsor.first
 
@@ -30,7 +30,7 @@ feature 'Admin - Managing sponsors' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_text 'Please review the problems below'
 
     expect(Sponsor.count).to eq 0
   end
@@ -46,8 +46,8 @@ feature 'Admin - Managing sponsors' do
 
     click_on 'Submit'
 
-    expect(page).not_to have_content 'Test'
-    expect(page).to have_content 'Updated name'
+    expect(page).to have_no_text 'Test'
+    expect(page).to have_text 'Updated name'
 
     expect { sponsor.reload }.to change(sponsor, :name).from('Test').to('Updated name')
   end
@@ -63,7 +63,7 @@ feature 'Admin - Managing sponsors' do
 
     click_on 'Submit'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_text 'Please review the problems below'
 
     expect { sponsor.reload }.not_to change(sponsor, :name).from('Test')
   end
@@ -85,7 +85,7 @@ feature 'Admin - Managing sponsors' do
     visit admin_event_path(event)
 
     within '[data-test="event-show"]' do
-      expect(page).not_to have_content 'Sponsors'
+      expect(page).to have_no_text 'Sponsors'
     end
 
     visit edit_admin_event_path(event)
@@ -96,7 +96,7 @@ feature 'Admin - Managing sponsors' do
 
     within '[data-test="event-show"]' do
       # expect(page).to have_content 'Sponsors not announced'
-      expect(page).to have_content sponsor.name
+      expect(page).to have_text sponsor.name
     end
 
     visit edit_admin_event_path(event)
@@ -106,7 +106,7 @@ feature 'Admin - Managing sponsors' do
     click_on 'Submit'
 
     within '[data-test="event-show"]' do
-      expect(page).not_to have_content 'Sponsors not announced'
+      expect(page).to have_no_text 'Sponsors not announced'
     end
   end
 end

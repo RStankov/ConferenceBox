@@ -1,15 +1,20 @@
-require:
-  - rubocop-rspec
+plugins:
+  - rubocop-capybara
   - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.3
+  NewCops: disable
+  SuggestExtensions: false
   Exclude:
     - bin/**/*
     - db/schema.rb
+    - db/migrate/*.active_storage.rb
+    - vendor/**/*
 
 # Increases "Max line length" warning from 80 to 120
-LineLength:
+Layout/LineLength:
   Max: 125
 
 # Increases "Assignment Branch Condition size" warning from 15 to 30
@@ -79,24 +84,9 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Enabled: false
 
-# Disables "Use describe instead of feature."
-Capybara/FeatureMethods:
-  Enabled: false
-
 Layout/HashAlignment:
   Enabled: false
 
-Lint/RaiseException:
-  Enabled: false
-
-Lint/StructNewOverride:
-  Enabled: false
-
-Style/HashEachMethods:
-  Enabled: false
-
-Style/HashTransformKeys:
-  Enabled: false
-
-Style/HashTransformValues:
+# Feature specs use the rack_test driver, so pages are fully loaded after visit.
+Capybara/RSpec/NegationMatcherAfterVisit:
   Enabled: false

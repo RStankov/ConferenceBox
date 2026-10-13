@@ -19,11 +19,11 @@ Bundler.require(*Rails.groups)
 
 module ConferenceBox
   class Application < Rails::Application
-    config.load_defaults 5.2
-    config.autoload_paths += %W[#{config.root}/lib]
-    config.eager_load_paths += %W[#{config.root}/lib]
+    config.load_defaults 8.1
+    config.autoload_lib(ignore: %w(tasks))
     config.filter_parameters += %i(password password_confirmation)
     config.i18n.enforce_available_locales = true
     config.generators.system_tests = nil
+    config.active_storage.variant_processor = :mini_magick
   end
 end

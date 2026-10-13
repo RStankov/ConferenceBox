@@ -14,8 +14,8 @@ feature 'Event - session and speakers' do
     it 'doesnt display sessions' do
       visit root_path
 
-      expect(page).not_to have_content 'Програма'
-      expect(page).not_to have_content session.title
+      expect(page).to have_no_text 'Програма'
+      expect(page).to have_no_text session.title
     end
   end
 
@@ -25,8 +25,8 @@ feature 'Event - session and speakers' do
     it 'displays sessions' do
       visit root_path
 
-      expect(page).to have_content 'Програма'
-      expect(page).to have_content session.title
+      expect(page).to have_text 'Програма'
+      expect(page).to have_text session.title
     end
 
     it 'displays sessions with two speakers' do
@@ -36,7 +36,7 @@ feature 'Event - session and speakers' do
       visit root_path
 
       within '#schedule' do
-        expect(page).to have_content "#{speaker1.name}, #{speaker2.name}"
+        expect(page).to have_text "#{speaker1.name}, #{speaker2.name}"
       end
     end
   end
@@ -49,8 +49,8 @@ feature 'Event - session and speakers' do
 
       visit root_path
 
-      expect(page).not_to have_content 'Лектори'
-      expect(page).not_to have_content speaker.name
+      expect(page).to have_no_text 'Лектори'
+      expect(page).to have_no_text speaker.name
     end
   end
 
@@ -62,8 +62,8 @@ feature 'Event - session and speakers' do
 
       visit root_path
 
-      expect(page).to have_content 'Лектори'
-      expect(page).to have_content speaker.name
+      expect(page).to have_text 'Лектори'
+      expect(page).to have_text speaker.name
     end
 
     it 'displays sessions speakers event if there is more than one speaker' do
@@ -72,9 +72,9 @@ feature 'Event - session and speakers' do
 
       visit root_path
 
-      expect(page).to have_content "#{speaker1.name}\n#{speaker2.name}"
-      expect(page).to have_content speaker1.name
-      expect(page).to have_content speaker2.name
+      expect(page).to have_text "#{speaker1.name}\n#{speaker2.name}"
+      expect(page).to have_text speaker1.name
+      expect(page).to have_text speaker2.name
     end
   end
 
@@ -84,7 +84,7 @@ feature 'Event - session and speakers' do
 
       visit root_path
 
-      expect(page).not_to have_text 'Track 1'
+      expect(page).to have_no_text 'Track 1'
     end
 
     it 'displays two tracks' do

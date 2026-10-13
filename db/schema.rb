@@ -2,19 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_04_143312) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_172517) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -31,12 +27,19 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", null: false
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "conferences", id: :serial, force: :cascade do |t|
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "conferences", force: :cascade do |t|
     t.string "name"
     t.string "contact_name"
     t.string "contact_email"
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.index ["main"], name: "index_conferences_on_main"
   end
 
-  create_table "events", id: :serial, force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.integer "conference_id"
     t.string "name", null: false
     t.date "date", null: false
@@ -108,21 +111,21 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.index ["sponsor_id"], name: "index_events_sponsors_on_sponsor_id"
   end
 
-  create_table "feedbacks", id: :serial, force: :cascade do |t|
+  create_table "feedbacks", force: :cascade do |t|
     t.integer "event_id", null: false
     t.text "comment", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "photos", id: :serial, force: :cascade do |t|
+  create_table "photos", force: :cascade do |t|
     t.integer "event_id", null: false
     t.integer "position", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "session_speakers", id: :serial, force: :cascade do |t|
+  create_table "session_speakers", force: :cascade do |t|
     t.integer "speaker_id", null: false
     t.integer "session_id", null: false
     t.datetime "created_at"
@@ -130,7 +133,7 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.index ["speaker_id", "session_id"], name: "index_session_speakers_on_speaker_id_and_session_id", unique: true
   end
 
-  create_table "sessions", id: :serial, force: :cascade do |t|
+  create_table "sessions", force: :cascade do |t|
     t.integer "event_id", null: false
     t.string "start_at", null: false
     t.string "title", null: false
@@ -143,7 +146,7 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.text "description"
   end
 
-  create_table "speakers", id: :serial, force: :cascade do |t|
+  create_table "speakers", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "personal_site"
@@ -168,7 +171,7 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "email", default: "", null: false
@@ -178,6 +181,7 @@ ActiveRecord::Schema.define(version: 2018_11_04_143312) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "conferences"
   add_foreign_key "events_sponsors", "events"
   add_foreign_key "events_sponsors", "sponsors"

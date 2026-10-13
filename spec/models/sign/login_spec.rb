@@ -10,7 +10,7 @@ module Sign
       include ActiveModel::Lint::Tests
 
       ActiveModel::Lint::Tests.public_instance_methods.map(&:to_s).grep(/^test/).each do |m|
-        example m.tr('_', ' ') do
+        example m.tr('_', ' ') do # rubocop:disable RSpec/NoExpectationExample
           send m
         end
       end

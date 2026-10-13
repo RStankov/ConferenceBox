@@ -25,12 +25,12 @@ describe Admin::ConferencesController do
 
   describe 'POST create' do
     before do
-      allow(Conference).to receive(:create).with('name' => 'VarnaConf').and_return conference
+      allow(Conference).to receive(:create).with(permitted_params(name: 'VarnaConf')).and_return conference
     end
 
     it 'creates a new conference' do
       post :create, params: { conference: { name: 'VarnaConf' } }
-      expect(Conference).to have_received(:create).with('name' => 'VarnaConf')
+      expect(Conference).to have_received(:create).with(permitted_params(name: 'VarnaConf'))
     end
 
     it 'assigns the new conference' do
@@ -61,12 +61,12 @@ describe Admin::ConferencesController do
 
   describe 'PATCH update' do
     before do
-      allow(Conference).to receive(:update).with('1', 'name' => 'VarnaConf').and_return conference
+      allow(Conference).to receive(:update).with('1', permitted_params(name: 'VarnaConf')).and_return conference
     end
 
     it 'updates the conference' do
       patch :update, params: { id: '1', conference: { name: 'VarnaConf' } }
-      expect(Conference).to have_received(:update).with('1', 'name' => 'VarnaConf')
+      expect(Conference).to have_received(:update).with('1', permitted_params(name: 'VarnaConf'))
     end
 
     it 'assigns the conference' do

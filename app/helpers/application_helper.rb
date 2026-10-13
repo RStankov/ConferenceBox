@@ -13,7 +13,7 @@ module ApplicationHelper
     return '' if text.blank?
 
     text = h(text)
-    raw text.gsub(/[\r]*[\n]/, '<br>').strip
+    raw text.gsub(/\r*\n/, '<br>').strip
   end
 
   def render_in_layout(&block)

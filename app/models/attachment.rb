@@ -3,8 +3,6 @@
 module Attachment
   extend self
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def resize(attachment, size: nil, width: nil, height: nil)
     return unless attachment.attached?
 
@@ -20,13 +18,11 @@ module Attachment
       attachment
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
   def url(attachment, **args)
     variant = resize(attachment, **args)
     variant = variant.processed if variant.respond_to?(:processed)
-    variant&.service_url
+    variant&.url
   end
 
   private

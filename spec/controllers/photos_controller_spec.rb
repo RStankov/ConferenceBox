@@ -5,7 +5,7 @@ require 'spec_helper'
 describe PhotosController do
   stub_current_conference
 
-  let(:event) { instance_double 'Event' }
+  let(:event) { instance_double Event }
 
   describe 'GET index' do
     let(:photos) { [instance_double(Photo)] }

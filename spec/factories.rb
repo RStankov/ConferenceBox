@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  sequence(:session_start_at) { |n| "#{format('%02d', (23 - n / 60).abs)}:#{format('%02d', (n % 60))}" }
+  sequence(:session_start_at) { |n| "#{format('%02d', (23 - n / 60).abs)}:#{format('%02d', n % 60)}" }
   sequence(:email) { |n| "user-#{n}@example.org" }
   sequence(:domain) { |n| "example-#{n}.org" }
 

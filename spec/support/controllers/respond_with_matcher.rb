@@ -5,8 +5,7 @@ module SpecSupport
     module RespondWith
       def self.included(base)
         base.before do
-          allow(controller).to receive(:respond_with).and_return nil
-          allow(controller).to receive(:render).and_return ''
+          allow(controller).to receive_messages(respond_with: nil, render: '')
         end
       end
 

@@ -1,9 +1,0 @@
-test: &test
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
-  username: postgres
-  password:
-  min_messages: WARNING
-  database: conference_box_travis

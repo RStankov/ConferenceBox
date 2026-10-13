@@ -7,7 +7,7 @@ require 'rspec/rails'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 
-ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
+ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
@@ -19,6 +19,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include SpecSupport::Controllers::RespondWith, type: :controller
+  config.include SpecSupport::Controllers::PermittedParams, type: :controller
   config.extend SpecSupport::Controllers::StubCurrentUser, type: :controller
   config.extend SpecSupport::Controllers::StubCurrentConference, type: :controller
   config.include ::Rails::Controller::Testing::TestProcess, type: :controller

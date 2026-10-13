@@ -17,21 +17,15 @@ function install_bundler() {
   echo "Install bundler ✅"
 }
 
-function install_postgresql_libs() {
-  brew install postgresql
+function install_imagemagick() {
+  brew install imagemagick
 
-  echo "Install postgresql ✅"
-}
-
-function install_chrome_driver() {
-  brew install chromedriver
-
-  echo "Install headless chrome ✅"
+  echo "Install imagemagick ✅"
 }
 
 function main() {
   local bin_dir="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
-  local app_dir="$(dirname "$bin_dir")"
+  local app_dir="$(dirname "$(dirname "$bin_dir")")"
   local num_cpu="$(nproc 2>/dev/null || sysctl hw.ncpu | awk '{print $2}')"
 
   cd "$app_dir"
@@ -50,19 +44,14 @@ function main() {
     install_bundler
   fi
 
-  if ! which pg_config &> /dev/null; then
-    install_postgresql_libs
+  if ! which convert &> /dev/null; then
+    install_imagemagick
   fi
 
   bundle install -j $(($num_cpu / 2))
 
-  echo "Starting docker image"
-  docker-compose up -d --no-recreate
-
   echo "Creating database"
-  rails db:create
-  rails db:migrate
-  rails db:test:prepare
+  bin/rails db:prepare
 
   echo "Bootstrap successful."
   echo ""
