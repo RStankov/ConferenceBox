@@ -11,12 +11,16 @@ Rails.application.routes.draw do
         patch :reorder, on: :collection
       end
       resources :feedbacks, only: %i(index destroy), shallow: true
+      namespace :cfp do
+        resource :window, only: %i(new create edit update destroy)
+      end
     end
     resources :sessions, only: %i(new create edit update destroy)
     resources :speakers
     resources :sponsors
 
     resource :user, only: %i(edit update)
+    resources :team_members, only: %i(index edit update)
 
     root to: redirect('/admin/conferences')
   end
@@ -33,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   resource :feedbacks, only: %i(new create)
+  resource :cfp, only: %i(show), controller: 'cfp'
 
   resources :speakers, only: [:show]
   resources :schedules, only: %i(index show)
