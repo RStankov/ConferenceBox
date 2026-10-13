@@ -32,6 +32,9 @@
                   <%= link_to 'Sponsors', admin_sponsors_path, class: 'nav-link' %>
                 </li>
               <% end %>
+              <li class="nav-item">
+                <%= link_to 'Review queue', admin_cfp_reviews_path, class: 'nav-link' %>
+              </li>
               <% if current_user.admin? %>
                 <li class="nav-item">
                   <%= link_to 'Team', admin_team_members_path, class: 'nav-link' %>

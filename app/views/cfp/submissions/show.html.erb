@@ -1,0 +1,70 @@
+<article id="cfp-submission" data-test="cfp-review-step">
+  <%= render 'cfp/flash' %>
+  <% if @proposal.draft? %>
+    <h1>Submit a proposal</h1>
+    <%= render 'steps', current_step: 3 %>
+    <h2>Review and submit</h2>
+  <% else %>
+    <h1><%= @proposal.title %></h1>
+    <p class="cfp-status cfp-status-<%= @proposal.status %>" data-test="cfp-proposal-status">
+      Status: <strong><%= @proposal.status_label %></strong>
+      <% if @proposal.submitted_at %>
+        <span>submitted on <%= @proposal.submitted_on %></span>
+      <% end %>
+    </p>
+  <% end %>
+
+  <section class="cfp-summary">
+    <h3>Speakers</h3>
+    <ul>
+      <% @proposal.speakers.each do |speaker| %>
+        <li>
+          <strong><%= speaker.name %></strong> (<%= speaker.email %>)
+          <% if speaker.company? %>, <%= speaker.company %><% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <h3>Proposal</h3>
+    <% if @proposal.title? %>
+      <dl>
+        <dt>Title</dt>
+        <dd><%= @proposal.title %></dd>
+        <dt>Format</dt>
+        <dd><%= @proposal.format_label %>, <%= @proposal.duration_label %></dd>
+        <dt>Level</dt>
+        <dd><%= @proposal.level_label %></dd>
+        <% if @proposal.track? %>
+          <dt>Track</dt>
+          <dd><%= @proposal.track %></dd>
+        <% end %>
+        <dt>Abstract</dt>
+        <dd><%= @proposal.abstract_html %></dd>
+        <% if @proposal.outline? %>
+          <dt>Outline</dt>
+          <dd><%= @proposal.outline_html %></dd>
+        <% end %>
+      </dl>
+    <% else %>
+      <p>You have not filled in the proposal yet.</p>
+    <% end %>
+  </section>
+
+  <% if @proposal.editable_by_submitter? && @window&.open? %>
+    <section class="cfp-actions">
+      <%= link_to 'Edit proposal', edit_cfp_submission_path(@proposal.token), class: 'button' %>
+
+      <% if @proposal.draft? %>
+        <%= button_to 'Submit proposal', submit_cfp_submission_path(@proposal.token), class: 'button primary' %>
+      <% else %>
+        <%= button_to 'Withdraw proposal', withdraw_cfp_submission_path(@proposal.token), class: 'button danger', data: { confirm: 'Withdraw this proposal?' } %>
+      <% end %>
+    </section>
+  <% elsif @proposal.editable_by_submitter? %>
+    <p>The call for papers is closed, so the proposal can no longer be edited.</p>
+  <% end %>
+
+  <% unless @proposal.draft? %>
+    <p class="cfp-hint">Bookmark this page. It is the only way to get back to your proposal.</p>
+  <% end %>
+</article>

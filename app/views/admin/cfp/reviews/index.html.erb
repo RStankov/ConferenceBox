@@ -1,0 +1,47 @@
+<% title 'Review queue', @total_count %>
+
+<% actions do %>
+  <%= action_link 'Export CSV', admin_cfp_reviews_path(format: :csv, filter: params[:filter]) %>
+<% end %>
+
+<div class="mb-3" data-test="review-progress">
+  <% reviewed = @total_count - @pending_count %>
+  <div class="progress" style="height: 20px">
+    <div class="progress-bar bg-success" role="progressbar" style="width: <%= @total_count.zero? ? 0 : (reviewed * 100 / @total_count) %>%">
+      <%= reviewed %> / <%= @total_count %> reviewed
+    </div>
+  </div>
+</div>
+
+<div class="mb-3">
+  <%= link_to 'All assigned', admin_cfp_reviews_path, class: "btn btn-sm #{params[:filter].blank? ? 'btn-dark' : 'btn-light'}" %>
+  <%= link_to "Unreviewed (#{@pending_count})", admin_cfp_reviews_path(filter: 'unreviewed'), class: "btn btn-sm #{params[:filter] == 'unreviewed' ? 'btn-dark' : 'btn-light'}" %>
+</div>
+
+<% if @assignments.empty? %>
+  <p class="text-muted">Nothing to review right now.</p>
+<% else %>
+  <%= table_for @assignments do |table| %>
+    <% table.column :proposal do |assignment| %>
+      <%= link_to assignment.proposal.title, admin_cfp_proposal_review_path(assignment.proposal) %>
+    <% end %>
+    <% table.column :event do |assignment| %>
+      <%= assignment.proposal.event.full_name %>
+    <% end %>
+    <% table.column :format do |assignment| %>
+      <%= Cfp::Proposal::FORMATS[assignment.proposal.format] %>
+    <% end %>
+    <% table.column :track do |assignment| %>
+      <%= assignment.proposal.track %>
+    <% end %>
+    <% table.column :assigned do |assignment| %>
+      <%= l assignment.assigned_at, format: :short %>
+    <% end %>
+    <% table.column :reviewed do |assignment| %>
+      <%= assignment.review ? '✅' : '—' %>
+    <% end %>
+    <% table.actions do |assignment| %>
+      <%= action_link assignment.review ? 'Edit review' : 'Review', admin_cfp_proposal_review_path(assignment.proposal) %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,4 +1,5 @@
 <article id="cfp" data-test="cfp-landing">
+  <%= render 'cfp/flash' %>
   <h1>Call for papers</h1>
 
   <% if @window.nil? %>
@@ -8,6 +9,13 @@
       <strong><%= @window.status_label %></strong>
       <span><%= @window.deadline_sentence %></span>
     </p>
+
+    <% if @window.open? %>
+      <p class="cfp-submit">
+        <%= link_to 'Submit a proposal', new_cfp_submission_path, class: 'button' %>
+        <span>Each speaker can submit up to <%= pluralize @window.max_submissions_per_speaker, 'proposal' %>.</span>
+      </p>
+    <% end %>
 
     <% if @window.track_list.any? %>
       <section class="cfp-tracks">
@@ -27,8 +35,8 @@
       </section>
     <% end %>
 
-    <% if @window.open? %>
-      <p>Each speaker can submit up to <%= pluralize @window.max_submissions_per_speaker, 'proposal' %>.</p>
+    <% if @window.closed? %>
+      <p>Already submitted? Use the link from your confirmation email to check the status of your proposal.</p>
     <% end %>
   <% end %>
 </article>

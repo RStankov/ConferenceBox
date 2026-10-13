@@ -1,0 +1,75 @@
+<% title @proposal.title %>
+
+<% breadcrumbs ['Review queue', admin_cfp_reviews_path] %>
+
+<% actions do %>
+  <% if @assignment && !@assignment.conflict_of_interest? %>
+    <%= button_to 'Conflict of interest, skip', conflict_admin_cfp_proposal_review_path(@proposal), class: 'btn btn-light', form_class: 'd-inline', data: { confirm: 'Remove this proposal from your queue?' } %>
+  <% end %>
+<% end %>
+
+<div data-test="review-show">
+  <div class="mb-3">
+    <%= badge @proposal.format_label, type: :secondary if @proposal.format_label %>
+    <%= badge @proposal.level_label, type: :secondary if @proposal.level %>
+    <%= badge @proposal.track, type: :secondary if @proposal.track? %>
+    <%= badge @proposal.duration_label, type: :secondary if @proposal.duration_minutes %>
+    <%= badge 'blind review', type: :dark if @proposal.blind? %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-header">Abstract</div>
+        <div class="card-body"><%= @proposal.abstract_html %></div>
+      </div>
+
+      <% if @proposal.outline? %>
+        <div class="card mb-3">
+          <div class="card-header">Outline</div>
+          <div class="card-body"><%= @proposal.outline_html %></div>
+        </div>
+      <% end %>
+
+      <% if @proposal.notes_for_reviewers? %>
+        <div class="card mb-3">
+          <div class="card-header">Notes for reviewers</div>
+          <div class="card-body"><%= new_line_to_break @proposal.notes_for_reviewers %></div>
+        </div>
+      <% end %>
+
+      <div class="card mb-3" data-test="proposal-speakers">
+        <div class="card-header">Speakers</div>
+        <div class="card-body">
+          <% if @proposal.blind? %>
+            <p class="text-muted mb-0">Speaker details are hidden while blind review is on.</p>
+          <% end %>
+          <% @proposal.visible_speakers.each do |speaker| %>
+            <div class="mb-2">
+              <strong><%= speaker.name %></strong>
+              <% if speaker.company? %>, <%= speaker.company %><% end %>
+              <% if speaker.bio? %><div class="text-muted small"><%= new_line_to_break speaker.bio %></div><% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render 'admin/cfp/proposals/comments', comments: @comments, comment: @comment, proposal: @proposal %>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-3" data-test="review-form">
+        <div class="card-header"><%= @review.persisted? ? 'Your review' : 'Add your review' %></div>
+        <div class="card-body">
+          <%= admin_form_for @review, as: :review, url: admin_cfp_proposal_review_path(@proposal), method: @review.persisted? ? :patch : :post do |form| %>
+            <%= form.error_notification %>
+            <%= form.input :score, collection: Cfp::Review::SCORES.map { |value, label| ["#{value} - #{label}", value] }, include_blank: '- Select -' %>
+            <%= form.input :confidence, collection: Cfp::Review::CONFIDENCES.map { |value, label| ["#{value} - #{label}", value] }, include_blank: '- Select -' %>
+            <%= form.input :comment, as: :text, input_html: { rows: 6 }, hint: 'Visible to organizers and other reviewers, never to the speaker' %>
+            <%= form.button :submit, 'Save review' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
