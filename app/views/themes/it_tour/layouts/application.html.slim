@@ -69,4 +69,4 @@ html data-theme="auto" style="--cb-accent: #{current_conference.regular? ? curre
           = link_to 'Кодекс на поведение', current_conference.code_of_conduct_url, target: '_blank'
       = link_to '', '#top', class: 'top', title: 'Scroll to top'
 
-    = javascript_include_tag 'it_tour'
+    = javascript_include_tag 'it_tour', defer: true
