@@ -37,6 +37,10 @@ module AdminHelper
     action_link 'Delete', path, method: :delete, 'data-confirm' => 'Are you sure?'
   end
 
+  def action_button(text, path, method: :post, confirm: nil)
+    button_to text, path, method: method, class: 'btn btn-light', form_class: 'd-inline', data: { confirm: confirm }
+  end
+
   private
 
   def image_preview(attachment)

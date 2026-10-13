@@ -16,8 +16,8 @@ feature 'Admin - Call for papers window' do
 
     fill_in 'Opens at', with: '2030-01-01T09:00'
     fill_in 'Closes at', with: '2030-02-01T18:00'
-    fill_in 'Max submissions per speaker', with: '2'
-    fill_in 'Tracks', with: "Backend\nFrontend"
+    fill_in 'Proposals per speaker', with: '2'
+    fill_in 'Tracks (one per line)', with: "Backend\nFrontend"
     fill_in 'Guidelines', with: 'Be **nice**'
     check 'Blind review'
 
@@ -57,7 +57,7 @@ feature 'Admin - Call for papers window' do
       click_on 'Edit'
     end
 
-    fill_in 'Max submissions per speaker', with: '1'
+    fill_in 'Proposals per speaker', with: '1'
 
     click_on 'Submit'
 

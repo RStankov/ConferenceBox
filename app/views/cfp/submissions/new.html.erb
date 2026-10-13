@@ -12,7 +12,7 @@
     <%= form.input :email, hint: 'We will send a private link to this address so you can edit your proposal later' %>
     <%= form.input :company %>
     <%= form.input :bio, as: :text, input_html: { rows: 5 }, hint: 'A short bio we can use in the program' %>
-    <%= form.input :links, as: :text, input_html: { rows: 3 }, hint: 'Personal site, GitHub, previous talks. One per line' %>
+    <%= form.input :links, as: :text, input_html: { rows: 3 }, hint: 'Personal site, GitHub, previous talks' %>
     <%= form.button :submit, 'Continue to the proposal' %>
   <% end %>
 </article>

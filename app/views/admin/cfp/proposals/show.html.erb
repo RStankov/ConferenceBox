@@ -6,7 +6,7 @@
   <% if @proposal.promoted? %>
     <%= action_link 'Open session', edit_admin_session_path(@proposal.session) %>
   <% elsif @proposal.promotable? %>
-    <%= button_to 'Promote to session', admin_cfp_proposal_promotion_path(@proposal), class: 'btn btn-light', form_class: 'd-inline' %>
+    <%= action_button 'Promote to session', admin_cfp_proposal_promotion_path(@proposal) %>
   <% end %>
 <% end %>
 

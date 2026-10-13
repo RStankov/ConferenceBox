@@ -19,7 +19,7 @@ feature 'Call for papers - submitting a proposal' do
     fill_in 'Name', with: 'Ada Lovelace'
     fill_in 'Email', with: 'Ada@Example.org'
     fill_in 'Company', with: 'Analytical Engines'
-    fill_in 'Bio', with: 'First programmer'
+    fill_in 'Short bio', with: 'First programmer'
     click_on 'Continue to the proposal'
 
     expect(page).to have_css '[data-test="cfp-proposal-step"]'
@@ -28,7 +28,7 @@ feature 'Call for papers - submitting a proposal' do
     select 'Talk', from: 'Format'
     select 'Intermediate', from: 'Level'
     select 'Backend', from: 'Track'
-    fill_in 'Duration minutes', with: '30'
+    fill_in 'Duration (minutes)', with: '30'
     fill_in 'Abstract', with: 'How to compute *Bernoulli numbers*'
     fill_in 'Outline', with: 'History, the engine, the algorithm'
     click_on 'Continue to review'
@@ -90,7 +90,7 @@ feature 'Call for papers - submitting a proposal' do
     fill_in 'Email', with: 'ada@example.org'
     click_on 'Continue to the proposal'
 
-    fill_in 'Duration minutes', with: '600'
+    fill_in 'Duration (minutes)', with: '600'
     click_on 'Continue to review'
 
     expect(page).to have_text "can't be blank"
