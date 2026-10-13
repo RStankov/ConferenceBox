@@ -21,6 +21,7 @@
             <div class="banner-cta">
               <%= link_to 'Facebook Event', current_event.event_url, class: 'btn btn-primary facebook', target: :blank if current_event.event_url? %>
               <%= link_to 'Reserve Free Ticket', current_event.tickets_url, class: 'btn btn-primary eventbrite', target: :blank if current_event.tickets_url? %>
+              <%= link_to 'Submit a Talk', current_event.call_to_papers_path, class: 'btn btn-primary cfp' if current_event.show_call_to_papers? %>
             </div>
           <% end %>
         </div>

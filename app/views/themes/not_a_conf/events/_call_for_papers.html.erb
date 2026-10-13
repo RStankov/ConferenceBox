@@ -1,0 +1,14 @@
+<section id="ts-call-for-papers" class="ts-call-for-papers solid-bg">
+  <div class="container">
+    <div class="row text-center">
+      <span class="icon-wrap"><i class="fa fa-microphone"></i></span>
+      <h2 class="section-title">Call for papers</h2>
+      <% if current_event.cfp_open? %>
+        <p class="section-sub-title">Proposals are open until <%= l current_event.cfp_window.closes_at, format: :long %></p>
+      <% else %>
+        <p class="section-sub-title">Share what you have learned with the community</p>
+      <% end %>
+      <%= link_to 'Submit a talk', current_event.call_to_papers_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</section>
