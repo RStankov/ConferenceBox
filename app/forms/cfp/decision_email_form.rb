@@ -4,7 +4,7 @@ module Cfp
   class DecisionEmailForm
     include ActiveModel::Model
 
-    PLACEHOLDERS = %w(speaker_name proposal_title event_name).freeze
+    PLACEHOLDERS = %w(speaker_name proposal_title event_name confirmation_url).freeze
 
     TEMPLATES = {
       'accepted' => {
@@ -14,7 +14,9 @@ module Cfp
 
           Great news! Your proposal "{{proposal_title}}" has been accepted for {{event_name}}.
 
-          Please confirm you can make it by replying to this email.
+          Please confirm you can make it and upload a photo for the program:
+
+          {{confirmation_url}}
 
           See you there!
         TEXT
@@ -72,12 +74,19 @@ module Cfp
       speaker = proposal.primary_speaker || proposal.speakers.first
 
       values = {
-        'speaker_name'   => speaker&.name,
-        'proposal_title' => proposal.title,
-        'event_name'     => proposal.event.full_name,
+        'speaker_name'     => speaker&.name,
+        'proposal_title'   => proposal.title,
+        'event_name'       => proposal.event.full_name,
+        'confirmation_url' => confirmation_url(proposal),
       }
 
       text.to_s.gsub(/\{\{\s*(\w+)\s*\}\}/) { values.fetch(Regexp.last_match(1), '') }
+    end
+
+    def confirmation_url(proposal)
+      return unless proposal.accepted?
+
+      Rails.application.routes.url_helpers.new_cfp_submission_confirmation_url(proposal.token, host: proposal.event.domain)
     end
   end
 end

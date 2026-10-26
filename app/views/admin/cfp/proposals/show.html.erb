@@ -75,8 +75,10 @@
         <div class="card-body">
           <% @proposal.speakers.each do |speaker| %>
             <div class="mb-2">
+              <%= attachment_image_tag speaker.photo, size: 48, class: 'rounded-circle float-right' %>
               <strong><%= speaker.name %></strong>
               <%= badge 'primary contact', type: :light if speaker.primary_contact? %>
+              <%= badge "t-shirt #{speaker.tshirt_size}", type: :light if speaker.tshirt_size? %>
               <div><%= mail_to speaker.email %></div>
               <% if speaker.company? %><div><%= speaker.company %></div><% end %>
               <% if speaker.bio? %><div class="text-muted small"><%= new_line_to_break speaker.bio %></div><% end %>
@@ -87,6 +89,19 @@
           <% end %>
         </div>
       </div>
+
+      <% if @proposal.awaiting_confirmation? || @proposal.responded_at %>
+        <div class="card mb-3" data-test="proposal-confirmation">
+          <div class="card-header">Speaker confirmation</div>
+          <div class="card-body">
+            <% if @proposal.responded_at %>
+              <%= @proposal.status_label %> on <%= @proposal.responded_on %>
+            <% else %>
+              <span class="text-muted">Decision sent, waiting for the speaker to confirm.</span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
 
       <div class="card mb-3" data-test="proposal-decision">
         <div class="card-header">Decision</div>

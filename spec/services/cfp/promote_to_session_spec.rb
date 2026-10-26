@@ -10,6 +10,10 @@ describe Cfp::PromoteToSession do
 
   before { create :cfp_window, event: event, tracks: "Backend\nFrontend" }
 
+  def upload(file)
+    Rack::Test::UploadedFile.new Rails.root.join('spec/fixtures', file), 'image/jpeg'
+  end
+
   it 'creates a session with placeholder slot derived from the duration' do
     session = described_class.call proposal
 
@@ -79,6 +83,30 @@ describe Cfp::PromoteToSession do
 
     expect(described_class.call(proposal)).to eq session
     expect(Session.count).to eq 1
+  end
+
+  it 'copies the confirmation photo and t-shirt size to new speakers' do
+    proposal_speaker = proposal.speakers.first
+    proposal_speaker.update! tshirt_size: 'M'
+    proposal_speaker.photo.attach upload('speaker_photo.jpg')
+
+    speaker = described_class.call(proposal).speakers.first
+
+    expect(speaker.tshirt_size).to eq 'M'
+    expect(speaker.photo.blob).to eq proposal_speaker.photo.blob
+  end
+
+  it 'keeps the photo of an existing speaker' do
+    existing = create :speaker, email: proposal.speakers.first.email, tshirt_size: 'L'
+    existing.photo.attach upload('photo_asset.jpg')
+    original = existing.photo.blob
+    proposal.speakers.first.update! tshirt_size: 'S'
+    proposal.speakers.first.photo.attach upload('speaker_photo.jpg')
+
+    described_class.call proposal
+
+    expect(existing.reload.photo.blob).to eq original
+    expect(existing.tshirt_size).to eq 'L'
   end
 
   it 'works for confirmed proposals' do
