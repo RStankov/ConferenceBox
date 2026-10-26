@@ -62,6 +62,10 @@ Rails.application.routes.draw do
         post :submit
         post :withdraw
       end
+
+      resource :confirmation, only: %i(new create) do
+        post :decline
+      end
     end
   end
 

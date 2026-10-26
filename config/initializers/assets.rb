@@ -14,6 +14,7 @@ Rails.application.config.assets.precompile += [
   'sign.css',
   'admin.css',
   'admin.js',
+  'cfp.js',
   'it_tour.css',
   'it_tour.js',
   'not_a_conf.css',

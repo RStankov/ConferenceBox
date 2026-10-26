@@ -99,3 +99,40 @@ a.link-linked-in { @include icon($fa-var-linkedin-square); }
 
   dt { font-weight: bold; margin-top: 10px; }
 }
+
+.cfp-speaker-photo {
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.cfp-speaker-confirmation {
+  text-align: left;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+
+  label { display: block; margin-top: 10px; }
+}
+
+.cfp-photo {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 5px 20px;
+  align-items: center;
+
+  img[data-photo-preview-image] {
+    grid-row: span 2;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .cfp-hint img { vertical-align: middle; }
+}
+
+.cfp-decline {
+  margin-top: 40px;
+  text-align: left;
+
+  textarea { width: 100%; }
+}
