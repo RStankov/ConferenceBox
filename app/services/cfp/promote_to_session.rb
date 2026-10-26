@@ -54,8 +54,17 @@ module Cfp
         speaker.personal_site = proposal_speaker.link_list.first
       end
 
+      speaker.tshirt_size ||= proposal_speaker.tshirt_size
       speaker.save!
+      copy_photo proposal_speaker, speaker
       speaker
+    end
+
+    def copy_photo(proposal_speaker, speaker)
+      return unless proposal_speaker.photo.attached?
+      return if speaker.photo.attached?
+
+      speaker.photo.attach proposal_speaker.photo.blob
     end
   end
 end

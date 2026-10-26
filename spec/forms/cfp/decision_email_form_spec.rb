@@ -42,6 +42,13 @@ describe Cfp::DecisionEmailForm do
       expect(form.render_body(proposal)).to eq 'Hi Jane, see you at RubyConf 2026'
     end
 
+    it 'links accepted proposals to the confirmation page' do
+      proposal.update! status: 'accepted'
+      form = described_class.new body: 'Confirm at {{confirmation_url}}'
+
+      expect(form.render_body(proposal)).to eq "Confirm at http://#{proposal.event.domain}/cfp/submissions/#{proposal.token}/confirmation/new"
+    end
+
     it 'blanks unknown placeholders' do
       form = described_class.new body: 'Hello {{nobody}}!'
 

@@ -37,8 +37,8 @@ stateDiagram-v2
     waitlisted --> accepted
     waitlisted --> rejected
     waitlisted --> withdrawn
-    accepted --> confirmed: speaker confirms
-    accepted --> declined: speaker declines
+    accepted --> confirmed: speaker confirms with photos and t-shirt sizes
+    accepted --> declined: speaker declines with an optional note
     rejected --> [*]
     confirmed --> [*]
     declined --> [*]
@@ -78,10 +78,13 @@ sequenceDiagram
     Admin->>Admin: Cfp::DecideProposals
     Organizer->>Admin: send decision emails
     Admin->>Mailer: Cfp::SendDecisionsJob renders the template per speaker
-    Mailer-->>Speaker: decision
+    Mailer-->>Speaker: decision with the confirmation link
+
+    Speaker->>Public: confirm, upload photos, pick t-shirt sizes
+    Public->>Public: Cfp::ConfirmationForm moves the proposal to confirmed
 
     Organizer->>Admin: promote to session
-    Admin->>Admin: Cfp::PromoteToSession creates Session + Speaker
+    Admin->>Admin: Cfp::PromoteToSession creates Session + Speaker with the photo
 ```
 
 ### Submissions
@@ -103,9 +106,29 @@ sequenceDiagram
 - Decision emails use an editable template with `{{speaker_name}}`, `{{proposal_title}}` and `{{event_name}}` placeholders, previewed against a real proposal before sending.
 - `Cfp::SendDecisionsJob` marks `decision_sent_at` after each email, so re-running it only reaches speakers who have not been emailed yet.
 
+### Speaker confirmation
+
+Accepted proposals wait for the speakers to confirm. The accepted decision email carries a `{{confirmation_url}}` placeholder that points to `/cfp/submissions/:token/confirmation`, and the proposal page links there too.
+
+```mermaid
+flowchart LR
+    email[Decision email] --> page[Confirmation page]
+    page --> valid{Every speaker has a photo and a t-shirt size?}
+    valid -- no --> page
+    valid -- yes --> confirmed([confirmed])
+    page -- decline --> declined([declined])
+    confirmed --> promote[Promote to session]
+    promote --> speaker[Speaker record with photo]
+```
+
+- One form covers every speaker on the proposal: a photo (JPEG, PNG or WebP up to 5 MB) and a t-shirt size each. A photo uploaded earlier is kept when the field is left empty.
+- Confirming or declining stamps `responded_at` and writes a timeline entry. A decline note from the speaker is stored as the timeline note.
+- The admin proposal page shows the photos, t-shirt sizes and when the speaker responded, or that the decision went out and the confirmation is pending.
+- Themes fall back to `cfp/speaker-placeholder.svg` for speakers without a photo.
+
 ### Promotion
 
-`Cfp::PromoteToSession` creates a `Session` with the proposal title, abstract, track number (position of the track in the window's track list) and a placeholder `09:00` slot sized by the proposal duration. Speakers are matched by email to existing `Speaker` records, or created with the name, company, bio and first link from the proposal. Promotion is idempotent.
+`Cfp::PromoteToSession` creates a `Session` with the proposal title, abstract, track number (position of the track in the window's track list) and a placeholder `09:00` slot sized by the proposal duration. Speakers are matched by email to existing `Speaker` records, or created with the name, company, bio and first link from the proposal. The confirmation photo and t-shirt size are copied over unless the speaker already has them. Promotion is idempotent.
 
 ## Background jobs and scheduled tasks
 
