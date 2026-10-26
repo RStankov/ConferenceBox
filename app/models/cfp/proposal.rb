@@ -13,6 +13,7 @@
 #  level               :string
 #  notes_for_reviewers :text
 #  outline             :text
+#  responded_at        :datetime
 #  status              :string           default("draft"), not null
 #  submitted_at        :datetime
 #  title               :string
@@ -86,6 +87,10 @@ module Cfp
 
     def editable_by_submitter?
       SUBMITTER_EDITABLE_STATUSES.include? status
+    end
+
+    def awaiting_confirmation?
+      accepted? && decision_sent_at.present?
     end
 
     def promotable?

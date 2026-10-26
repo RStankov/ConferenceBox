@@ -11,6 +11,7 @@
 #  links           :text
 #  name            :string           not null
 #  primary_contact :boolean          default(FALSE), not null
+#  tshirt_size     :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  proposal_id     :integer          not null
@@ -28,10 +29,15 @@
 
 module Cfp
   class ProposalSpeaker < ActiveRecord::Base
+    TSHIRT_SIZES = %w(XS S M L XL XXL).freeze
+
     belongs_to :proposal, inverse_of: :speakers
+
+    has_one_attached :photo
 
     validates :name, presence: true
     validates :email, presence: true, email: true, uniqueness: { scope: :proposal_id, case_sensitive: false }
+    validates :tshirt_size, inclusion: { in: TSHIRT_SIZES }, allow_nil: true
 
     before_validation { self.email = email.to_s.strip.downcase }
 
