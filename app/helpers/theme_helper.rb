@@ -40,4 +40,40 @@ module ThemeHelper
       ['youtube', conference.youtube_account? && "https://youtube.com/#{conference.youtube_account}"],
     ].select(&:second)
   end
+
+  def agenda_slot_tag(event, session, &block)
+    content_tag :li, class: agenda_slot_classes(event, session), data: agenda_slot_data(event, session), &block
+  end
+
+  def agenda_break_tag(slot)
+    content_tag :li, class: 'schedule-card schedule-card--break' do
+      content_tag(:time, format_slot_range(slot)) + content_tag(:div, "#{slot.title} · #{(slot.duration / 60).round} min")
+    end
+  end
+
+  def add_to_calendar_link(event, label: 'Добави в календара')
+    return unless event.sessions_announced?
+
+    link_to label, event.calendar_url, class: 'cb-button cb-button--ghost', download: true
+  end
+
+  private
+
+  def agenda_slot_classes(event, session)
+    classes = ['schedule-card']
+    classes << 'schedule-card--now' if event.now_playing?(session)
+    classes << 'schedule-card--has-video' if session.video_url?
+    classes.join(' ')
+  end
+
+  def agenda_slot_data(event, session)
+    slot = event.agenda.find { |s| s.session == session }
+    return {} unless slot
+
+    { starts_at: slot.starts_at.iso8601, ends_at: slot.ends_at.iso8601, now_playing: true }
+  end
+
+  def format_slot_range(slot)
+    [slot.starts_at, slot.ends_at].map { |time| time.strftime('%H:%M') }.join(' – ')
+  end
 end

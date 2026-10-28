@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   resources :speakers, only: [:show]
   resources :schedules, only: %i(index show)
+  resources :agendas, only: %i(show)
 
   get 'archive/:year', to: 'events#show', as: :archive
   get 'archive/:year/photos', to: 'photos#index', as: :photos

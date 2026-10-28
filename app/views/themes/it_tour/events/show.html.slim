@@ -49,6 +49,9 @@
   article#schedule
     h1 data-label=@event.formatted_date Програма
 
+    .schedule-actions
+      = add_to_calendar_link @event
+
     - @event.sessions_by_track.each do |track, sessions|
       section
         - if @event.multi_track?
@@ -56,7 +59,7 @@
 
         ul.schedule-cards
           - sessions.each do |session|
-            li.schedule-card
+            = agenda_slot_tag @event, session do
               time = [session.start_at, session.end_at].compact_blank.join(' – ')
               div
                 strong = session.title
@@ -68,6 +71,8 @@
                       = link_to 'видео', session.video_url, class: 'video', target: '_blank'
                     - if session.slides_url?
                       = link_to 'презентация', session.slides_url, class: 'slides', target: '_blank'
+            - @event.breaks_after(session).each do |slot|
+              = agenda_break_tag slot
 
 - if @event.speakers_announced?
   article#speakers
