@@ -46,14 +46,14 @@
       .link = link_to 'Предложи лекция', @event.call_to_papers_url
 
 - if @event.sessions_announced?
-  article#schedule
+  article#schedule data-schedule-filter=true
     h1 data-label=@event.formatted_date Програма
 
     .schedule-actions
       = add_to_calendar_link @event
 
     - @event.sessions_by_track.each do |track, sessions|
-      section
+      section data-track=track
         - if @event.multi_track?
           h3 Track #{track}
 

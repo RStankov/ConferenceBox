@@ -21,6 +21,12 @@ class SpeakerDecorator < Draper::Decorator
     end.compact
   end
 
+  def profile
+    @profile ||= SpeakerProfile.new(object)
+  end
+
+  delegate :summary, :topics, :co_speakers, :similar_speakers, :returning?, to: :profile
+
   def ordered_sessions
     sessions.announced.reorder 'id ASC'
   end

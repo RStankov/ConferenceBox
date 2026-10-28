@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         patch :reorder, on: :collection
       end
       resources :feedbacks, only: %i(index destroy), shallow: true
+      resource :agenda, only: %i(show) do
+        patch :shift
+      end
     end
     resources :sessions, only: %i(new create edit update destroy)
     resources :speakers

@@ -223,6 +223,11 @@ form {
   .schedule-card--past { opacity: 0.6; }
   .schedule-card--break { background: transparent; box-shadow: none; color: $text-light; padding-block: 8px; }
   .schedule-actions { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+  .schedule-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .schedule-filter__search { flex: 1 1 240px; padding: 8px 12px; border: 1px solid $text-light; border-radius: 8px; }
+  .schedule-filter [aria-selected="true"] { background: $accent; color: #fff; }
+  .schedule-filter__empty { color: $text-light; text-align: center; }
+  .schedule-card mark { background: $accent; color: #fff; padding: 0 2px; }
 
   @media all and (max-width: 700px) {
     .schedule-card { grid-template-columns: 1fr; gap: 6px; }

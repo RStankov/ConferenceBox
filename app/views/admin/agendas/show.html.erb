@@ -1,0 +1,58 @@
+<% title 'Agenda' %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.conference.name, admin_conference_path(@event.conference)], [@event.name, admin_event_path(@event)] %>
+
+<% actions do %>
+  <%= action_link 'Download .ics', agenda_url(@event.name, format: :ics, domain: @event.conference.domain) %>
+<% end %>
+
+<% if @conflicts.any? %>
+  <div class="alert alert-danger">
+    <strong><%= pluralize @conflicts.size, 'conflict' %></strong>
+    <ul class="mb-0">
+      <% @conflicts.each do |a, b, speakers| %>
+        <li>
+          <%= speakers.map(&:name).to_sentence %> is in
+          <%= link_to a.session.title, edit_admin_session_path(a.session) %> and
+          <%= link_to b.session.title, edit_admin_session_path(b.session) %>
+          at <%= a.starts_at.strftime('%H:%M') %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if @gaps.any? %>
+  <div class="alert alert-warning">
+    Long breaks: <%= @gaps.map { |slot| "Track #{slot.track} #{slot.starts_at.strftime('%H:%M')} (#{(slot.duration / 60).round} min)" }.join(', ') %>
+  </div>
+<% end %>
+
+<% @agenda.tracks.each do |track| %>
+  <div class="card mb-3">
+    <div class="card-header">Track <%= track %></div>
+    <div class="card-body">
+      <%= table_for @agenda.select { |slot| slot.track == track } do |table| %>
+        <% table.column :time do |slot| %>
+          <%= slot.starts_at.strftime('%H:%M') %> - <%= slot.ends_at.strftime('%H:%M') %>
+        <% end %>
+        <% table.column :title do |slot| %>
+          <%= slot.break? ? content_tag(:em, slot.title) : slot.title %>
+        <% end %>
+        <% table.column :speakers do |slot| %>
+          <%= raw slot.session&.speakers&.map(&:name)&.join('<br>') %>
+        <% end %>
+        <% table.column :minutes do |slot| %>
+          <%= (slot.duration / 60).round %>
+        <% end %>
+      <% end %>
+
+      <%= form_tag shift_admin_event_agenda_path(@event), method: :patch, class: 'form-inline' do %>
+        <%= hidden_field_tag :track, track %>
+        <%= text_field_tag :from, nil, placeholder: 'From (HH:MM)', class: 'form-control mr-2' %>
+        <%= number_field_tag :minutes, 15, class: 'form-control mr-2' %>
+        <%= submit_tag 'Shift sessions', class: 'btn btn-secondary' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
