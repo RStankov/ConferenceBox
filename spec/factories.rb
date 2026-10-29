@@ -45,6 +45,15 @@ FactoryBot.define do
     email                  { generate :email }
     password               { '123456' }
     password_confirmation  { '123456' }
+    role                   { 'admin' }
+
+    factory :organizer do
+      role { 'organizer' }
+    end
+
+    factory :reviewer do
+      role { 'reviewer' }
+    end
   end
 
   factory :speaker do
@@ -59,6 +68,24 @@ FactoryBot.define do
   factory :subscriber do
     conference
     email { generate :email }
+  end
+
+  factory :cfp_window, class: 'Cfp::Window' do
+    event
+    opens_at { 1.day.ago }
+    closes_at { 1.month.from_now }
+    max_submissions_per_speaker { 3 }
+    tracks { "Backend\nFrontend" }
+
+    factory :closed_cfp_window do
+      opens_at { 2.months.ago }
+      closes_at { 1.month.ago }
+    end
+
+    factory :upcoming_cfp_window do
+      opens_at { 1.month.from_now }
+      closes_at { 2.months.from_now }
+    end
   end
 
   factory :feedback do

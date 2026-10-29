@@ -18,18 +18,25 @@
 
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <%= link_to 'Conferences', admin_conferences_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Events', admin_events_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Speakers', admin_speakers_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Sponsors', admin_sponsors_path, class: 'nav-link' %>
-              </li>
+              <% if current_user.organizer_access? %>
+                <li class="nav-item">
+                  <%= link_to 'Conferences', admin_conferences_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Events', admin_events_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Speakers', admin_speakers_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Sponsors', admin_sponsors_path, class: 'nav-link' %>
+                </li>
+              <% end %>
+              <% if current_user.admin? %>
+                <li class="nav-item">
+                  <%= link_to 'Team', admin_team_members_path, class: 'nav-link' %>
+                </li>
+              <% end %>
             </ul>
             <ul class="navbar-nav mr-right">
               <li class="nav-item">

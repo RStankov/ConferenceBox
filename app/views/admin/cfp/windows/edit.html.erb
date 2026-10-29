@@ -1,0 +1,9 @@
+<% title 'Edit call for papers' %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.full_name, admin_event_path(@event)] %>
+
+<% actions do %>
+  <%= delete_action admin_event_cfp_window_path(@event) %>
+<% end %>
+
+<%= render 'form' %>
