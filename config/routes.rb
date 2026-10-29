@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         patch :reorder, on: :collection
       end
       resources :feedbacks, only: %i(index destroy), shallow: true
+      resource :agenda, only: %i(show) do
+        patch :shift
+      end
     end
     resources :sessions, only: %i(new create edit update destroy)
     resources :speakers
@@ -36,6 +39,7 @@ Rails.application.routes.draw do
 
   resources :speakers, only: [:show]
   resources :schedules, only: %i(index show)
+  resources :agendas, only: %i(show)
 
   get 'archive/:year', to: 'events#show', as: :archive
   get 'archive/:year/photos', to: 'photos#index', as: :photos

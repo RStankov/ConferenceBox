@@ -1,0 +1,8 @@
+<section id="after_party" class="section">
+  <h3>After party</h3>
+  <p>
+    <strong><%= link_to current_event.after_party_venue_name, current_event.after_party_venue_site_url, target: :blank %></strong><br>
+    <%= current_event.after_party_venue_address %>
+  </p>
+  <%= new_line_to_break current_event.after_party_venue_notes %>
+</section>

@@ -19,4 +19,5 @@ Rails.application.config.assets.precompile += [
   'not_a_conf.css',
   'not_a_conf.js',
   'plain.css',
+  'plain.js',
 ]

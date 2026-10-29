@@ -1,0 +1,21 @@
+<section id="schedule" class="section">
+  <h3>Schedule</h3>
+  <% current_event.sessions_by_track.each do |track, sessions| %>
+    <% if current_event.multi_track? %>
+      <span class="cb-badge">Track <%= track %></span>
+    <% end %>
+    <ul class="schedule">
+      <% sessions.each do |session| %>
+        <li>
+          <time><%= session.start_at %></time>
+          <div>
+            <strong><%= session.title %></strong>
+            <% if session.speakers.any? %>
+              <div class="speakers"><%= session.speakers.map(&:name).join(', ') %></div>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>

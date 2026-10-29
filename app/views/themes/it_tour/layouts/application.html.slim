@@ -1,6 +1,6 @@
 doctype html
 
-html
+html data-theme="auto" style="--cb-accent: #{current_conference.regular? ? current_event.color : '#488695'};"
   head
     meta charset="utf-8"
     title = current_conference.name
@@ -41,37 +41,32 @@ html
         })();
 
   body#top
-    - if current_conference.main?
-      nav style="border-top-color: #488695"
-        div
-          span
-            = link_to 'За турнето', root_url(anchor: 'about') if current_conference.about?
-            = link_to 'Градове', root_url(anchor: 'conferences')
-            = link_to 'Контакти', root_url(anchor: 'subscribe')
-            = link_to 'Архив', root_path(anchor: 'archive')
-    - else
-      - if current_event.show_coverart? && current_event.coverart.attached?
-        header
-          div style="background-image: url(#{url_for(current_event.coverart)})"
+    - unless current_conference.main?
+      header
+        - if current_event.show_coverart? && current_event.coverart.attached?
+          div.cover style="background-image: url(#{url_for(current_event.coverart)})"
+        .hero
           = link_to current_event_path do
             = image_tag current_event.logo.variant(resize: '250'), alt: current_conference.name if current_event.logo.attached?
+          h1 = current_conference.name
+          - if current_conference.slogan?
+            p = current_conference.slogan
+          - if current_event.information.present?
+            p = current_event.information
+          - if current_event.tickets_url?
+            = link_to 'Билети', current_event.tickets_url, class: 'cb-button', target: '_blank'
 
-      nav.js-scrollspy style="border-top-color: #{current_event.color}"
-        div
-          span
-            = link_to 'Кога', current_event_path(anchor: 'when') if current_event.dates_announced?
-            = link_to 'Къде', current_event_path(anchor: 'venue') if current_event.venue_announced?
-            = link_to 'Програма', current_event_path(anchor: 'schedule') if current_event.sessions_announced?
-            = link_to 'Програма', current_event_path(anchor: 'call-for-papers') if current_event.show_call_to_papers?
-            = link_to 'Лектори', current_event_path(anchor: 'speakers') if current_event.speakers_announced?
-            = link_to 'Снимки', current_event_path(anchor: 'photos') if current_event.show_photo_gallery?
-            = link_to 'After party', current_event_path(anchor: 'after-party') if current_event.after_party_announced?
-            = link_to 'Контакти', current_event_path(anchor: 'feedback') if current_event.show_feedback_form?
-            = link_to 'Архив', current_event_path(anchor: 'archive') if current_event.other_conference_events.count > 1
+    = render 'shared/nav'
 
     = content_for?(:content) ? yield(:content) : yield
 
     footer
+      = render 'shared/social_links', links: conference_social_links(current_conference)
+      .copyright
+        = current_conference.copyright
+        - if current_conference.code_of_conduct_url?
+          = ' · '
+          = link_to 'Кодекс на поведение', current_conference.code_of_conduct_url, target: '_blank'
       = link_to '', '#top', class: 'top', title: 'Scroll to top'
 
-    = javascript_include_tag 'it_tour'
+    = javascript_include_tag 'it_tour', defer: true
