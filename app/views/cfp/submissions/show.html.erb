@@ -19,6 +19,7 @@
     <ul>
       <% @proposal.speakers.each do |speaker| %>
         <li>
+          <%= attachment_image_tag speaker.photo, size: 40, alt: '', class: 'cfp-speaker-photo' %>
           <strong><%= speaker.name %></strong> (<%= speaker.email %>)
           <% if speaker.company? %>, <%= speaker.company %><% end %>
         </li>
@@ -62,6 +63,15 @@
     </section>
   <% elsif @proposal.editable_by_submitter? %>
     <p>The call for papers is closed, so the proposal can no longer be edited.</p>
+  <% end %>
+
+  <% if @proposal.accepted? %>
+    <section class="cfp-actions" data-test="cfp-confirm-prompt">
+      <p>Your proposal is accepted! Confirm that you can make it so we can add you to the program.</p>
+      <%= link_to 'Confirm or decline', new_cfp_submission_confirmation_path(@proposal.token), class: 'button primary' %>
+    </section>
+  <% elsif @proposal.confirmed? %>
+    <p class="cfp-hint" data-test="cfp-confirmed">You confirmed on <%= @proposal.responded_on %>. See you there!</p>
   <% end %>
 
   <% unless @proposal.draft? %>

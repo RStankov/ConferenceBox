@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_180141) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_26_090000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,6 +59,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_180141) do
     t.boolean "primary_contact", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tshirt_size"
     t.index ["email"], name: "index_cfp_proposal_speakers_on_email"
     t.index ["proposal_id", "email"], name: "index_cfp_proposal_speakers_on_proposal_id_and_email", unique: true
     t.index ["proposal_id"], name: "index_cfp_proposal_speakers_on_proposal_id"
@@ -82,6 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_180141) do
     t.datetime "decision_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "responded_at"
     t.index ["event_id", "status"], name: "index_cfp_proposals_on_event_id_and_status"
     t.index ["event_id"], name: "index_cfp_proposals_on_event_id"
     t.index ["session_id"], name: "index_cfp_proposals_on_session_id"

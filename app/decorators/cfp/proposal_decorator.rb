@@ -71,6 +71,10 @@ module Cfp
       h.l submitted_at, format: :long if submitted_at
     end
 
+    def responded_on
+      h.l responded_at, format: :long if responded_at
+    end
+
     def abstract_html
       h.markdown abstract
     end

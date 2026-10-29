@@ -53,6 +53,17 @@ describe Cfp::StateMachine do
       expect(proposal.reload.decided_at).to be_nil
     end
 
+    it 'stamps responded_at when the speaker confirms or declines' do
+      confirmed = create :accepted_cfp_proposal
+      declined = create :accepted_cfp_proposal
+
+      described_class.transition confirmed, :confirmed
+      described_class.transition declined, :declined
+
+      expect(confirmed.reload.responded_at).to be_within(1.second).of(Time.current)
+      expect(declined.reload.responded_at).to be_within(1.second).of(Time.current)
+    end
+
     it 'records a status change with user and note' do
       proposal = create :cfp_proposal, status: 'under_review'
       user = create :user

@@ -1,0 +1,60 @@
+<article id="cfp-confirmation" data-test="cfp-confirmation">
+  <%= render 'cfp/flash' %>
+  <h1>Confirm your talk</h1>
+  <p>
+    <strong><%= @form.proposal.title %></strong> is accepted for <%= current_event.full_name %>.
+    Confirm that you can make it and add a photo of every speaker for the program.
+  </p>
+
+  <% if @form.errors.any? %>
+    <ul class="cfp-flash cfp-flash-alert" role="alert">
+      <% @form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with url: cfp_submission_confirmation_path(@form.proposal.token), scope: :confirmation, multipart: true, local: true do |form| %>
+    <% @form.speakers.each do |speaker| %>
+      <fieldset class="cfp-speaker-confirmation" data-test="cfp-confirmation-speaker">
+        <legend><%= speaker.name %></legend>
+
+        <div class="cfp-photo" data-photo-preview>
+          <% if speaker.photo.attached? %>
+            <%= attachment_image_tag speaker.photo, size: 120, alt: speaker.name, data: { photo_preview_image: true } %>
+          <% else %>
+            <%= image_tag 'cfp/speaker-placeholder.svg', size: 120, alt: '', data: { photo_preview_image: true } %>
+          <% end %>
+
+          <label>
+            Photo
+            <%= file_field_tag "confirmation[speakers][#{speaker.id}][photo]", accept: Cfp::ConfirmationForm::PHOTO_TYPES.join(','), data: { photo_preview_input: true } %>
+          </label>
+          <p class="cfp-hint">
+            <%= image_tag 'cfp/headshot-guide.svg', size: 48, alt: '' %>
+            A square headshot, at least 600px wide, JPEG, PNG or WebP up to 5 MB.
+          </p>
+        </div>
+
+        <label>
+          T-shirt size
+          <%= select_tag "confirmation[speakers][#{speaker.id}][tshirt_size]",
+            options_for_select(Cfp::ProposalSpeaker::TSHIRT_SIZES, @form.tshirt_size_for(speaker)),
+            include_blank: true %>
+        </label>
+      </fieldset>
+    <% end %>
+
+    <%= form.submit 'Confirm my talk', class: 'button primary' %>
+  <% end %>
+
+  <section class="cfp-decline">
+    <h2>Can't make it?</h2>
+    <%= form_with url: decline_cfp_submission_confirmation_path(@form.proposal.token), local: true do |form| %>
+      <%= form.text_area :reason, rows: 3, placeholder: 'Optional, a note for the organizers' %>
+      <%= form.submit 'Decline the invitation', class: 'button danger', data: { confirm: 'Decline this talk? This cannot be undone.' } %>
+    <% end %>
+  </section>
+
+  <%= javascript_include_tag 'cfp', defer: true %>
+</article>

@@ -24,6 +24,8 @@ module Cfp
       'accepted'   => :decided_at,
       'rejected'   => :decided_at,
       'waitlisted' => :decided_at,
+      'confirmed'  => :responded_at,
+      'declined'   => :responded_at,
     }.freeze
 
     def allowed_transitions(proposal)
