@@ -97,7 +97,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   end
 
   def multi_track?
-    @sessions_by_track.count > 1
+    sessions_by_track.count > 1
   end
 
   def other_conference_events
@@ -112,7 +112,17 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   end
 
   def show_call_to_papers?
-    call_to_papers_url? && !sessions_announced?
+    return false if sessions_announced?
+
+    cfp_open? || call_to_papers_url?
+  end
+
+  def cfp_open?
+    cfp_window.present? && cfp_window.open?
+  end
+
+  def call_to_papers_path
+    cfp_open? ? h.cfp_path : call_to_papers_url
   end
 
   def after_party_venue_map?
@@ -126,6 +136,7 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
       ['about', about?],
       ['venue', venue_announced?],
       ['schedule', sessions_announced?],
+      ['call_for_papers', show_call_to_papers?],
       ['speakers', speakers_announced?],
       ['after_party', after_party_announced?],
       ['sponsors', sponsors_announced?],

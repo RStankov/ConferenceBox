@@ -7,6 +7,9 @@ article#speaker
 
   h2 = @speaker.name
 
+  - if @speaker.company?
+    .company = @speaker.company
+
   .description = markdown @speaker.description
 
   ul.sessions

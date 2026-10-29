@@ -1,0 +1,7 @@
+<ol class="cfp-steps">
+  <% ['Speaker', 'Proposal', 'Review and submit'].each_with_index do |name, index| %>
+    <li class="<%= 'current' if index + 1 == current_step %> <%= 'done' if index + 1 < current_step %>">
+      <%= index + 1 %>. <%= name %>
+    </li>
+  <% end %>
+</ol>

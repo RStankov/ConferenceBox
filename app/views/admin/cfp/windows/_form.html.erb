@@ -7,7 +7,7 @@
   <%= form.field_set 'Rules' do %>
     <%= form.input :max_submissions_per_speaker %>
     <%= form.input :blind_review, hint: 'Reviewers will not see who submitted a proposal' %>
-    <%= form.input :tracks, as: :text, hint: 'One track per line', input_html: { rows: 4 } %>
+    <%= form.input :tracks, as: :text, input_html: { rows: 4 } %>
     <%= form.input :guidelines, as: :text, hint: 'Markdown is supported', input_html: { rows: 10 } %>
   <% end %>
   <%= form.buttons cancel_path: admin_event_path(@event) %>

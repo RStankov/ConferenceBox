@@ -34,5 +34,9 @@ module Cfp
     def guidelines_html
       h.markdown guidelines
     end
+
+    def status_counts
+      event.cfp_proposals.submitted.group(:status).count.sort_by { Proposal::STATUSES.index(_1.first) }
+    end
   end
 end

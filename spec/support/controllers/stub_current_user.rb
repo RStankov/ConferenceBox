@@ -14,7 +14,7 @@ module SpecSupport
         }
 
         before do
-          @current_user = block_given? ? yield : instance_double(User, role_methods)
+          @current_user = instance_double(User, role_methods)
           allow(controller).to receive(:current_user).and_return @current_user
         end
       end

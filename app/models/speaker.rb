@@ -20,6 +20,7 @@
 #  organizer         :boolean          default(FALSE), not null
 #  instagram_account :string
 #  linkedin_account  :string
+#  email             :string
 #
 
 class Speaker < ActiveRecord::Base
@@ -27,6 +28,7 @@ class Speaker < ActiveRecord::Base
   has_many :sessions, through: :session_speakers
 
   validates :name, presence: true
+  validates :email, email: true, allow_blank: true
 
   has_one_attached :photo
 

@@ -1,0 +1,23 @@
+<article id="cfp-submission" data-test="cfp-proposal-step">
+  <%= render 'cfp/flash' %>
+  <h1><%= @proposal.draft? ? 'Submit a proposal' : 'Edit your proposal' %></h1>
+
+  <%= render 'steps', current_step: 2 %>
+
+  <h2>Your proposal</h2>
+
+  <%= simple_form_for @form, as: :proposal, url: cfp_submission_path(@proposal.token), method: :patch do |form| %>
+    <%= form.error_notification %>
+    <%= form.input :title %>
+    <%= form.input :format, collection: Cfp::Proposal::FORMATS.invert, include_blank: '- Select -' %>
+    <%= form.input :level, collection: Cfp::Proposal::LEVELS.invert, include_blank: '- Select -' %>
+    <% if @form.tracks.any? %>
+      <%= form.input :track, collection: @form.tracks, include_blank: '- Select -' %>
+    <% end %>
+    <%= form.input :duration_minutes, as: :integer, hint: 'In minutes' %>
+    <%= form.input :abstract, as: :text, input_html: { rows: 8 }, hint: 'This is what attendees will read in the program' %>
+    <%= form.input :outline, as: :text, input_html: { rows: 8 }, hint: 'Only reviewers see this. Markdown is supported' %>
+    <%= form.input :notes_for_reviewers, as: :text, input_html: { rows: 4 }, hint: 'Anything else reviewers should know' %>
+    <%= form.button :submit, 'Continue to review' %>
+  <% end %>
+</article>

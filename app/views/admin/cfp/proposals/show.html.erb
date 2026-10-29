@@ -1,0 +1,147 @@
+<% title @proposal.title %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.full_name, admin_event_path(@event)], ['Proposals', admin_event_cfp_proposals_path(@event)] %>
+
+<% actions do %>
+  <% if @proposal.promoted? %>
+    <%= action_link 'Open session', edit_admin_session_path(@proposal.session) %>
+  <% elsif @proposal.promotable? %>
+    <%= action_button 'Promote to session', admin_cfp_proposal_promotion_path(@proposal) %>
+  <% end %>
+<% end %>
+
+<div data-test="proposal-show">
+  <div class="mb-3">
+    <%= badge @proposal.status_label, type: @proposal.status_badge_type %>
+    <%= badge @proposal.format_label, type: :secondary if @proposal.format_label %>
+    <%= badge @proposal.level_label, type: :secondary if @proposal.level %>
+    <%= badge @proposal.track, type: :secondary if @proposal.track? %>
+    <%= badge @proposal.duration_label, type: :secondary if @proposal.duration_minutes %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-header">Abstract</div>
+        <div class="card-body"><%= @proposal.abstract_html %></div>
+      </div>
+
+      <% if @proposal.outline? %>
+        <div class="card mb-3">
+          <div class="card-header">Outline</div>
+          <div class="card-body"><%= @proposal.outline_html %></div>
+        </div>
+      <% end %>
+
+      <% if @proposal.notes_for_reviewers? %>
+        <div class="card mb-3">
+          <div class="card-header">Notes for reviewers</div>
+          <div class="card-body"><%= new_line_to_break @proposal.notes_for_reviewers %></div>
+        </div>
+      <% end %>
+
+      <div class="card mb-3" data-test="proposal-reviews">
+        <div class="card-header">
+          Reviews
+          <div class="float-right">
+            <% if @stats.reviewed? %>
+              <%= badge "mean #{@stats.mean}", type: :primary %>
+              <%= badge "median #{@stats.median}", type: :secondary %>
+              <%= badge "variance #{@stats.variance}", type: :secondary %>
+            <% end %>
+          </div>
+        </div>
+        <div class="card-body">
+          <% if @reviews.empty? %>
+            <p class="text-muted">No reviews yet.</p>
+          <% end %>
+          <% @reviews.each do |review| %>
+            <div class="mb-3">
+              <strong><%= review.reviewer.full_name %></strong>
+              <%= badge "#{review.score} - #{review.score_label}", type: :primary %>
+              <small class="text-muted">confidence: <%= review.confidence_label %></small>
+              <div><%= new_line_to_break review.comment %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <%= render 'admin/cfp/proposals/comments', comments: @comments, comment: @comment, proposal: @proposal %>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-3" data-test="proposal-speakers">
+        <div class="card-header">Speakers</div>
+        <div class="card-body">
+          <% @proposal.speakers.each do |speaker| %>
+            <div class="mb-2">
+              <strong><%= speaker.name %></strong>
+              <%= badge 'primary contact', type: :light if speaker.primary_contact? %>
+              <div><%= mail_to speaker.email %></div>
+              <% if speaker.company? %><div><%= speaker.company %></div><% end %>
+              <% if speaker.bio? %><div class="text-muted small"><%= new_line_to_break speaker.bio %></div><% end %>
+              <% speaker.link_list.each do |link| %>
+                <div><%= link_to link, link, target: :blank %></div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card mb-3" data-test="proposal-decision">
+        <div class="card-header">Decision</div>
+        <div class="card-body">
+          <% if @proposal.allowed_decisions.any? %>
+            <%= form_tag admin_event_cfp_decisions_path(@event) do %>
+              <%= hidden_field_tag 'proposal_ids[]', @proposal.id %>
+              <%= hidden_field_tag :return_to, admin_event_cfp_proposal_path(@event, @proposal) %>
+              <div class="form-group">
+                <%= text_field_tag :note, nil, placeholder: 'Optional note', class: 'form-control' %>
+              </div>
+              <% @proposal.allowed_decisions.each do |decision| %>
+                <%= button_tag decision.humanize, name: 'decision', value: decision, class: 'btn btn-light mr-1' %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p class="text-muted mb-0">No further decisions possible from <%= @proposal.status_label.downcase %>.</p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card mb-3" data-test="proposal-assignments">
+        <div class="card-header">Reviewers</div>
+        <div class="card-body">
+          <% @assignments.each do |assignment| %>
+            <div class="mb-1">
+              <%= assignment.reviewer.full_name %>
+              <%= badge 'conflict', type: :warning if assignment.conflict_of_interest? %>
+              <%= button_to 'Remove', admin_cfp_proposal_assignment_path(@proposal, assignment), method: :delete, class: 'btn btn-sm btn-link', form_class: 'd-inline' %>
+            </div>
+          <% end %>
+          <% if @assignable_reviewers.any? %>
+            <%= form_tag admin_cfp_proposal_assignments_path(@proposal), class: 'form-inline mt-2' do %>
+              <%= select_tag 'assignment[reviewer_id]', options_from_collection_for_select(@assignable_reviewers, :id, :full_name), class: 'form-control form-control-sm mr-2' %>
+              <%= submit_tag 'Assign', class: 'btn btn-sm btn-light' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card mb-3" data-test="proposal-timeline">
+        <div class="card-header">Timeline</div>
+        <div class="card-body">
+          <% @status_changes.each do |change| %>
+            <div class="mb-2 small">
+              <div><%= l change.created_at, format: :short %></div>
+              <div>
+                <%= change.from_status&.humanize || 'Created' %> &rarr; <strong><%= change.to_status.humanize %></strong>
+                by <%= change.actor_name %>
+              </div>
+              <% if change.note? %><div class="text-muted"><%= change.note %></div><% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

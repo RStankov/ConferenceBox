@@ -43,8 +43,11 @@
   article#call-for-papers
     h1 Програма
     section
-      p Ако искате да сте лектор на събитието, изпратете ни предложението си за презентация и ще се свържем с вас.
-      .link = link_to 'Предложи лекция', @event.call_to_papers_url
+      - if @event.cfp_open?
+        p Приемаме предложения за лекции до #{l @event.cfp_window.closes_at, format: :long}. Ще се свържем с вас след края на селекцията.
+      - else
+        p Ако искате да сте лектор на събитието, изпратете ни предложението си за презентация и ще се свържем с вас.
+      .link = link_to 'Предложи лекция', @event.call_to_papers_path
 
 - if @event.sessions_announced?
   article#schedule

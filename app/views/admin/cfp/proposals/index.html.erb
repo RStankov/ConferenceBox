@@ -1,0 +1,71 @@
+<% title 'Proposals', @proposals.total_count %>
+
+<% breadcrumbs ['Events', admin_events_path], [@event.full_name, admin_event_path(@event)] %>
+
+<% actions do %>
+  <%= action_link 'Export CSV', admin_event_cfp_proposals_path(@event, request.query_parameters.merge(format: :csv)) %>
+  <%= action_link 'Decision emails', new_admin_event_cfp_decision_emails_path(@event) %>
+  <%= action_button 'Auto-assign reviewers', admin_event_cfp_auto_assignments_path(@event) %>
+  <%= action_button 'Remind reviewers', admin_event_cfp_reviewer_reminders_path(@event) %>
+<% end %>
+
+<div class="mb-3" data-test="proposal-status-counts">
+  <% Cfp::Proposal::STATUSES.each do |status| %>
+    <% next unless @status_counts[status] %>
+    <%= link_to admin_event_cfp_proposals_path(@event, status: status), class: 'mr-2' do %>
+      <%= badge "#{status.humanize}: #{@status_counts[status]}", type: params[:status] == status ? :dark : :secondary %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= form_tag admin_event_cfp_proposals_path(@event), method: :get, class: 'form-inline mb-3', data: { test: 'proposal-filters' } do %>
+  <%= select_tag :status, options_for_select([['All statuses', '']] + Cfp::Proposal::STATUSES.map { [_1.humanize, _1] }, params[:status]), class: 'form-control mr-2' %>
+  <%= select_tag :proposal_format, options_for_select([['All formats', '']] + Cfp::Proposal::FORMATS.map { |value, label| [label, value] }, params[:proposal_format]), class: 'form-control mr-2' %>
+  <% if @window&.track_list&.any? %>
+    <%= select_tag :track, options_for_select([['All tracks', '']] + @window.track_list, params[:track]), class: 'form-control mr-2' %>
+  <% end %>
+  <%= number_field_tag :min_score, params[:min_score], placeholder: 'Min score', step: 0.1, min: 1, max: 5, class: 'form-control mr-2', style: 'width: 110px' %>
+  <%= number_field_tag :max_score, params[:max_score], placeholder: 'Max score', step: 0.1, min: 1, max: 5, class: 'form-control mr-2', style: 'width: 110px' %>
+  <%= select_tag :sort, options_for_select([['Newest', 'newest'], ['Title', 'title'], ['Score', 'score']], params[:sort]), class: 'form-control mr-2' %>
+  <%= submit_tag 'Filter', name: nil, class: 'btn btn-light' %>
+<% end %>
+
+<%= form_tag admin_event_cfp_decisions_path(@event), data: { test: 'bulk-decisions' } do %>
+  <%= hidden_field_tag :return_to, request.fullpath %>
+
+  <%= table_for Cfp::ProposalDecorator.decorate_collection(@proposals) do |table| %>
+    <% table.column '' do |proposal| %>
+      <%= check_box_tag 'proposal_ids[]', proposal.id, false, id: "proposal_#{proposal.id}" %>
+    <% end %>
+    <% table.column :title do |proposal| %>
+      <%= link_to proposal.title, admin_event_cfp_proposal_path(@event, proposal) %>
+      <% if proposal.promoted? %>
+        <%= badge 'in schedule', type: :success %>
+      <% end %>
+    <% end %>
+    <% table.column :speakers do |proposal| %>
+      <%= proposal.speaker_names %>
+    <% end %>
+    <% table.column :format do |proposal| %>
+      <%= proposal.format_label %>
+    <% end %>
+    <% table.column :track %>
+    <% table.column :status do |proposal| %>
+      <%= badge proposal.status_label, type: proposal.status_badge_type %>
+    <% end %>
+    <% table.number :reviews_count %>
+    <% table.number :average_score %>
+    <% table.column :submitted do |proposal| %>
+      <%= l proposal.submitted_at, format: :short if proposal.submitted_at %>
+    <% end %>
+  <% end %>
+
+  <%= paginate @proposals %>
+
+  <div class="form-inline mb-4">
+    <span class="mr-2">With selected:</span>
+    <%= select_tag :decision, options_for_select(Cfp::DecideProposals::DECISIONS.keys.map { [_1.humanize, _1] }), class: 'form-control mr-2' %>
+    <%= text_field_tag :note, nil, placeholder: 'Optional note for the audit log', class: 'form-control mr-2' %>
+    <%= submit_tag 'Apply decision', class: 'btn btn-primary', data: { confirm: 'Apply this decision to the selected proposals?' } %>
+  </div>
+<% end %>

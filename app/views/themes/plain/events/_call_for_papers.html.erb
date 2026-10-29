@@ -1,0 +1,9 @@
+<section class="cfp-teaser">
+  <h3>Call for papers</h3>
+  <% if current_event.cfp_open? %>
+    <p>We are looking for speakers until <%= l current_event.cfp_window.closes_at, format: :long %>.</p>
+  <% else %>
+    <p>We are looking for speakers.</p>
+  <% end %>
+  <%= link_to 'Submit a proposal', current_event.call_to_papers_path, class: 'btn btn-primary' %>
+</section>

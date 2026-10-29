@@ -11,13 +11,19 @@
     <%= form.input :town %>
     <%= form.input :event_url %>
     <%= form.input :tickets_url %>
-    <%= form.input :call_to_papers_url %>
 
     <%= form.image_input :logo %>
     <%= form.image_input :coverart %>
     <%= form.image_input :share_image %>
 
     <%= form.association :sponsors, collection: Sponsor.order('name DESC') %>
+  <% end %>
+
+  <%= form.field_set 'Call for papers' do %>
+    <% if @event.cfp_window %>
+      <p class="text-muted">This event runs its call for papers in-app, the external link below is not shown.</p>
+    <% end %>
+    <%= form.input :call_to_papers_url, label: 'External call for papers url' %>
   <% end %>
 
   <%= form.field_set 'Venue' do %>

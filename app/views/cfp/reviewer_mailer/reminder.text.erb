@@ -1,0 +1,7 @@
+Hi <%= @reviewer.first_name %>,
+
+You have <%= pluralize @pending_count, 'proposal' %> waiting for your review for <%= @event.full_name %>.
+
+<%= @link %>
+
+Thanks for helping us build the program!

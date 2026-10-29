@@ -51,6 +51,7 @@ class Event < ActiveRecord::Base
   has_many :photos, dependent: :destroy
 
   has_one :cfp_window, class_name: 'Cfp::Window', dependent: :destroy, inverse_of: :event
+  has_many :cfp_proposals, class_name: 'Cfp::Proposal', dependent: :destroy
 
   has_and_belongs_to_many :sponsors
 
