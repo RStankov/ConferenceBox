@@ -3,30 +3,30 @@
     <div class="row text-center">
       <span class="icon-wrap"><i class="fa fa-calendar"></i></span>
       <h2 class="section-title">Schedule</h2>
-      <p class="section-sub-title">Full-day Events with Awesome Speakers</p>
+      <p class="section-sub-title"><%= current_event.formatted_date %><%= ", #{current_event.venue_name}" if current_event.venue_announced? %></p>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-10 col-md-offset-1">
         <div class="schedule-tab">
-          <h2 class="schedule-date"><%= current_event.formatted_date %></h2>
           <% current_event.sessions_by_track.each do |track, sessions| %>
+            <% if current_event.multi_track? %>
+              <span class="schedule-track-label">Track <%= track %></span>
+            <% end %>
             <% sessions.each_with_index do |session, index| %>
               <div class="schedule-listing<%= ' listing-last' if sessions.count == index + 1 %>">
                 <span class="schedule-slot-time"><%= session.start_at %><%= " - #{ session.end_at }" if session.end_at? %></span>
                 <div class="schedule-slot-info">
                   <% session.speakers.each do |speaker| %>
                     <% if speaker.photo.attached? %>
-                      <span class="schedule-slot-speaker-link">
+                      <%= link_to speaker_path(speaker), class: 'schedule-slot-speaker-link' do %>
                         <%= attachment_image_tag speaker.photo, size: 58, class: 'schedule-slot-speakers' %>
-                      </span>
+                      <% end %>
                     <% end %>
                   <% end %>
                   <div class="schedule-slot-info-content">
                     <h3 class="schedule-slot-title"><%= session.title %></h3>
-                    <% session.speakers.each do |speaker| %>
-                      <h4 class="schedule-slot-speaker-name">
-                        <%= speaker.name %>
-                      </h4>
+                    <% if session.speakers.any? %>
+                      <h4 class="schedule-slot-speaker-name"><%= session.speakers.map(&:name).join(', ') %></h4>
                     <% end %>
                     <% if session.description? %>
                       <p class="schedule-slot-desc"><%= session.description %></p>

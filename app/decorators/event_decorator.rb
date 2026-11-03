@@ -100,6 +100,25 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
     @sessions_by_track.count > 1
   end
 
+  def agenda
+    @agenda ||= EventAgenda.for(object)
+  end
+
+  def now_playing?(session)
+    agenda.now_playing.any? { |slot| slot.session == session }
+  end
+
+  def breaks_after(session)
+    slot = agenda.find { |s| s.session == session }
+    return [] unless slot
+
+    agenda.select { |s| s.break? && s.track == slot.track && s.starts_at == slot.ends_at }
+  end
+
+  def calendar_url
+    h.agenda_url(name, format: :ics)
+  end
+
   def other_conference_events
     @other_conference_events ||= conference.events.publicly_announced
   end
@@ -136,17 +155,10 @@ class EventDecorator < Draper::Decorator # rubocop:disable Metrics/ClassLength
   private
 
   def start_time
-    session_time sessions.first
+    agenda.starts_at || date.beginning_of_day
   end
 
   def finish_time
-    session_time sessions.last
-  end
-
-  def session_time(session)
-    start_at = session.try(:start_at) || ''
-    hours, minutes = start_at.split ':'
-    # FIXME: Add time zone to choose from in the admin interface?
-    Time.new(date.year, date.month, date.day, hours, minutes, 0, '+03:00')
+    agenda.ends_at || date.end_of_day
   end
 end

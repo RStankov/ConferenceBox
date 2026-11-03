@@ -1,0 +1,17 @@
+<section id="speakers" class="section">
+  <h3>Speakers</h3>
+  <div class="speaker-list">
+    <% current_event.speakers.each do |speaker| %>
+      <% with_speaker(speaker) do |speaker| %>
+        <article class="speaker">
+          <%= attachment_image_tag speaker.photo, size: 200, class: 'speaker-photo' %>
+          <h4><%= link_to speaker.name, speaker_path(speaker) %></h4>
+          <% if speaker.company? %>
+            <span class="cb-badge"><%= speaker.company %></span>
+          <% end %>
+          <%= render 'shared/social_links', links: speaker.social_links %>
+        </article>
+      <% end %>
+    <% end %>
+  </div>
+</section>

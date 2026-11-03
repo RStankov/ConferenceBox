@@ -1,7 +1,7 @@
-@mixin heading1 { font-size: 3.5em; line-height: 1em; }
-@mixin heading2 { font-size: 1.5em; line-height: 1em; font-weight: bold; }
-@mixin heading3 { font-size: 1.4em; line-height: 1.5em; }
-@mixin heading4 { font-size: 1.3em; line-height: 1em; }
+@mixin heading1 { font-size: 2.8em; line-height: 1.05em; font-weight: 700; letter-spacing: -0.02em; }
+@mixin heading2 { font-size: 1.5em; line-height: 1.2em; font-weight: 700; }
+@mixin heading3 { font-size: 1.25em; line-height: 1.5em; }
+@mixin heading4 { font-size: 1.1em; line-height: 1.2em; }
 
 @mixin no-link-underline {
   &,
@@ -14,15 +14,33 @@
   @include no-link-underline;
 
   &:hover,
-  &:focus { opacity: 0.8; }
-  &:active { transform: scale3d(0.9, 0.9, 0); }
+  &:focus { opacity: 0.85; }
+  &:active { transform: scale3d(0.97, 0.97, 1); }
 }
 
 @mixin centered-content {
   margin: 0 auto;
-  width: 85%;
-  max-width: 700px;
+  width: 90%;
+  max-width: 860px;
   display: block;
+}
+
+@mixin card {
+  background: $surface;
+  border: 1px solid $line;
+  border-radius: $radius;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+@mixin section-label {
+  display: block;
+  color: $accent;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
 @mixin icon($text) {
@@ -35,6 +53,7 @@
     font-style: normal;
     font-weight: normal;
     line-height: 1;
+    margin-right: 6px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

@@ -1,11 +1,26 @@
 article#speaker
   - if @speaker.photo.attached?
     - if @speaker.personal_site?
-      = link_to image_tag(@speaker.photo.variant(resize: '80')), @speaker.personal_site, target: '_blank', class: 'avatar'
+      = link_to image_tag(@speaker.photo.variant(resize: '280x280^')), @speaker.personal_site, target: '_blank', class: 'avatar'
     - else
-      .avatar = image_tag @speaker.photo.variant(resize: '80')
+      .avatar = image_tag @speaker.photo.variant(resize: '280x280^')
 
   h2 = @speaker.name
+
+  p.summary
+    = @speaker.summary
+    - if @speaker.returning?
+      span.cb-badge Завръщащ се лектор
+
+  - if @speaker.topics.any?
+    ul.topics
+      - @speaker.topics.each do |topic|
+        li.cb-badge = topic
+
+  - if @speaker.company?
+    .company = @speaker.company_site? ? link_to(@speaker.company, @speaker.company_site, target: '_blank') : @speaker.company
+
+  = render 'shared/social_links', links: @speaker.social_links
 
   .description = markdown @speaker.description
 
@@ -14,14 +29,18 @@ article#speaker
       li
         strong #{link_to session.event_full_name, event_path(session.event)} - #{session.title}
         - if session.video_url?
-          = link_to '', session.video_url, class: 'video', target: '_blank', title: 'Видео'
+          = link_to 'видео', session.video_url, class: 'video', target: '_blank'
         - if session.slides_url?
-          = link_to '', session.slides_url, class: 'slides', target: '_blank', title: 'Презентация'
+          = link_to 'презентация', session.slides_url, class: 'slides', target: '_blank'
 
-  ul.links
-    - if @speaker.personal_site?
-      li = link_to @speaker.personal_site, @speaker.personal_site
+  - if @speaker.co_speakers.any?
+    section.co-speakers
+      h3 Говорил заедно с
+      = safe_join @speaker.co_speakers.map { link_to _1.name, speaker_path(_1) }, ', '
 
-    li
-      - @speaker.social_links.each do |type, url|
-        = link_to '', url, class: type, title: type.humanize
+  - if @speaker.similar_speakers.any?
+    section.similar-speakers
+      h3 Подобни лектори
+      ul
+        - @speaker.similar_speakers.each do |other|
+          li = link_to other.name, speaker_path(other)

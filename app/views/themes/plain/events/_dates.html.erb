@@ -1,0 +1,7 @@
+<section id="dates" class="section">
+  <h3>When</h3>
+  <p><%= current_event.formatted_date %></p>
+  <% if current_event.event_url? %>
+    <%= link_to 'Facebook event', current_event.event_url, class: 'cb-button ghost', target: :blank %>
+  <% end %>
+</section>

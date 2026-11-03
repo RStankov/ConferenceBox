@@ -1,10 +1,9 @@
 article#feedback
-  h1 Идеи и препоръки
+  h1 data-label="Пишете ни" Идеи и препоръки
 
   - feedback = @feedback || Feedback.new(event: @event)
 
   = simple_form_for feedback do |form|
     = form.hidden_field :event_id
-    = form.input :comment, label: false, input_html: {rows: 5}
+    = form.input :comment, label: false, input_html: { rows: 5, placeholder: 'Какво да подобрим?' }
     = form.button :submit, 'Изпрати'
-

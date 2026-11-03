@@ -1,0 +1,9 @@
+<ul class="cb-social">
+  <% links.each do |type, url| %>
+    <li>
+      <%= link_to url, title: type.humanize, target: :blank do %>
+        <i class="<%= social_icon_class type %>"></i>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

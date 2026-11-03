@@ -4,6 +4,7 @@
 
 <% actions do %>
   <%= action_link 'View', archive_path(@event.name, domain: @event.conference.domain) if @event.publicly_announced? %>
+  <%= action_link 'Agenda', admin_event_agenda_path(@event) if @event.sessions.any? %>
   <%= edit_action edit_admin_event_path(@event) %>
   <%= delete_action admin_event_path(@event) %>
 <% end %>

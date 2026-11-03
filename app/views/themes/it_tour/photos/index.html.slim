@@ -1,7 +1,7 @@
 article#photos
-  h1 Снимки от #{@event.full_name}
+  h1 data-label="Галерия" Снимки от #{@event.full_name}
 
   section
-    div
+    .photo-grid
       - @photos.each do |photo|
-        = image_tag photo.asset.variant(resize: '250'), 'data-src' => "#{url_for(photo.asset)}", width: 250
+        = image_tag photo.asset.variant(resize: '400'), 'data-src' => "#{url_for(photo.asset)}"
