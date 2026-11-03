@@ -15,3 +15,6 @@ Multi-conference CMS. Update from [TourConf](https://github.com/RStankov/it-tour
 ```
 ./bin/dev/start
 ```
+
+
+
