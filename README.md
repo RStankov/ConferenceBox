@@ -2,6 +2,8 @@
 
 # ConferenceBox
 
+**This project is deprecated**
+
 Multi-conference CMS. Update from [TourConf](https://github.com/RStankov/it-tour).
 
 ### Installation
